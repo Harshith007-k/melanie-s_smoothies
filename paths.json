@@ -1,0 +1,2195 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "bd2e066acff0db9830635b3960a32e5d808bf4b2a2c850e5b5267964248724f5",
+      "size_in_bytes": 1962
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a66e305917c36ff5cf0a2f87786c0c5054ffb6daae24dae4c872575d7d954ecb",
+      "size_in_bytes": 1877
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/async_job.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c64a200764a5c6a7e3fe776385d0dd90c47a9997c3f27fb566aa4424c70234f4",
+      "size_in_bytes": 14676
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/column.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b1ccfc316ff83e912a2a311bde6b67a88edadaeca1f51bdc4a905cded15e4a84",
+      "size_in_bytes": 34098
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/context.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5d898886cbd5e74c940af7ac6a2784d45d7577e46ba82de2731b2bc30772f0ed",
+      "size_in_bytes": 904
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/dataframe.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bef1ee83009537e892d3274130b991147a6704df5ec6145f478f067e5c2a6e19",
+      "size_in_bytes": 151820
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/dataframe_analytics_functions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "06c4a247a878629d4205567f34a25fa75137c2037ea78d27930eecbfdf0fcb5f",
+      "size_in_bytes": 27864
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/dataframe_na_functions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "63ad627efdad334e8832864d791dc3931e97cfea855769c2774701c905c59573",
+      "size_in_bytes": 18879
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/dataframe_reader.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "73fdc8aef0589dff0ef17258a90140ac596dfdce6e8484bdeeaba664b29312f3",
+      "size_in_bytes": 29104
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/dataframe_stat_functions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c9cf45a568bb5c9e216f478b54ffa8d0cde1fff50259104778844257cb737511",
+      "size_in_bytes": 10647
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/dataframe_writer.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "69b6e622427270752b69d3ea6165a10980788ab5a6e1dde89fb07815c492d365",
+      "size_in_bytes": 23468
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/exceptions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "110c6a5a9e5967220da27cbc63b3404f9e054fed6211c21a2ef51c54800c034f",
+      "size_in_bytes": 8506
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/file_operation.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "7546bd7d8c4fb141b5fff24db635086c0b8ca9dfd3a354606ceaea5df3ad5316",
+      "size_in_bytes": 14090
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/files.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "72c8daff80135e9d76cb9c34f6d52fee8f207a5704d9fbea16a0cbc9cbf547ba",
+      "size_in_bytes": 8090
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/functions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "971d62594dcbd47b6d1ef974777bd92f4083fa876c1bf9abb897c38aa749bc89",
+      "size_in_bytes": 324313
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/lineage.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "6b784d1634a96f08c8c55d3462adb137811b373e502e516236ee8a373ada0544",
+      "size_in_bytes": 17791
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/query_history.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "8bb42244bb2ab6c0df6fb4c955e5cb5f6a4760e83ad701f6e835ad9873f027f8",
+      "size_in_bytes": 1792
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/relational_grouped_dataframe.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "27a64446c6199f68c157c62b44418c7c7f73d378fa537dcda08740225a47be9e",
+      "size_in_bytes": 22195
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/row.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "f5579fdcc7afc664ba7404e3d4e945b3f4b9ff1651500c040bb89c88c9431791",
+      "size_in_bytes": 9883
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/session.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "863ee1e7145422951dc36947a2ea59c73002098f2339c0c2ebde872bd4e3d5b9",
+      "size_in_bytes": 118845
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/stored_procedure.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "de1a61bdf1bab6dd209e5f2e269c00549becdbf52ce377784abff415d566c3a7",
+      "size_in_bytes": 38861
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/table.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "2240a08e6b27b806f7d3ac3d8f3cf69741f33c283066b90d211067ac8b437bb4",
+      "size_in_bytes": 28063
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/table_function.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bae283e3ab32c9b8220087bb9bfbb42a08b41330891cb6af9b8ab6fafb49b467",
+      "size_in_bytes": 10466
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/testing.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a1d22651108d3b43548b8f8232cd3d89d11ce4717b6d23f950008ac9aedce79d",
+      "size_in_bytes": 8702
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/types.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "092bba9432523c22dd156467f201e761c0468e073c9210ee0bdae9d7ffc92c28",
+      "size_in_bytes": 20351
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/udaf.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "92797f0c4f9acc83da3fb004f688b2027af81a67d3fb00a8e320f2f2702925b5",
+      "size_in_bytes": 30980
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/udf.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a8eaece865b56706bd484a646663eb99c8bdaf4f2c355e68d4717283914e2b94",
+      "size_in_bytes": 45660
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/udtf.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "6d4ac1f201756eaf91ba2bddde92cf4eae02215ddfd817259d6365e8510ee183",
+      "size_in_bytes": 46545
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/version.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bcf8f727f8c2e310886bd7a4df958080d9912b75595f7e973391ce52a01013e2",
+      "size_in_bytes": 165
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/__pycache__/window.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "e29040fd935bfbaea3d90f981e1cf3ffac10e1b0ea51ea7328c1ea663f402dc6",
+      "size_in_bytes": 8671
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "0e0e92771ba17669fc2d848ebbb5def2fc7477a1bd78f796924e7ffb9f42912b",
+      "size_in_bytes": 149
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/code_generation.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "465be63c97b9fa8b2530043c5bec7ad196fba576be5d3fece13a195971bf9650",
+      "size_in_bytes": 17251
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/error_message.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4caa4ba5dbf56076e1f46ff7a5a65dbf42cf99983fc7464f7406f99c46c1e7df",
+      "size_in_bytes": 18383
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/open_telemetry.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5a7bda263702fdace1e195804f62f6a43c99ecf0d3dcc26a9ce7621094a21b41",
+      "size_in_bytes": 3266
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/packaging_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "20811bce7a7f2fc66a32f0b3bd40000aaf5d858f5e3437ab07d3af7f4e2bc402",
+      "size_in_bytes": 17452
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/server_connection.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "73fdbc98c3829baf89963889eb09c156ac99f61ae6d3a3ccc9658b892aec30e0",
+      "size_in_bytes": 19563
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/telemetry.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5817c431fbac74e180a7d99dabc42fd783cce327a499879f124ae1aa78cf981c",
+      "size_in_bytes": 12324
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/temp_table_auto_cleaner.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "07a5ce3c9b95fa23191e9d2a74ed7329ffb6960835d6c78395c300358a009d46",
+      "size_in_bytes": 4003
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/type_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4852548f2062c373c0835a8b27c4b926844805b7a9169985dbd97236532ddf05",
+      "size_in_bytes": 22679
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/udf_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "60cf0691d71fecb61dd2388bccfa57cc4d5e627036a8f252b43a2e6ac4382b87",
+      "size_in_bytes": 32890
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/__pycache__/utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4ace9d8820b249b8d23dc308c6e79e1a46da28b437e644e2985159e51b72fbd4",
+      "size_in_bytes": 28898
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "43c795d36271aeaf48a2e8e271c8811d9a739deb6016ae9b88adba2b0f1e830c",
+      "size_in_bytes": 158
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/analyzer.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9cbe7d45d1792e56be87339373ee1d7aa53a54ceeeedbc93396f0cdfd7f9fb2f",
+      "size_in_bytes": 23438
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/analyzer_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "90772eac3bad65ce4ef5d9b7d749efac930ab3d9478fe0168aedcf6933c68434",
+      "size_in_bytes": 39311
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/binary_expression.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "e75f81d03442e339de4fbefafb5406b7cfefb6a97ea41a6266eea10c04db0216",
+      "size_in_bytes": 4100
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/binary_plan_node.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "2c850cb87aeb295a3bb255c24349bb4a883e61bfe818b652aab85dc0b5c691d0",
+      "size_in_bytes": 6463
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/cte_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "037bc5f51c358f70aec4305e4f0a4c7b5005cced81407938dc0824513beff889",
+      "size_in_bytes": 5050
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/datatype_mapper.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "76120cdf8237103c314d913e2f9130e25f024a5e6c9c605b53d74073cfdeb80d",
+      "size_in_bytes": 6517
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/expression.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "deb8df09c16982574542d41c721fa4455f623fb1720fabee7c314f9568ab3d2d",
+      "size_in_bytes": 24589
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/grouping_set.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9954acc4acb923043af6ecef5dddbab4817b1c5ec38884af8a65a8e0873d4f29",
+      "size_in_bytes": 3159
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/query_plan_analysis_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "23b2af14cd962bab954648c8b0736f63f1f2729ea1c5c4bf9b55108a22d21f6f",
+      "size_in_bytes": 2213
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/schema_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "0637f5a567d0ef6791b61ae4968fa3ac896c31a93fa0aed8bf7a72869f22747d",
+      "size_in_bytes": 3887
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/select_statement.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "6b6c10a0814042f2b90275194f505d16339880519152f3d4827bfa289f10c2c9",
+      "size_in_bytes": 41259
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/snowflake_plan.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "48aaf8dd72c22577e8db99770f71cb90cea116ec10d631c7a59586f258c7fcf7",
+      "size_in_bytes": 40773
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/snowflake_plan_node.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a27440fdeb4a2c7ca2a23fac89fb1d0b2a2b363c1d0049778e2dd96904a1e4b5",
+      "size_in_bytes": 10734
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/sort_expression.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "df853bb26bed9cac1573cf938d4b085fead950023cd2fb827db1eadd57da8be4",
+      "size_in_bytes": 2105
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/table_function.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "f928496b3d9639bd87cbaec663c2046cf21870e02da076685bc7c03f3e6f3571",
+      "size_in_bytes": 8131
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/table_merge_expression.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "79dee2b6dba8538bb95de3f6a4893a1038b420e254fd46fd9569e32e918e33ed",
+      "size_in_bytes": 5968
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/unary_expression.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "fa3fe18112ddea4b767060ffedc8530e2a664b6df760cc941266cdada08fd619",
+      "size_in_bytes": 4027
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/unary_plan_node.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "436f8bfa62b522042d82df892fc3971e33522eb2b55b05c0d093557d59e0634f",
+      "size_in_bytes": 9762
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/__pycache__/window_expression.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "fdc171f106fb58fcf9ca5cd62ec629532878624f8b422b144f2f230a19a528da",
+      "size_in_bytes": 7545
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/analyzer.py",
+      "path_type": "hardlink",
+      "sha256": "f5bbab63f358dddde80b59f4e4eea177e8e2ffe8cbf017161640ab9e1471750a",
+      "size_in_bytes": 47991
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/analyzer_utils.py",
+      "path_type": "hardlink",
+      "sha256": "d328d4a9cff590ec976b45540ca9775044a20616d3bf93216e3389217e7129e3",
+      "size_in_bytes": 45601
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/binary_expression.py",
+      "path_type": "hardlink",
+      "sha256": "3b1e2020e57f0e9af2c2474441cb2b4996f23e0b7429380f572a405a8b39c81b",
+      "size_in_bytes": 2283
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/binary_plan_node.py",
+      "path_type": "hardlink",
+      "sha256": "56140267fb72a9ac42e09d4118f44ba503494e0e7113463301c0b8fc112968c4",
+      "size_in_bytes": 5331
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/cte_utils.py",
+      "path_type": "hardlink",
+      "sha256": "07392bb9a5b4643c15b1583223cf13688ad50b5107ab7c2dc2c010361a056aa8",
+      "size_in_bytes": 5906
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/datatype_mapper.py",
+      "path_type": "hardlink",
+      "sha256": "56193c17c714e8ff9f5aa7ac1d464336e3a02caa24037c1c5b8b074ec40bc2b1",
+      "size_in_bytes": 9573
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/expression.py",
+      "path_type": "hardlink",
+      "sha256": "82c6c5935c0be27ba56d5c6559d04a809bd70373dc8b8d75de17383fe147b383",
+      "size_in_bytes": 21211
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/grouping_set.py",
+      "path_type": "hardlink",
+      "sha256": "d0b2a3d6e37d10e79b80ffb3207df161d7770e372151ccb562c5d746218243ca",
+      "size_in_bytes": 1742
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/query_plan_analysis_utils.py",
+      "path_type": "hardlink",
+      "sha256": "a2d607d7bd08486a6dba88d21c06addbe3895565c0509299c5fe7771445e3bc2",
+      "size_in_bytes": 1916
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/schema_utils.py",
+      "path_type": "hardlink",
+      "sha256": "8a75f761b40b69b8876f33e855ee8e595549ac53c90855560eed20f9709dc3c0",
+      "size_in_bytes": 5395
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/select_statement.py",
+      "path_type": "hardlink",
+      "sha256": "c6168bcc8469d30d1cc04d88bf1a207a8ac15db8cf642e1c4c311770402459fd",
+      "size_in_bytes": 62837
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/snowflake_plan.py",
+      "path_type": "hardlink",
+      "sha256": "40fbe4a52d2f8ff141af9be60a4882aa2254f444a5af151b32a33ba30d52ba6b",
+      "size_in_bytes": 64680
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/snowflake_plan_node.py",
+      "path_type": "hardlink",
+      "sha256": "9f235ea0ac24a2c9cfe96e1d35e781c4b154b92e2f33d7632919de3d82e6f957",
+      "size_in_bytes": 11338
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/sort_expression.py",
+      "path_type": "hardlink",
+      "sha256": "5ea7ee72c0f7b27d0229952605947f2f99ebbc33c0ac8f363c804d4e33a22c6e",
+      "size_in_bytes": 1257
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/table_function.py",
+      "path_type": "hardlink",
+      "sha256": "89ebeca6825b1534cb8a615e1e691099344d6f2b8db49dcbf05d4111b97fd01d",
+      "size_in_bytes": 7551
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/table_merge_expression.py",
+      "path_type": "hardlink",
+      "sha256": "0b1ebaf714b1438405c9dd327b57032f9aa1852b545548122f13aa3b76444f0e",
+      "size_in_bytes": 5591
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/unary_expression.py",
+      "path_type": "hardlink",
+      "sha256": "9132960d95db3dbf907f99c7c788b2b9b552a032d0c11c3b9452fb234b8a32dc",
+      "size_in_bytes": 2654
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/unary_plan_node.py",
+      "path_type": "hardlink",
+      "sha256": "5724e5d4a34572bacbf57894ac382c7e6a1f032f2740adca50f95bd8a271a87e",
+      "size_in_bytes": 9372
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/analyzer/window_expression.py",
+      "path_type": "hardlink",
+      "sha256": "b2700e8590182094e4179781c96e04e705a7f464c18832c3b3396b59cc881beb",
+      "size_in_bytes": 5956
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/code_generation.py",
+      "path_type": "hardlink",
+      "sha256": "7696987fa8df05d76a5ab0c098e0eb6d45df8a19478693cf5760aedad235c171",
+      "size_in_bytes": 26803
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c658dbc68800eff5b1d5503ff19570889c6e1c9a8c0ed46a28dc133b3d5ba90b",
+      "size_in_bytes": 158
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/large_query_breakdown.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9d9128202bb1bb1ae2647332186cafd9a22d8627c96f72ef27dae86df4609ec1",
+      "size_in_bytes": 11572
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/plan_compiler.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5fc23169881b2375e4200b86d650ae391e53d802e6058559a8a9308692cea0e9",
+      "size_in_bytes": 3466
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/query_generator.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "ddd4baa134a9c145ed9628cd6eba5350f5d9730e0a04eb0a134ae042d73787e7",
+      "size_in_bytes": 5159
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/repeated_subquery_elimination.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "284b16009c0841e75a116cef5f46f9d9f6de2a812c95a8222094585bb559079e",
+      "size_in_bytes": 4557
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/telemetry_constants.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a73e0280f4bfe6b20b74645db8f1bae2234604258bb4cb7f54d0e7e439a914d8",
+      "size_in_bytes": 775
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/__pycache__/utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b2874c15d6fde5cf48ffd646462da72771491f1704fc30e6de8deae9bd4f5c7a",
+      "size_in_bytes": 7861
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/large_query_breakdown.py",
+      "path_type": "hardlink",
+      "sha256": "19cbf2c47bed79142fe7e692a3618ce932a9269cfe5289078922501702ad620d",
+      "size_in_bytes": 15966
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/plan_compiler.py",
+      "path_type": "hardlink",
+      "sha256": "8e1d3d68f0ad1cfe1ca12d1960e881bbd0cb1a66cb5ae353e7f951093bfc6bff",
+      "size_in_bytes": 4018
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/query_generator.py",
+      "path_type": "hardlink",
+      "sha256": "72473228044b488fe9c19816028e02537985d29f514bf866be38e9c2d1d3302b",
+      "size_in_bytes": 10004
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/repeated_subquery_elimination.py",
+      "path_type": "hardlink",
+      "sha256": "d48d284af7023abc8631b8973e9a750f3dd1a9a641b432a2ee79961c5eee7b77",
+      "size_in_bytes": 6091
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/telemetry_constants.py",
+      "path_type": "hardlink",
+      "sha256": "007d32dfebbc48b50efdc56d17fa1f9781b4d2f8fad4a8fd18a4f7e8b92bd411",
+      "size_in_bytes": 445
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/compiler/utils.py",
+      "path_type": "hardlink",
+      "sha256": "83feb31945ad9edaf8ccbd54c2f681332e91874579e49ebdd553772f6572c8ac",
+      "size_in_bytes": 13107
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/error_message.py",
+      "path_type": "hardlink",
+      "sha256": "0adb1326f0c90d44d7e653c97c45d3e4660d9c633a3126ee3fe4b6c6cfe375f7",
+      "size_in_bytes": 16888
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/open_telemetry.py",
+      "path_type": "hardlink",
+      "sha256": "e777aed03716d0103d580808ea8521e27589470a726ab0fb0e4416e79defcc1d",
+      "size_in_bytes": 5195
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/packaging_utils.py",
+      "path_type": "hardlink",
+      "sha256": "28b4b2e5b28f65e181a8efe66ec3f09492d2e29ca14624f4d92b9671fba99443",
+      "size_in_bytes": 22428
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/server_connection.py",
+      "path_type": "hardlink",
+      "sha256": "5b4abdf6233158d2e245f7ceb0a9944a5a486b76e2771a7fdaca8e29cbd1600c",
+      "size_in_bytes": 30987
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/telemetry.py",
+      "path_type": "hardlink",
+      "sha256": "772e021738b994610ae2e11d2c798422a25663a6f8ecd7a1aac33d15f54db53c",
+      "size_in_bytes": 15405
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/temp_table_auto_cleaner.py",
+      "path_type": "hardlink",
+      "sha256": "dd255cd795f90afe35132bd4d17a4171de4f1d2f34ad75c37bd65d5e486ea382",
+      "size_in_bytes": 4542
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/type_utils.py",
+      "path_type": "hardlink",
+      "sha256": "3ed86b713160110bea1596cc847c43d2a548f429e87a47b924c4902e75697d8b",
+      "size_in_bytes": 33774
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/udf_utils.py",
+      "path_type": "hardlink",
+      "sha256": "df8a41d661a2fa0c88aa766ca370aea1dfdab01514d296c16c4c700ecb27b8f3",
+      "size_in_bytes": 56746
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/_internal/utils.py",
+      "path_type": "hardlink",
+      "sha256": "9d863baa4136e5d42d8affc400a632c76abbb14c6bd7d25045106d22bda72a9b",
+      "size_in_bytes": 33699
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/async_job.py",
+      "path_type": "hardlink",
+      "sha256": "ba8b10787611a2dad3bfb97fe09d50e9e5e7f92b63245345ba346ec36910a1e5",
+      "size_in_bytes": 18112
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/column.py",
+      "path_type": "hardlink",
+      "sha256": "a49deb3d6cacb3c93a2a268f03ab17904707a28a25638be5250343568d187ecf",
+      "size_in_bytes": 35049
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/context.py",
+      "path_type": "hardlink",
+      "sha256": "b79c302fa7800f843828ec413b5970a4aa3f8e52ea8d98bd9a3780759fdf2048",
+      "size_in_bytes": 1647
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/dataframe.py",
+      "path_type": "hardlink",
+      "sha256": "053edb39ee4cff5b0ff1e33d162285c6c4287c983d3379c331d43feef6173acc",
+      "size_in_bytes": 180129
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/dataframe_analytics_functions.py",
+      "path_type": "hardlink",
+      "sha256": "07ea8772b96e7c64d24b287d02b917763a64c9b57add290b328f9b14ba7ddc07",
+      "size_in_bytes": 32926
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/dataframe_na_functions.py",
+      "path_type": "hardlink",
+      "sha256": "070377edbb0dafce107a5794e7b3b71b6109122006531c491cf1037407ed9b3e",
+      "size_in_bytes": 24090
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/dataframe_reader.py",
+      "path_type": "hardlink",
+      "sha256": "3b2ff2e1fd365be7432835da06075ae718ea0e6e2fbe4e89492e276ad64e57c8",
+      "size_in_bytes": 35362
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/dataframe_stat_functions.py",
+      "path_type": "hardlink",
+      "sha256": "03eae6e7a363c65ce2857ead4463deefa8614c64b06d47b1fe0aab12bc634c3d",
+      "size_in_bytes": 11159
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/dataframe_writer.py",
+      "path_type": "hardlink",
+      "sha256": "5b13e85bd3f74c81bbf417ca864ff30bead148a47d435102181871882e3b6dec",
+      "size_in_bytes": 27760
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/exceptions.py",
+      "path_type": "hardlink",
+      "sha256": "27c8f1936ad39e8e3b7c57aab59761044c3b8c48740112610b682bd7a0aef6ed",
+      "size_in_bytes": 6774
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/file_operation.py",
+      "path_type": "hardlink",
+      "sha256": "50ab08e80d8bc51d2e874e79958a37906b22d4c68b3c9ac21d9f7d5e1bfaaf2d",
+      "size_in_bytes": 17529
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/files.py",
+      "path_type": "hardlink",
+      "sha256": "803808f49093b059fd335a1a1bdfdb96fbbbab30520a82dd1793566cdf094df1",
+      "size_in_bytes": 8198
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/functions.py",
+      "path_type": "hardlink",
+      "sha256": "e3df30cd9887830cffa7389a1ff00374d383f035d9a210951cf450aa80f9c875",
+      "size_in_bytes": 336599
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/lineage.py",
+      "path_type": "hardlink",
+      "sha256": "75ab5429413847aee5f74ee6bb0f560873d961063033e25cfaa4038a65a8b6ea",
+      "size_in_bytes": 24202
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ac2083bee07b9d2e5cb1a8bb87464a28ffcb721f32d911505aa52005b01c2f14",
+      "size_in_bytes": 778
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d4f565381f8704993701e95bee0e36bc422732d39a5e14e03891fe9094289eca",
+      "size_in_bytes": 957
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_analyzer.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "dff767f17e41ad1d834b91dcd4d4d2551d877d25d5c3f0ba229db477a68f21f2",
+      "size_in_bytes": 17567
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_connection.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "8aae97fbe673f82b779f5a4de24128218c0515cfe9af98bc34ba9d98c195717c",
+      "size_in_bytes": 20235
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_constants.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "de8bf86146ff67f387c6f09e20c1220e8c007335dbbe4b601f1b11b3393e0029",
+      "size_in_bytes": 355
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_functions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "86b6b2d357c9bc9be771d5597d0b980bf97da74517b21471a7db78ed84558156",
+      "size_in_bytes": 59184
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_options.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a871fc38703febef1ba1cecb8767810b44848e68cacec3348f4f4d5f733a5376",
+      "size_in_bytes": 723
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_pandas_util.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "3622b677443adeab971f0d8249867d208627a34c636f2a053542f308795bfb4e",
+      "size_in_bytes": 5927
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_plan.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "6ab465a5aaa52acafb182700033661fd239c7a30969d020c4b2e023a1cca4b18",
+      "size_in_bytes": 43648
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_plan_builder.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d77a9e02322f03457952561caef181433dcfce0b83d41dd4e17ffa8fc39b2942",
+      "size_in_bytes": 2618
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_select_statement.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1a69bf67be8d1c7e0a8884a66c1897261aa16543f815192fc4dfa29d0e5b32f8",
+      "size_in_bytes": 14244
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_snowflake_data_type.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "e6adeec958f55bb2e2d63134a56f288aba3b523560871df8bafe8f58c05cf240",
+      "size_in_bytes": 15841
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_snowflake_to_pandas_converter.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c3f51fd1baccb4f0cbb9a504747d1d00f10354148a963caf2be34262b36bf4e7",
+      "size_in_bytes": 4203
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_stage_registry.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9b3beb1a7c5909c7186cbb4a30b358630d30e1ac1180d5547d9c0aaeda8cac39",
+      "size_in_bytes": 14026
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_stored_procedure.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9550a966d921e46b439af66197812f3d411581cc8e62a80830fe490b6941dfd5",
+      "size_in_bytes": 8494
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_telemetry.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4207e3f18894a3937489467fa17bfa4d930abd74e71b15de5bf46f9d5fba82b4",
+      "size_in_bytes": 6849
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_udf.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1fbbb8c7a18022756cd4d7f613e890ad673e3cbef58369c1f0d0d3c537436806",
+      "size_in_bytes": 5770
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_udf_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "078142eb7efd3be616d7c260a08f8fad11c42979068968c1c9bf98fbec7038b0",
+      "size_in_bytes": 2579
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_util.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "0ea2693c787b8de34d916d189fd7773d0b79f7ec95956b202ba8f31e7fce75e0",
+      "size_in_bytes": 10507
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/_window_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a746712dbbf4d19e7b676b7444e4848dd4326f103df01efc74b41be630d54080",
+      "size_in_bytes": 2111
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/__pycache__/exceptions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "33a11418a0caa0aa3e90ced364d73ddd6f0d548d298c037bdf1def99de9a864e",
+      "size_in_bytes": 1073
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_analyzer.py",
+      "path_type": "hardlink",
+      "sha256": "d7dafacdc3a6ba599646982d644c082021b789cfaf928cd8ebae4cf1c06ec325",
+      "size_in_bytes": 28825
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_connection.py",
+      "path_type": "hardlink",
+      "sha256": "721127f4c47bd54af061ae22a663f17f3c5a21869d4ed6f69406d92f9ea13147",
+      "size_in_bytes": 31443
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_constants.py",
+      "path_type": "hardlink",
+      "sha256": "1b321c9554217a7e14d7d0518ae561d49fe13c39d3ae01fb9e7775a0595be29d",
+      "size_in_bytes": 426
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_functions.py",
+      "path_type": "hardlink",
+      "sha256": "42260c5f10b5471e659c1d12055657e99bdac4891228c6ff4c75a0ed86533b17",
+      "size_in_bytes": 78507
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_options.py",
+      "path_type": "hardlink",
+      "sha256": "961c1774d775a32f01d4e7fbf3bee5373535883c49c007f9db08e5f7fe2e5d85",
+      "size_in_bytes": 602
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_pandas_util.py",
+      "path_type": "hardlink",
+      "sha256": "ac3a074146f8aff5f23ae33fe21d57abbd1fb1121c4960ae714beec8b2f5abe9",
+      "size_in_bytes": 12708
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_plan.py",
+      "path_type": "hardlink",
+      "sha256": "1c6fef428a370aa63acf4b4683d9102bc8020f2adad7918036ff15f780219051",
+      "size_in_bytes": 97159
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_plan_builder.py",
+      "path_type": "hardlink",
+      "sha256": "e99b9d5e890f0fda6a1649d3f9c01f8469ff994deb675c60840b98c7bf69e295",
+      "size_in_bytes": 3182
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_select_statement.py",
+      "path_type": "hardlink",
+      "sha256": "16c71f52ea99544f8d86e1c06de1d942b1bbaa08c9107e09bad81d522405cfdf",
+      "size_in_bytes": 19820
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_snowflake_data_type.py",
+      "path_type": "hardlink",
+      "sha256": "5b97773d869270628b2e24d9f32f24b2f5757f025e7b2068dec8a5df465acb1e",
+      "size_in_bytes": 23207
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_snowflake_to_pandas_converter.py",
+      "path_type": "hardlink",
+      "sha256": "3b9d6d5de1f7b6f5a648493937dc70d015e02abee28211068eb80e247218bcc6",
+      "size_in_bytes": 5365
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_stage_registry.py",
+      "path_type": "hardlink",
+      "sha256": "d2696bf0c1266045de0c0588ff6c8e3027815ebdfdf94fdd62ab5124614bc630",
+      "size_in_bytes": 29901
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_stored_procedure.py",
+      "path_type": "hardlink",
+      "sha256": "9b68d3c807cdc372da218f8c2ff0842dff0147055a7a020dce3ba71e736916d9",
+      "size_in_bytes": 12348
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_telemetry.py",
+      "path_type": "hardlink",
+      "sha256": "7d4afc5cff4dd90a202eeb592deba7df5d04f796d1fc38f63aa1328883c115af",
+      "size_in_bytes": 8496
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_udf.py",
+      "path_type": "hardlink",
+      "sha256": "907c742e86c7379057016c8c1cf802dc84e3be98d4ac144dd032e059a579c2ba",
+      "size_in_bytes": 7032
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_udf_utils.py",
+      "path_type": "hardlink",
+      "sha256": "989a7b6c66ebf3165c5c3f67ac3407598205a32e1b108aaddd97d01930fefe7c",
+      "size_in_bytes": 2935
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_util.py",
+      "path_type": "hardlink",
+      "sha256": "f36b141a0745eb288574614990657b5c1c9ef35bf68bffba516d12e61e18dff2",
+      "size_in_bytes": 15036
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/_window_utils.py",
+      "path_type": "hardlink",
+      "sha256": "1f5ef5bc4f5c60a60fb20cebbc19a36cca395070908d134320fe37c9eaf3659c",
+      "size_in_bytes": 2589
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/mock/exceptions.py",
+      "path_type": "hardlink",
+      "sha256": "47168fd502a6002cb4adcfd8cceedcd7cad13f5b34bf893548644bfa1846005f",
+      "size_in_bytes": 851
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bb460cc939d427021af70dc790514d849af4f4537425f5c8ccac00d0cd75cb90",
+      "size_in_bytes": 145
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/__pycache__/conftest.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "7b46299c903e292fb88ea8bc4275795f2427ee0dcafb6958f2a0cc0b28321e6e",
+      "size_in_bytes": 571
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/__pycache__/utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c2cf4d22652d2de3e31bba0067ad6e6f6c8879ffedb00d7e4403d5e23c7f7795",
+      "size_in_bytes": 30997
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "61c5795f73d63378c239ff694dac1c179a6a6d74aea6d7173189b25332cda77f",
+      "size_in_bytes": 3056
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/__main__.py",
+      "path_type": "hardlink",
+      "sha256": "29faa47bf9afd754563c29a4a3aaa19ad6edb97ea110bef595158fbaf6d2a3fc",
+      "size_in_bytes": 3677
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "08ed5e6cd331902f9742211a1a658e0cf311c79643d007ab7a9d954dc0230dc3",
+      "size_in_bytes": 1659
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/__pycache__/__main__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "38d0fcf8bea05185d761df7440a69e6b976e733f9ad4a15968209ac9aa945011",
+      "size_in_bytes": 2253
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/__pycache__/envvars.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "8a88f88e110a21309a397d7a0a4ea20cfa5d24370381408a029a2533d5837b21",
+      "size_in_bytes": 26684
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/__pycache__/pubsub.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "938ac60783bc2f8d0ed5fc26c3be7434ab7a69693b27c32b3f5c0f984f8c6471",
+      "size_in_bytes": 13469
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/envvars.py",
+      "path_type": "hardlink",
+      "sha256": "729a84a3b13acabea86ce57a5ab52f67202325afcc78ff6b424565815b884f67",
+      "size_in_bytes": 28452
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/config/pubsub.py",
+      "path_type": "hardlink",
+      "sha256": "218f44d06fe74ed11bc36eaf1236a308e4b250a25d0f94fd8c6f3b755611ad50",
+      "size_in_bytes": 13964
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/conftest.py",
+      "path_type": "hardlink",
+      "sha256": "b4a24cf4b8d2ea721769f688a862cf130234aa781975dd5f0685a4f7a2cc88e4",
+      "size_in_bytes": 607
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/dataframe/algebra/default2pandas/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "61705c755360b477f297f151916fff31466cda18698ce905357d770ea908d88d",
+      "size_in_bytes": 1290
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/dataframe/algebra/default2pandas/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d674296c5a893d2e84b52891a29519f6003825618ef1dcc04d0b5edabab77ac8",
+      "size_in_bytes": 420
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/dataframe/algebra/default2pandas/__pycache__/default.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "e0a1d64b34cf4e2435e7e31145c35dd315b517cbe2c48d435be45b7dc17d66e5",
+      "size_in_bytes": 7820
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/dataframe/algebra/default2pandas/default.py",
+      "path_type": "hardlink",
+      "sha256": "bafb5b9c71fe3280a971fecdc78fb202b225b7638f60970cd449bc3df3c91931",
+      "size_in_bytes": 9936
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "adf0bd57b9587627ae916c670feae71edc3e6de90934c78b6c3a00196147cf1c",
+      "size_in_bytes": 1126
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "58216b6389619df0db51a0308af407e7e82e0ac5b73ccb997537ef607b5a934d",
+      "size_in_bytes": 251
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "c3427739c24129970e63a250277e3096400015942d7705127b82c44770dad8bd",
+      "size_in_bytes": 1227
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bfbda24a962d10ee30277893437c2c41fc03c69df5f511fd12a3b41b94dc6d69",
+      "size_in_bytes": 354
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/__pycache__/baseio.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "76ce27b589917f0c355414256b375a08dd53bc31c24000174bb40338c3de25bb",
+      "size_in_bytes": 12298
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/__pycache__/dispatcher.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "8f31d1d5498732d6b39fe5cb03bcf1d3db017bbd5080b6d2f7271e853afc6923",
+      "size_in_bytes": 8661
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/__pycache__/factories.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1d5bad1091fde71e11a45a147a58a7283fbd2f48e1790953faafc5a4d3ca1acb",
+      "size_in_bytes": 11655
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/__pycache__/pandasframe.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "54933e6aa0b21c75ba3e761ae7abe9abe33138d84b796e6f311699058305a5bb",
+      "size_in_bytes": 93853
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/baseio.py",
+      "path_type": "hardlink",
+      "sha256": "6dda9a08e11970521bde709cc18a173df5722264f9b29b05ea713c0ed9115b97",
+      "size_in_bytes": 18657
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/dispatcher.py",
+      "path_type": "hardlink",
+      "sha256": "307bbd0db7ec76f2c26daa88e5b71927a5544b33af32188656ae365a089a2026",
+      "size_in_bytes": 9389
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/factories.py",
+      "path_type": "hardlink",
+      "sha256": "e77917230194395afb4000352efb956809e244c4d1cc8d2ca88ed014f7b7f1b1",
+      "size_in_bytes": 12927
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/core/execution/dispatching/factories/pandasframe.py",
+      "path_type": "hardlink",
+      "sha256": "cb9d9b408a6672bbfdb70fb68e48b005eeac26c97c749742cc971101539ced3b",
+      "size_in_bytes": 132985
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "984ef1471c11ef7dc308a962afd5c2bdfe0e61f47c530666dc35444b40de08d9",
+      "size_in_bytes": 11843
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "eacedf0960bd6f3a543c4b6dad6fc364f63f5adf272e2058d47827a74df9bfbe",
+      "size_in_bytes": 6215
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/dataframe.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "cf0c81946a4baed4150a799cd970dce1ce4a5488e51026eecc74ae57097912f3",
+      "size_in_bytes": 73796
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/general.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "7643ef308672748e3dc762310ea857ff3d01258790c41252aeae13547491ef1b",
+      "size_in_bytes": 94872
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/groupby.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "315799cacc185134433c87cfdc66904fc3c4fb573297b21fac65914afcaa24b2",
+      "size_in_bytes": 31788
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/indexing.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "04674082b8356fc9de09cbe1f81acb1fff552397ec0192723f21c638c824bc62",
+      "size_in_bytes": 41318
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/io.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "3f9cb1edc35326b86e8db64f261c7d3bb2cc52177bcce2814ddd068ca5121e8f",
+      "size_in_bytes": 25442
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/resample.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9db2a305a66c9e31d598aa89fb1475e54aec7426c5a838bd8a6b4c10e33fccca",
+      "size_in_bytes": 12544
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/snow_partition_iterator.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "61d533ea86900582c447b0c85008e29325094778dc8b84edefd36c7809edebff",
+      "size_in_bytes": 3874
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "87756846272623e84c7eeb7ef38eeabf87cf82102662007072703e5f749f1804",
+      "size_in_bytes": 24241
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/__pycache__/window.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a74510aba663331c9c146c56de29db0f3a682fb0e98f88614af81d9eb21730a5",
+      "size_in_bytes": 14518
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/api/extensions/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ebf042d50e1beb3c2c0e20824e6b64bb3d7c0ce958c6f7c21632379cbc3bbe1f",
+      "size_in_bytes": 1302
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/api/extensions/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "ed79d92c7e4c30e43fa84c78fff303a0a0d00ef627c4c0d666e8f71e80747ad8",
+      "size_in_bytes": 377
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/api/extensions/__pycache__/extensions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "187fda606315735cb7dc9d664b0c7648b412dc16c1256d455d7f8ec4c325199c",
+      "size_in_bytes": 4538
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/api/extensions/extensions.py",
+      "path_type": "hardlink",
+      "sha256": "421ea363110046baa0fafe295e11ec0b712c0c1d49309a37622c06cbbd833b7d",
+      "size_in_bytes": 5145
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/dataframe.py",
+      "path_type": "hardlink",
+      "sha256": "e3af0149c7b5949ab10984498c1bbd8dba4f9b284d90c724f7605e893f4e2d06",
+      "size_in_bytes": 126759
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/general.py",
+      "path_type": "hardlink",
+      "sha256": "7ff417c69792c6f62776c319bd133232feadb174c1db87841e41885aa9c801cc",
+      "size_in_bytes": 115374
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/groupby.py",
+      "path_type": "hardlink",
+      "sha256": "a1266224a46e39a1ab7bce396fa1d4a7d2d884eb03056351744bb68ddc56d81a",
+      "size_in_bytes": 54682
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/indexing.py",
+      "path_type": "hardlink",
+      "sha256": "911758f209b12fdbd579a0ff53bdcef64acdcb1f54a0135016695d273b57a82d",
+      "size_in_bytes": 58769
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/io.py",
+      "path_type": "hardlink",
+      "sha256": "61157842fdfb5ae680d587b2b27ed3af9dbe89798794cdf9b42618d9643ff82c",
+      "size_in_bytes": 37514
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/resample.py",
+      "path_type": "hardlink",
+      "sha256": "af26acb1ce38b1448e8f7f7a67f38b218ee451f086a40ce33e6aab9671da7e27",
+      "size_in_bytes": 20204
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/snow_partition_iterator.py",
+      "path_type": "hardlink",
+      "sha256": "9a2b777ef9682924fd558e2ec48c698f23ed87be65bff19436b1de1b2760a498",
+      "size_in_bytes": 4810
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/utils.py",
+      "path_type": "hardlink",
+      "sha256": "7a05bb33fe7a4f9d95a4eeaf9374a6e6b41501829b50db8a7fd2ee8fefe62ff0",
+      "size_in_bytes": 31969
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/pandas/window.py",
+      "path_type": "hardlink",
+      "sha256": "8fd5575907363df4cbb6172dc9aad1535d6b9b8040f4d31a95c7e14fc1e53583",
+      "size_in_bytes": 26256
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "1949e81d905a9bb2c5e8d3c715b9aecb7e31f986237380d84a605dc594937be5",
+      "size_in_bytes": 4725
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a5328f872466fe7ead354e6defd0807ec0d98d1b84af67380beb046408523548",
+      "size_in_bytes": 2045
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/__pycache__/_typing.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "ef4ec3eaee3703bec5efe120fef8270b5d0aa12217f1bcd55beede0ba1acdb19",
+      "size_in_bytes": 1601
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "86dd42722a0307453e0fed27566775fdb38fa8fa49cba8c8d12bfc93a0102264",
+      "size_in_bytes": 162
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/aggregation_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9e60784c9d96b8f08c112c1cba9273b553177efdae258551218e9d6f02298ece",
+      "size_in_bytes": 33231
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/apply_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "fc9ecbdbefc04017947f5b88aeaad6a823cdbe04975b03e7b29697a80a6f65fc",
+      "size_in_bytes": 36835
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/binary_op_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "cb051b7410609c1244f5d08b7d2357124ad0c29ce07a28a74396743dfada36ac",
+      "size_in_bytes": 18622
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/concat_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "dab71ebbd7acb09a6d6f0cfb0dccb5866e3cb48c6ac52a316f72bd5e860a9d46",
+      "size_in_bytes": 9462
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/cumulative_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "58d83ae7033933ab222b8492808a80d7a13cd4519648f5cf20c4f802bb61a8ab",
+      "size_in_bytes": 6280
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/cut_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b7a0f7d8a35ef98d6de32ec53f8d8afb31623b855d7ae74f7114f55b0e46e026",
+      "size_in_bytes": 5736
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/frame.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9a88cae6b41dc7de1a8fb7572113e9c758b3e238f4812fbe4c2ad2f0bd8853ff",
+      "size_in_bytes": 44597
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/generator_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d1212796320d59466340667a85201f486e7fa4bbfd8631aa2be90af59a9a4ae3",
+      "size_in_bytes": 5948
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/groupby_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b9e52bc064e26b8557a753c531c6975e92bda3fbce9a64104b9d43b7b6ebdd89",
+      "size_in_bytes": 12069
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/indexing_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "93021d9a65eb42b3b3f61df95c5fabde96fbc6eab6e4da8f3c346172cfd06aa3",
+      "size_in_bytes": 61337
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/io_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "f99ff31446af34fd2fc6a80daea5b6c73e5b580aaf38ed34b413cce0281c41f8",
+      "size_in_bytes": 7305
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/isin_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "00cc0d2e1c2489544a0df02db0e11751ce43e867eaa9892b891da4f3ebba9744",
+      "size_in_bytes": 7695
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/join_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "7001757c9bb0a39bfd87dea9e70e7efbe6d1c7331d1178c501c8295c556a75c7",
+      "size_in_bytes": 39640
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/ordered_dataframe.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5cced8018c867053b1f7c7a305a8eab6c9d258ee48319800dfee8e658b2bd289",
+      "size_in_bytes": 51882
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/pivot_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9f00f2cdee361821aab9913fb98f193ce77548d5fbd245cd2be5afbc33e6e294",
+      "size_in_bytes": 36272
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/resample_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "0f6fb5f2398cbe89b76dae11db6b065142cf37483e361260000ef263c49de4ca",
+      "size_in_bytes": 13446
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/session.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1132ab80df13de02bde289405260ca49bab5c51c5f000d61a5ef9d001c3b26c8",
+      "size_in_bytes": 3353
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/snowpark_pandas_types.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "905ddf1d7e763b9af5cd8e9b7fd1214c5f4c9adccabd3563d2fa2b1749cb3a29",
+      "size_in_bytes": 5717
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/statement_params_constants.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9ff993bbaa1ad6c0a774edeeee45c2243bb95bca069d089c1a777fa69c7f9160",
+      "size_in_bytes": 467
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/telemetry.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "620775d7e213bdc29af8784dfc728175f954d935248d8e03c48fe5804335e9a0",
+      "size_in_bytes": 15910
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/timestamp_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b7f022393af705aaccfff700d9713d03fe542b1f2e071a32d590bcb82c012010",
+      "size_in_bytes": 10379
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/transpose_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "de269e09b2c6cd15e80bd2bec5556d553fdf56b805fa031c43f385fcdff1df99",
+      "size_in_bytes": 7716
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/type_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bcc37ce5bb0a8f60c27b5537e996919c7a548784a7462afe86864f7503fb954d",
+      "size_in_bytes": 9572
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/unpivot_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9ef86b092b3d5834c6e790a2fd887ec3f3f26e2242e8015e98aadf9ea26b9704",
+      "size_in_bytes": 15359
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "925b1e768215149c00c4efe57aa1b8d92f07b58b2fb6c908de63abdad7c4365c",
+      "size_in_bytes": 58307
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/where_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "6800a2365b5f33ab2d9f4293bb8fea58012429275d5c6c2c9dce7df5787775b2",
+      "size_in_bytes": 1018
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/__pycache__/window_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "cce9d5f4b177a19a8b4379b6c8e0561765f2c116e75aba002178443a2b4fb5d2",
+      "size_in_bytes": 5791
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/aggregation_utils.py",
+      "path_type": "hardlink",
+      "sha256": "23c3f692afa6df878324a1b3fefc06bbf414c2e0c2e6add793f422c076de2a8a",
+      "size_in_bytes": 50905
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/apply_utils.py",
+      "path_type": "hardlink",
+      "sha256": "9114c2b78242b9e75c838d59d155b450089516f68a5faa7abb9e2558f22156be",
+      "size_in_bytes": 58285
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/binary_op_utils.py",
+      "path_type": "hardlink",
+      "sha256": "eeba53f1aa64562d6f850129250e1981de801ab6cf00888947af3dcf270bedef",
+      "size_in_bytes": 32448
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/concat_utils.py",
+      "path_type": "hardlink",
+      "sha256": "637ad488a6be947249744c47a21119be95a9ca9d021bfc16cd5ef919552d0c91",
+      "size_in_bytes": 15740
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/cumulative_utils.py",
+      "path_type": "hardlink",
+      "sha256": "a5cf095951ba4d9fb4408f0170ddfd240f727ab7810b92571609ee697ba239e4",
+      "size_in_bytes": 8437
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/cut_utils.py",
+      "path_type": "hardlink",
+      "sha256": "7e047a48645191c38a9566c846be44befa33d6940d5b688f33fdaa8be1773aab",
+      "size_in_bytes": 10221
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/frame.py",
+      "path_type": "hardlink",
+      "sha256": "2a07d228cfc2b2e668fbd59eddb0b4ef7b12226ae3b45343ce5b527ae484c033",
+      "size_in_bytes": 67065
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/generator_utils.py",
+      "path_type": "hardlink",
+      "sha256": "1e386d551b0c3366e61df5b8246872646fd0e03a73a051ffdd5a5370fd77895c",
+      "size_in_bytes": 8477
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/groupby_utils.py",
+      "path_type": "hardlink",
+      "sha256": "39c9fd199a5ea5ac25fb030d8a00896ce474638add296f2a2cef1b1efc98e6d2",
+      "size_in_bytes": 22120
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/indexing_utils.py",
+      "path_type": "hardlink",
+      "sha256": "c4936cf53b9f0e694fed76b32a322542b93b3da10e667280dff1f674c919b53c",
+      "size_in_bytes": 140552
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/io_utils.py",
+      "path_type": "hardlink",
+      "sha256": "0dcc34b2ee50c6a944fbaefb84674b9ba495cd616e906fe128f9a2637cdf3608",
+      "size_in_bytes": 8050
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/isin_utils.py",
+      "path_type": "hardlink",
+      "sha256": "3781e1248a0b0432c5df8d8436550cf50f91342dee7df5d8ef51426db1286a49",
+      "size_in_bytes": 11795
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/join_utils.py",
+      "path_type": "hardlink",
+      "sha256": "586aa7bde1fe9aceb4be9958ed16036b11e29216eb0ced40536d4b58d895d1c3",
+      "size_in_bytes": 63633
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/ordered_dataframe.py",
+      "path_type": "hardlink",
+      "sha256": "914459dbda96424162c7f88069e610ce49d6b7d040d2de3a90582cefa7945ce1",
+      "size_in_bytes": 91639
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/pivot_utils.py",
+      "path_type": "hardlink",
+      "sha256": "c6ec50d5a116043817df94aaceb0e40a8190844a96cc9a862d685e9bb4ff4759",
+      "size_in_bytes": 87519
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/resample_utils.py",
+      "path_type": "hardlink",
+      "sha256": "9682f578063d2c20aa69f7a15ba9602e78c67ed3c75eef8c2515601556b35f9b",
+      "size_in_bytes": 20613
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/session.py",
+      "path_type": "hardlink",
+      "sha256": "a6c3cd19c7feadc9c704bf6d20ac0ee441ec138dbe9cb36c86dd40bb66b012c2",
+      "size_in_bytes": 3925
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/snowpark_pandas_types.py",
+      "path_type": "hardlink",
+      "sha256": "9d6f7b8c20aec8c59a23bf88d7989f7e2f0e395b925fb403a1efdf79e53bf46c",
+      "size_in_bytes": 6126
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/statement_params_constants.py",
+      "path_type": "hardlink",
+      "sha256": "6f438f9876440c687fc3469fa5812cd36906b7742b403747ec744c6353d1c4e6",
+      "size_in_bytes": 949
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/telemetry.py",
+      "path_type": "hardlink",
+      "sha256": "4902a6e87650f64b0c5b9b45c797787d865c51958daf1bd9859cbd79213664e2",
+      "size_in_bytes": 23839
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/timestamp_utils.py",
+      "path_type": "hardlink",
+      "sha256": "873bc79399e055381248015c541a0ac47c12d1896b90e56d0ba020a985acb1e0",
+      "size_in_bytes": 16966
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/transpose_utils.py",
+      "path_type": "hardlink",
+      "sha256": "150e078442ac0f2cc0cbdeb3df16b925dfe6261429e7440a7b56d516c135e644",
+      "size_in_bytes": 14700
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/type_utils.py",
+      "path_type": "hardlink",
+      "sha256": "abc368511be4a0a963e5421b61601aad97a2626a98f67281c86e800afcfafcc4",
+      "size_in_bytes": 15313
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/unpivot_utils.py",
+      "path_type": "hardlink",
+      "sha256": "82e23b981df15e56ab37b6833ea12715fd481f40590ba60d3b489ebeca6d9b9c",
+      "size_in_bytes": 42041
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/utils.py",
+      "path_type": "hardlink",
+      "sha256": "60593bb1a71e720c40337019e1949b9ea0d1d41577e34a9500967723172656f0",
+      "size_in_bytes": 82553
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/where_utils.py",
+      "path_type": "hardlink",
+      "sha256": "19ea7b73baa243491573872ff852e82a6403dd10894fbff44d323ef89e6da222",
+      "size_in_bytes": 756
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_internal/window_utils.py",
+      "path_type": "hardlink",
+      "sha256": "0b0ca27ff421154558cd765dd10258d6cc8fb637b3d750379b640920b1d7334c",
+      "size_in_bytes": 6646
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/_typing.py",
+      "path_type": "hardlink",
+      "sha256": "9ab13e4224befc459a15b6930fb7ff7a7c6c31dd7bb4796f41860e867e906d56",
+      "size_in_bytes": 2927
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/compiler/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "c4de86e98f54a73b0fe5cd8d5469dd58a76b0b78776055af07c0c5c6eda0c775",
+      "size_in_bytes": 1178
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/compiler/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "02fc14c91bb62e02fa13a21418633bacb4c72332ac556984eb2e25f1b0dc5605",
+      "size_in_bytes": 277
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/compiler/__pycache__/doc_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "caa0061047695e0fcfb0bbf22ec7d0c27860f384c575d65637ec9d8474f4876d",
+      "size_in_bytes": 18811
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/compiler/__pycache__/snowflake_query_compiler.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4d4b84bdbfeb28791e5f0cd20551323be3529f48c4bbe0dfe4c6e56c42af0e64",
+      "size_in_bytes": 413464
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/compiler/doc_utils.py",
+      "path_type": "hardlink",
+      "sha256": "894182bdfef35e4245dfd508820e5555496a4e116770e45882b2894a896952c0",
+      "size_in_bytes": 21844
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/compiler/snowflake_query_compiler.py",
+      "path_type": "hardlink",
+      "sha256": "a7b97bf14864608cdd1b23600a92bbdddbb7125c018a21096dbd8d4d018a7b1a",
+      "size_in_bytes": 796486
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "b98362bea6359955bae2fbe3ef713154bf1ec8a465e59dd564f2c1c6b7b2becf",
+      "size_in_bytes": 1006
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "07c8d82422a3ebeafd0f10a0c645207fdcfa23fd5e964c6ba0305884f14966c5",
+      "size_in_bytes": 1026
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/base.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c06c99db794874d0cddbcd881d64fe8faf422b1b6edaba1d371699880b74adb8",
+      "size_in_bytes": 128890
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/dataframe.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "70a3ac74e0dd01a39a0e3dce29c78954ca60b38b292a8eb7d3bcebd5308a1cf5",
+      "size_in_bytes": 203767
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/groupby.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "98391d8385ca93d7051ae1698e9df07bfa0af5796e2f1986eec12d2d94ea83b0",
+      "size_in_bytes": 72671
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/resample.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "f54a69180cdfefcfc473728614c72100c5c1bea425e51baaeaa7f4bb77d8dd3a",
+      "size_in_bytes": 39816
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/series.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "503eae2232bc663dfaae3ac4b54ac4ee4c5e47f93a4b83fa8c918a7ff2760533",
+      "size_in_bytes": 140967
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/series_utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "efc508dcf42d8fd0b74ac0b5faf8f34ad86164c67594946fbc04950893cc7ce0",
+      "size_in_bytes": 80939
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/shared_docs.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c57c4d7822a97e912c2e601cad382744acf53315e32a611ff9dc4b286e0a8e3e",
+      "size_in_bytes": 3511
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/__pycache__/window.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1d1e2ec48bac4556a608495742b4aca4fdca2267d84a198d59ab68b9bb43d825",
+      "size_in_bytes": 16690
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/base.py",
+      "path_type": "hardlink",
+      "sha256": "39169e6926689ad9a5fcdd37ab60e8d4695a6d582966620436b131323c4bed30",
+      "size_in_bytes": 116521
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/dataframe.py",
+      "path_type": "hardlink",
+      "sha256": "2bf6269da8b50ff60e1c259ae9c53f2d134e1e7e9b10b164560d9f1de8873442",
+      "size_in_bytes": 193652
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/groupby.py",
+      "path_type": "hardlink",
+      "sha256": "ad565dbd52e5953a2296c700595272d225a97fe7f046f2c6be10eae081e0aff0",
+      "size_in_bytes": 66834
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/resample.py",
+      "path_type": "hardlink",
+      "sha256": "4979f5d1082107c5de42f904f57a6f4f289f5cf90014b17cee6b611e2650e805",
+      "size_in_bytes": 37582
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/series.py",
+      "path_type": "hardlink",
+      "sha256": "8903cdb92459b85a5e54335da9389b80e1653bf6fff3b04e7dcddebd2ccc1976",
+      "size_in_bytes": 130296
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/series_utils.py",
+      "path_type": "hardlink",
+      "sha256": "0d35c5fe38ed5490114a5aa07e03b11537d80e9cd3970b430ee33de8ad777533",
+      "size_in_bytes": 71448
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/shared_docs.py",
+      "path_type": "hardlink",
+      "sha256": "d06feedb0b0131a9014fddfe94e89a9b3d7d00453606a254f2d7551fa1aee2a4",
+      "size_in_bytes": 3718
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/docstrings/window.py",
+      "path_type": "hardlink",
+      "sha256": "798f972f61b889a6c046f507833e18b6e84377f534e306d98c281f8dfaeb4466",
+      "size_in_bytes": 18101
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "174a926387a532462641ac0b5ad15fd8075ddeed576929df8d03c46f1be6afde",
+      "size_in_bytes": 163
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/base_extensions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "a2acb03a137ba9df290da65d0e27d49145f2009f36bb7772b3840c079e0fdc9c",
+      "size_in_bytes": 1136
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/base_overrides.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b3b671b287d5e53290a2e046c07afb664cce551b3a84db58654230ba98a801fe",
+      "size_in_bytes": 43636
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/dataframe_extensions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1b00892ebff5795a3119fed1bf498f46925315beccd76a1624483f89d7f2bb4b",
+      "size_in_bytes": 10134
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/dataframe_overrides.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "7815041d26cd77393bbffc5889c5e6b371f91c156450f1f3e5f44eecda7c233d",
+      "size_in_bytes": 3911
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/datetime_index.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "2d56544bb463da1276818e2919b27f0081566472ba02692437e12a77932a248b",
+      "size_in_bytes": 54704
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/index.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b08307c84b1f42f4898797e77dc088a11c628064a9d31914f1e58356e22db953",
+      "size_in_bytes": 82225
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/pd_extensions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "99ec4e141cc13cd143713aee101426c89fc18eab16eded4b8d2f1c5e6c8d4c3a",
+      "size_in_bytes": 27576
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/pd_overrides.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9513054710e0ac6511cfa8f7d82d7014ef38b41ac6b6f11a44c5ef2d7d2a003c",
+      "size_in_bytes": 26409
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/series_extensions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "9409a4e54fe6238f86c3a67bd4b29767ea59d94a35a0fa2493bbfb175d09c58e",
+      "size_in_bytes": 8392
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/series_overrides.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "8b9cbdb104f6d71f4d205bc51c1f44c8238be2ce87b93750f72d1055e3e97747",
+      "size_in_bytes": 40378
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/timedelta_index.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "c233d2b344c596ec709ac9ed6855e4a8be2e28495eab9418f973e773e84f5684",
+      "size_in_bytes": 14354
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/__pycache__/utils.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d0703aabe6cd6500e48e99679acd5912a445e4e88bbf71d54d0462bb603252ac",
+      "size_in_bytes": 2278
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/base_extensions.py",
+      "path_type": "hardlink",
+      "sha256": "069a2107b46a476748dc05fb1f8dd532cf266ad00da86174480b34ba1c4a9a88",
+      "size_in_bytes": 1154
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/base_overrides.py",
+      "path_type": "hardlink",
+      "sha256": "9aac63533a65adc4112c78f0a6a6e67b33646bd39cb62ebb062a43c195f4e6c2",
+      "size_in_bytes": 77432
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/dataframe_extensions.py",
+      "path_type": "hardlink",
+      "sha256": "49394eff4866102b71f7a6564d428fa342727b50685a66ad16ce14bc01f3c939",
+      "size_in_bytes": 10309
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/dataframe_overrides.py",
+      "path_type": "hardlink",
+      "sha256": "85b997f52cb643dd00c26d3bbb1d816f6c41b1e319b6950bbb534efcd2f275fe",
+      "size_in_bytes": 4714
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/datetime_index.py",
+      "path_type": "hardlink",
+      "sha256": "a265e0415fc924e5dc8d4527eb40ab866299dfa9d05fe826e08088a5fb3ca0fb",
+      "size_in_bytes": 56138
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/index.py",
+      "path_type": "hardlink",
+      "sha256": "e69447cb319d1a716d28dc76ffab7285ad98a7a310b24657c5e7f809133d96a8",
+      "size_in_bytes": 89405
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/pd_extensions.py",
+      "path_type": "hardlink",
+      "sha256": "725a54e5fa6722d260030d4c5c3998d17eb65c9c9a48561437f22b8bc3653c3f",
+      "size_in_bytes": 27922
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/pd_overrides.py",
+      "path_type": "hardlink",
+      "sha256": "628a781563cecd427139c27cee38bc82ec0ca3c96b18b276d501e52417b67658",
+      "size_in_bytes": 27791
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/series_extensions.py",
+      "path_type": "hardlink",
+      "sha256": "1bb29da71800a404b93e932bb861dab9a5d215720324d6dbb229404920bfa69a",
+      "size_in_bytes": 8300
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/series_overrides.py",
+      "path_type": "hardlink",
+      "sha256": "a99c842976e4b5aceab2ef08ae28b2b52cdea46d8a341f7303aa6763fa723647",
+      "size_in_bytes": 65094
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/timedelta_index.py",
+      "path_type": "hardlink",
+      "sha256": "133f5d244cd05424763dddc5292ce78cd9930dd06371f2213b79984e4af6d81c",
+      "size_in_bytes": 15821
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/extensions/utils.py",
+      "path_type": "hardlink",
+      "sha256": "6ab00cf500e02377b01a0fd1d8a297678b684a6d56c79f72c5b9bcff1d996393",
+      "size_in_bytes": 2490
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/io/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/io/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "defd63b05c210cc027bf2aaa8b6861f1a35bd9200a4aefb8b4c93545d5c8b04c",
+      "size_in_bytes": 155
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/io/__pycache__/snow_io.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "fa580043ff021a580dfe1a952aa9ece9fff55fb7b777f1d1bf2eb94f3b0b3211",
+      "size_in_bytes": 17651
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/io/snow_io.py",
+      "path_type": "hardlink",
+      "sha256": "ca3bd1dd70c62b5527b66346328e4878388d08fe8373c66fe8f239617b356aba",
+      "size_in_bytes": 26093
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ccb3be00e027a00d81a175d704072aec68da7a4ef9790a2c139f6db9e7f303dd",
+      "size_in_bytes": 76
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "35924bf4bef721b65b152449cdd050867fcc6fdb6f433e74034ae95c768ce29d",
+      "size_in_bytes": 158
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__pycache__/error_message.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "63262d25ec9f3a1d7bb65e9356310b077ea2366d4eaa2a523734358feef27317",
+      "size_in_bytes": 7080
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__pycache__/exceptions.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4e9b751ca139bc2fa860f3b3ac0674f3bc095f5cbce3b653d9a25813ebf703a4",
+      "size_in_bytes": 755
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__pycache__/frontend_constants.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d1e187410f88c0f10e1bb0105d939cfc6791eccab249f22ad5e3e0f3d1046cce",
+      "size_in_bytes": 1011
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__pycache__/numpy_to_pandas.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "d6487457331a87be2863b1c4d52b05f7a85273511a5bd197f998592f51fff87e",
+      "size_in_bytes": 3601
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/__pycache__/warning_message.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "74e912ce1569eae54f4cdb8d4b968f5309805465cf3ca4cd3aeaa88d9acdded5",
+      "size_in_bytes": 3980
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/error_message.py",
+      "path_type": "hardlink",
+      "sha256": "346223a73b7386d5036a07b0dbd31c4889ddf216e3bf5eb363de93980f380494",
+      "size_in_bytes": 8987
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/exceptions.py",
+      "path_type": "hardlink",
+      "sha256": "b0175717dbf29808e2ec116baf233cccce44b7a0a4f2818444c19ff0a826db78",
+      "size_in_bytes": 620
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/frontend_constants.py",
+      "path_type": "hardlink",
+      "sha256": "8338bd55841d7a71c4b6f26dd294c644b1670199e88390617844e55c6c9c501b",
+      "size_in_bytes": 1243
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/numpy_to_pandas.py",
+      "path_type": "hardlink",
+      "sha256": "494456b85009369f850438f6ba0df4ffb4676b4add1457fb0a46537b978204b7",
+      "size_in_bytes": 5231
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/plugin/utils/warning_message.py",
+      "path_type": "hardlink",
+      "sha256": "4c9fa5a9fe824cae9a67f954ad41fada988895add368384bb0e8e2bcf8e76dd1",
+      "size_in_bytes": 4144
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/modin/utils.py",
+      "path_type": "hardlink",
+      "sha256": "ee5e5a31085262113cda46f383120757ad006e6f0b4119a587294f3afde6b171",
+      "size_in_bytes": 40487
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/query_history.py",
+      "path_type": "hardlink",
+      "sha256": "8ccaefaaac23102a05a46afdc835f0b5ac9d8d55d008718212af8767adf1ea19",
+      "size_in_bytes": 1023
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/relational_grouped_dataframe.py",
+      "path_type": "hardlink",
+      "sha256": "dfb429ab8b5a9abb123aac5fd2042e6be570832f908f18294c928bff2b2f3648",
+      "size_in_bytes": 22670
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/row.py",
+      "path_type": "hardlink",
+      "sha256": "09338484c57ee5267a9acb88add482905a5b15bcd6eaa18199ccc92c1b2b8ead",
+      "size_in_bytes": 12095
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/session.py",
+      "path_type": "hardlink",
+      "sha256": "20832a71a0a1f1e5fc06ca8153f0c63bc97ade5f576c9891d481cb0433dd0a66",
+      "size_in_bytes": 154886
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/stored_procedure.py",
+      "path_type": "hardlink",
+      "sha256": "a557c250024ea1af6ce8f4dda31b7bc44ccef0665e1452e822242031034b72a1",
+      "size_in_bytes": 45238
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/table.py",
+      "path_type": "hardlink",
+      "sha256": "873b5760b3a86200cac9a494b5c4eee1737508418bae4dc67cbaebe526429775",
+      "size_in_bytes": 31759
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/table_function.py",
+      "path_type": "hardlink",
+      "sha256": "5375ec688fc15bb2b0b512d15732bdeb1ac6a87971692c654701f127b64d4665",
+      "size_in_bytes": 11670
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/testing.py",
+      "path_type": "hardlink",
+      "sha256": "e0d3ea37ed233041099f38ff744fdb62eefd1c5fb814be129973e0eb0c230e35",
+      "size_in_bytes": 10325
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/types.py",
+      "path_type": "hardlink",
+      "sha256": "008f5870c6c90a94a7a47383898e90d43b900c3183631b65a9142107a765f72d",
+      "size_in_bytes": 16751
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/udaf.py",
+      "path_type": "hardlink",
+      "sha256": "761b8d202250b0adc5bd10df0ad4155d88e91170cd030ef0cf78b29cd9bbb564",
+      "size_in_bytes": 35633
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/udf.py",
+      "path_type": "hardlink",
+      "sha256": "f0be86b83c6d1e740b1fef0834e1232298afc54b1b754fa1f1608334d45b4325",
+      "size_in_bytes": 50818
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/udtf.py",
+      "path_type": "hardlink",
+      "sha256": "3c8cc2b866acdd3fdf49cb6659a0e3c5c95dc2f28dbb0e578256797533c2cd0b",
+      "size_in_bytes": 51936
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/version.py",
+      "path_type": "hardlink",
+      "sha256": "3ea9d06fe2d6deb7b3b72ca54e1417efd5c099fb2fa0b48282fa4557ad51b7fb",
+      "size_in_bytes": 152
+    },
+    {
+      "_path": "Lib/site-packages/snowflake/snowpark/window.py",
+      "path_type": "hardlink",
+      "sha256": "badd95fdf41f9486387c071f09a577268c2feb1c2a1ee321a6f918961b39533f",
+      "size_in_bytes": 9502
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1-py3.9-nspkg.pth",
+      "path_type": "hardlink",
+      "sha256": "7f3b1abe8507509149ff6187749417ba3058fcb37fe91e3595b6b185c5556328",
+      "size_in_bytes": 483
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/LICENSE.txt",
+      "path_type": "hardlink",
+      "sha256": "9418a89aa5e788c7f93c377fff6fd6039f1504967609600d3476df1c436ed7ca",
+      "size_in_bytes": 11365
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "aa5466ce39f426e65dc33b28b36f16cd0648082bf7329263238a18a18fd8205d",
+      "size_in_bytes": 96212
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "bd54bf40b3c0d2b861c244e98fc703145b1290dcc0fbde822f7b7e414d870500",
+      "size_in_bytes": 33781
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "4749dceaa4f1ba82e4ed2840dbf63e51690df1975f0c11b607a12aa73d965dbb",
+      "size_in_bytes": 91
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "53fab83b1859f4b85cf2c717b56bf7ab2567277f9d7945bb984f442841ade76c",
+      "size_in_bytes": 105
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/namespace_packages.txt",
+      "path_type": "hardlink",
+      "sha256": "4d8d201521ca0dd672dd31dbd051a89b28a45906ac10695d211d4ed0718e1d5c",
+      "size_in_bytes": 10
+    },
+    {
+      "_path": "Lib/site-packages/snowflake_snowpark_python-1.22.1.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "4d8d201521ca0dd672dd31dbd051a89b28a45906ac10695d211d4ed0718e1d5c",
+      "size_in_bytes": 10
+    }
+  ],
+  "paths_version": 1
+}
