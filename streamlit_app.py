@@ -1,20 +1,5 @@
 # Import python packages
 import streamlit as st
-import snowflake.connector
-
-conn = snowflake.connector.connect(
-
-    account='VSDTGPC-SX01880',
-
-    user='harshith@007',
-
-    password='Harshith@007',
-
-    database='STREAMLIT_APPS',
-
-    warehouse='Compute_WH'
-
-)
 # Write directly to the app
 st.title(":cup_with_straw: Customize your smoothie!:cup_with_straw:")
 st.write(
