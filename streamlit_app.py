@@ -26,10 +26,10 @@ if ingredients_list:
     ingredients_string = ''
     
     for fruit_chosen in ingredients_list: 
-        ingredients_string = fruit_chosen + ' '
+        ingredients_string += fruit_chosen + ' '
         st.write(ingredients_string)
     
-    my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients_string)
+    my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients)
     values ('""" +name_on_order+ """')"""
     time_to_submit = st.button('Submit Order')
     #st.write(my_insert_stmt)
