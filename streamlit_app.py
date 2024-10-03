@@ -27,24 +27,22 @@ if ingredients_list:
     
     for fruit_chosen in ingredients_list: 
         ingredients_string = fruit_chosen + ' '
-        
-    st.write(ingredients_string)
+        st.write(ingredients_string)
     
     my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients)
-        values ('""" +name_on_order+ """')"""
-    #st.write(my_insert_stmt)
+    values ('""" +name_on_order+ """')"""
     time_to_submit = st.button('Submit Order')
+    #st.write(my_insert_stmt)
     
     if time_to_submit:
         session.sql(my_insert_stmt).collect()
-    
-    st.success('Your Smoothie is ordered!',icon="✅")
-    st.write(name_on_order)
+        st.success('Your Smoothie is ordered!',icon="✅")
+        st.write(name_on_order)
     
     import requests
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-    #st.text(fruityvice_response.json())
-    fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
+    st.text(fruityvice_response.json())
+    #fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
 
 
