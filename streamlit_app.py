@@ -29,7 +29,7 @@ if ingredients_list:
         ingredients_string = fruit_chosen + ' '
         st.write(ingredients_string)
     
-    my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients)
+    my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients_string)
     values ('""" +name_on_order+ """')"""
     time_to_submit = st.button('Submit Order')
     #st.write(my_insert_stmt)
@@ -41,7 +41,7 @@ if ingredients_list:
     
     import requests
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-    st.write(fruityvice_response.json())
+    st.text(fruityvice_response.json())
     #fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
 
