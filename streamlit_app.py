@@ -14,7 +14,6 @@ st.write('The name on your Smoothie will be:',name_on_order)
 cnx = st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col('Fruit_name'))
-#st.dataframe(data=my_dataframe, use_container_width=True)
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients:' 
@@ -30,9 +29,6 @@ if ingredients_list:
         ingredients_string = fruit_chosen + ' '
         
     st.write(ingredients_string)
-
-    cnx = st.connection("snowflake")
-    session = cnx.session()
     
     my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients)
         values ('""" +name_on_order+ """')"""
