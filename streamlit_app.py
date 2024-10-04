@@ -40,7 +40,7 @@ if ingredients_list:
         fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_chosen)
         fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
     
-    my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS
+    my_insert_stmt = """ insert into SMOOTHIES.PUBLIC.ORDERS(ingredients,name_on_order)
     values ('""" +ingredients_string+ """','"""+name_on_order+"""')"""
     time_to_submit = st.button('Submit Order')
     #st.write(my_insert_stmt)
