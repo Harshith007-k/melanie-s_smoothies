@@ -48,7 +48,7 @@ st.markdown("""
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["Book a Conference Room", "View Bookings", "Admin"])
+page = st.sidebar.radio("Choose a page:", ["View Bookings","Book a Conference Room", "Admin"])
 
 # Load the bookings from CSV
 BOOKINGS_FILE = "conference_bookings.csv"
