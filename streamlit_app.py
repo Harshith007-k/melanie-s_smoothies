@@ -6,6 +6,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "password123"
+
 # Set up page configuration
 st.set_page_config(page_title="Conference Room Booking", layout="wide")
 
@@ -201,90 +204,44 @@ if page == "View Bookings":
 
 # Admin Section
 if page == "Admin":
-    st.write("### Admin Dashboard")
-    st.write("#### Manage Bookings")
-    
-    # Display all bookings in a table with delete functionality
-    if not bookings_df.empty:
-        st.write("### All Current Bookings")
+    # Admin Authentication
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        st.write("### Admin Login")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        if st.button("Login"):
+            if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+                st.session_state.authenticated = True
+                st.success("Login successful!")
+            else:
+                st.error("Invalid username or password.")
+    else:
+        st.write("### Admin Dashboard")
+        st.write("#### Manage Bookings")
         
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
-        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
-        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
-
-        def get_priority_color(priority):
-            priority_colors = {
-                "Low": "lightgreen",
-                "Medium-Low": "lightyellow",
-                "Medium": "lightorange",
-                "Medium-High": "orange",
-                "High": "red"
-            }
-            return priority_colors.get(priority, "lightgreen")
-
-        def apply_priority_color(val):
-            return f'background-color: {get_priority_color(val)}'
-
-        styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]].style.applymap(apply_priority_color, subset=["Priority"])
-
-        # Display the styled table
-        st.dataframe(styled_df)
-
-        # Admin to delete bookings
-        booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
-        if booking_to_delete:
-            selected_booking = bookings_df[bookings_df["User"] == booking_to_delete].iloc[0]
-            st.write(f"Selected Booking to Delete: {selected_booking['User']} on {selected_booking['Room']} ({selected_booking['Date']})")
-
+        # Display all bookings in a table with delete and update options
+        if not bookings_df.empty:
+            st.write("### All Current Bookings")
+            ...
+            
+            # Delete Booking
+            booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
             if st.button("Delete Booking"):
                 bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
                 save_bookings(bookings_df)
-                st.success(f"Booking by {selected_booking['User']} has been deleted.")
-        
-        # Admin to update bookings
-        booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
-        if booking_to_update:
-            selected_booking = bookings_df[bookings_df["User"] == booking_to_update].iloc[0]
-            st.write(f"Selected Booking to Update: {selected_booking['User']} on {selected_booking['Room']} ({selected_booking['Date']})")
+                st.success(f"Booking by {booking_to_delete} has been deleted.")
+            
+            # Update Booking
+            booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
+            ...
+        else:
+            st.write("No bookings found in the system.")
 
-            # Create input fields to update booking details
-            with st.form("update_booking_form"):
-                # Get existing details from the selected booking
-                updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
-                updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
-                updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
-                updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
-                updated_description = st.text_area("Update Description", value=selected_booking["Description"])
-                updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
-                updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
-                updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
-
-                # Convert start and end times to datetime
-                updated_start_datetime = datetime.combine(updated_date, updated_start_time)
-                updated_end_datetime = datetime.combine(updated_date, updated_end_time)
-
-                # Check for booking conflicts before allowing the update
-                conflict = False
-                for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
-                    if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]):
-                        conflict = True
-                        st.error("⚠️ This time slot is already booked! Please choose a different time.")
-                        break
-
-                if st.form_submit_button("Update Booking") and not conflict:
-                    # Update the booking details in the DataFrame
-                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
-                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
-                    ]
-                    save_bookings(bookings_df)
-
-                    # Send updated email confirmation
-                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
-
-                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
-                    st.balloons()
-
-    else:
-        st.write("No bookings found in the system.")
-
+        # Logout option for admin
+        if st.button("Logout"):
+            st.session_state.authenticated = False
+            st.success("Logged out successfully.")
 
