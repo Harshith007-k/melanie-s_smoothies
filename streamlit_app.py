@@ -109,7 +109,7 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         # Prepare the email
         msg = MIMEMultipart()
         msg["From"] = sender_email
-        msg["To"] = f"{user_email}, abcd@gmail.com"  # Send to both user and admin
+        msg["To"] = f"{user_email}, jharshith@phoenixteam.com"  # Send to both user and admin
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "html"))
 
