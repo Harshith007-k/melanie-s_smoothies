@@ -72,6 +72,21 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
     except Exception as e:
         st.error(f"Error sending email: {e}")
 
+# Function to apply priority colors to the "Priority" column
+def get_priority_color(priority):
+    priority_colors = {
+        "Low": "#e0f7fa",  # light cyan
+        "Medium-Low": "#80deea",  # light blue
+        "Medium": "#ffcc80",  # light orange
+        "Medium-High": "#ff7043",  # orange
+        "High": "#e57373"  # red
+    }
+    return priority_colors.get(priority, "#e0f7fa")  # Default to light cyan for unknown priorities
+
+# Function to apply color formatting to the DataFrame
+def apply_priority_color(val):
+    return f'background-color: {get_priority_color(val)}'
+
 # Display content for each page
 current_page = st.session_state.current_page
 
@@ -81,38 +96,15 @@ if current_page == "View Bookings":
         bookings_df["Date"] = bookings_df["Date"].dt.strftime('%A, %B %d, %Y')
         bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
         bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
-        st.dataframe(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
+
+        # Use Styler to apply background color to the "Priority" column
+        styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]] \
+                    .style.applymap(apply_priority_color, subset=["Priority"])
+
+        st.dataframe(styled_df)
     else:
         st.write("No bookings available.")
-    # Display Bookings Section
-if page == "View Bookings":
-    st.write("### All Booked Slots")
-    if not bookings_df.empty:
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
-        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
-        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
-
-        # Apply priority color coding
-        def get_priority_color(priority):
-            priority_colors = {
-                "Low": "#e0f7fa",  # light cyan
-                "Medium-Low": "#80deea",  # light blue
-                "Medium": "#ffcc80",  # light orange
-                "Medium-High": "#ff7043",  # orange
-                "High": "#e57373"  # red
-            }
-            return priority_colors.get(priority, "#e0f7fa")  # Default to light cyan for unknown priorities
-
-        # Apply the priority color to the "Priority" column for each row
-        def apply_priority_color(val):
-            return f'background-color: {get_priority_color(val)}'
-
-        # Use Styler to apply the background color to the "Priority" column
-        styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]].style.applymap(apply_priority_color, subset=["Priority"])
-
-        # Display the styled table
-        st.dataframe(styled_df)    
-
+    
 elif current_page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", use_column_width="always")
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
@@ -191,4 +183,3 @@ with col3:  # Place "Next" in the rightmost column
         current_index = pages.index(current_page)
         if current_index < len(pages) - 1:
             st.session_state.current_page = pages[current_index + 1]
-
