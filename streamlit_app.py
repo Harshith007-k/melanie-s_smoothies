@@ -149,8 +149,8 @@ elif current_page == "Admin":
             st.session_state.authenticated = False
             st.success("Logged out successfully.")
 
-# Add "Next" and "Back" buttons
-col1, col2 = st.columns([1, 1])
+# Add "Back" and "Next" buttons
+col1, col2, col3 = st.columns([1, 8, 1])  # Adjust the column proportions as needed
 
 with col1:
     if st.button("Back"):
@@ -158,8 +158,9 @@ with col1:
         if current_index > 0:
             st.session_state.current_page = pages[current_index - 1]
 
-with col2:
+with col3:  # Place "Next" in the rightmost column
     if st.button("Next"):
         current_index = pages.index(current_page)
         if current_index < len(pages) - 1:
             st.session_state.current_page = pages[current_index + 1]
+
