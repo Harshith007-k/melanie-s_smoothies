@@ -154,7 +154,7 @@ if page == "View Bookings":
 
 # Booking Form Section
 if page == "Book a Conference Room":
-    st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", use_column_width="always")
+    st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
     
     with st.form("booking_form"):
