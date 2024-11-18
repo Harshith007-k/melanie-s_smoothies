@@ -9,7 +9,7 @@ import os
 # Set up page configuration
 st.set_page_config(page_title="Conference Room Booking", layout="wide")
 
-# Add custom CSS for styling
+# Custom CSS for styling
 st.markdown("""
     <style>
         .title {
@@ -43,24 +43,23 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Define the CSV file for persistent storage
+# Sidebar for navigation
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Choose a page:", ["Book a Conference Room", "View Bookings", "Admin"])
+
+# Load the bookings from CSV
 BOOKINGS_FILE = "conference_bookings.csv"
 
-# Load bookings from the CSV file, converting columns to datetime
 if os.path.exists(BOOKINGS_FILE):
     bookings_df = pd.read_csv(BOOKINGS_FILE)
     
-    # Safely convert 'Date', 'Start', 'End' columns to datetime format
+    # Convert 'Date', 'Start', 'End' columns to datetime safely
     bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors='coerce')
     bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors='coerce')
     bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors='coerce')
-    
-    # Drop rows with invalid dates
     bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
-
 else:
     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
-    bookings_df.to_csv(BOOKINGS_FILE, index=False)
 
 # Save bookings to the CSV file
 def save_bookings(df):
@@ -102,102 +101,153 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         </body>
     </html>
     """
-
+    
     try:
         # Prepare the email
         msg = MIMEMultipart()
         msg["From"] = sender_email
-        msg["To"] = f"{user_email}, abcd@gmail.com"  # Send to both the user and the default email
+        msg["To"] = f"{user_email}, abcd@gmail.com"  # Send to both user and admin
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "html"))
 
-        # Connect to the SMTP server and send the email
+        # Connect to SMTP server and send the email
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
             server.login(sender_email, sender_password)
             server.send_message(msg)
-
-        st.success(f"Email confirmation sent to {user_email} and abcd@gmail.com.")
+        
+        st.success(f"Email confirmation sent to {user_email} and admin.")
     except Exception as e:
         st.error(f"Error sending email: {e}")
 
-# Booking form section
-st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
-st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
-with st.form("booking_form"):
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        user_name = st.text_input("Your Name")
-        user_email = st.text_input("Your Email")  # User enters email here
-    with col2:
-        selected_room = st.selectbox("Choose Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"])
-    with col3:
-        priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
-
-    description = st.text_area("Booking Description (optional)")
-    selected_date = st.date_input("Select Date", min_value=datetime.today().date())
+# Booking Form Section
+if page == "Book a Conference Room":
+    st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
+    st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
     
-    # Adjust time range from 11 AM to 8 PM
-    start_time = st.slider("Start Time", value=time(11, 0), min_value=time(11, 0), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm")
-    end_time = st.slider("End Time", value=time(12, 0), min_value=time(11, 30), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm")
+    with st.form("booking_form"):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            user_name = st.text_input("Your Name", placeholder="Enter your full name")
+            user_email = st.text_input("Your Email", placeholder="Enter your email")
+        with col2:
+            selected_room = st.selectbox("Choose Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"])
+        with col3:
+            priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
 
-    # Handle booking conflicts
-    start_datetime = datetime.combine(selected_date, start_time)
-    end_datetime = datetime.combine(selected_date, end_time)
-    conflict = False
-    for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == selected_room)].iterrows():
-        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
-            conflict = True
-            st.error("⚠️ This time slot is already booked! Please choose a different time.")
-            break
-    st.image("https://bdk-wp-media.s3.amazonaws.com/wp-content/uploads/2020/01/13165647/About-icon.gif")
+        description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
+        selected_date = st.date_input("Select Date", min_value=datetime.today().date())
+        
+        # Time Range Slider with custom color
+        start_time = st.slider("Start Time", value=time(11, 0), min_value=time(11, 0), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm", help="Select start time")
+        end_time = st.slider("End Time", value=time(12, 0), min_value=time(11, 30), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm", help="Select end time")
+        
+        start_datetime = datetime.combine(selected_date, start_time)
+        end_datetime = datetime.combine(selected_date, end_time)
+        conflict = False
+        for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == selected_room)].iterrows():
+            if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
+                conflict = True
+                st.error("⚠️ This time slot is already booked! Please choose a different time.")
+                break
+        
+        if st.form_submit_button("Confirm Booking") and not conflict:
+            new_booking = pd.DataFrame({
+                "User": [user_name],
+                "Email": [user_email],
+                "Date": [selected_date],
+                "Room": [selected_room],
+                "Priority": [priority],
+                "Description": [description],
+                "Start": [start_datetime],
+                "End": [end_datetime],
+            })
+            bookings_df = pd.concat([bookings_df, new_booking], ignore_index=True)
+            save_bookings(bookings_df)
+
+            send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
+
+            st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
+            st.balloons()
+
+# Display Bookings Section
+if page == "View Bookings":
+    st.write("### All Booked Slots")
+    if not bookings_df.empty:
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
+        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
+        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
+
+        # Apply priority color coding
+        def get_priority_color(priority):
+            priority_colors = {
+                "Low": "lightgreen",
+                "Medium-Low": "lightyellow",
+                "Medium": "lightorange",
+                "Medium-High": "orange",
+                "High": "red"
+            }
+            return priority_colors.get(priority, "lightgreen")
+
+        # Apply the priority color to the "Priority" column for each row
+        def apply_priority_color(val):
+            return f'background-color: {get_priority_color(val)}'
+
+        # Use Styler to apply the background color to the "Priority" column
+        styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]].style.applymap(apply_priority_color, subset=["Priority"])
+
+        # Display the styled table
+        st.dataframe(styled_df)
+
+# Admin Section
+if page == "Admin":
+    st.write("### Admin Dashboard")
+    st.write("#### Manage Bookings")
     
-    # Confirm booking
-    if st.form_submit_button("Confirm Booking") and not conflict:
-        new_booking = pd.DataFrame({
-            "User": [user_name],
-            "Email": [user_email],
-            "Date": [selected_date],
-            "Room": [selected_room],
-            "Priority": [priority],
-            "Description": [description],
-            "Start": [start_datetime],
-            "End": [end_datetime],
-        })
-        bookings_df = pd.concat([bookings_df, new_booking], ignore_index=True)
-        save_bookings(bookings_df)
+    # Display all bookings in a table with delete functionality
+    if not bookings_df.empty:
+        st.write("### All Current Bookings")
+        
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
+        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
+        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
 
-        # Send confirmation email
-        send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
+        def get_priority_color(priority):
+            priority_colors = {
+                "Low": "lightgreen",
+                "Medium-Low": "lightyellow",
+                "Medium": "lightorange",
+                "Medium-High": "orange",
+                "High": "red"
+            }
+            return priority_colors.get(priority, "lightgreen")
 
-        st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
-        st.balloons()
+        def apply_priority_color(val):
+            return f'background-color: {get_priority_color(val)}'
 
-# Display all booked slots in a table format
-st.write("### All Booked Slots")
-if not bookings_df.empty:
-    # Ensure 'Date' column is converted to datetime format
-    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
-    bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
-    bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
+        styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]].style.applymap(apply_priority_color, subset=["Priority"])
 
-    # Apply priority color coding
-    def get_priority_color(priority):
-        priority_colors = {
-            "Low": "lightgreen",
-            "Medium-Low": "lightyellow",
-            "Medium": "lightorange",  # Adjusted to a color name
-            "Medium-High": "orange",
-            "High": "red"
-        }
-        return priority_colors.get(priority, "lightgreen")
+        # Display the styled table
+        st.dataframe(styled_df)
 
-    # Apply the priority color to the "Priority" column for each row
-    def apply_priority_color(val):
-        return f'background-color: {get_priority_color(val)}'
+        # Allow admins to delete bookings
+        booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
+        if booking_to_delete:
+            selected_booking = bookings_df[bookings_df["User"] == booking_to_delete].iloc[0]
+            st.write(f"Selected Booking to Delete: {selected_booking['User']} on {selected_booking['Room']} ({selected_booking['Date']})")
 
-    # Use Styler to apply the background color to the "Priority" column
-    styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]].style.applymap(apply_priority_color, subset=["Priority"])
+            if st.button("Delete Booking"):
+                bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
+                save_bookings(bookings_df)
+                st.success(f"Booking by {selected_booking['User']} has been deleted.")
+    else:
+        st.write("No bookings found in the system.")
 
-    # Display the styled table
-    st.dataframe(styled_df)
+    st.write("#### View and Manage Booking Requests")
+    # Admin can view all booking requests without accepting or declining them
+
+    # Manage Pending Requests (if needed) could be added here if there's a concept of pending requests
+    # Admin can also view specific bookings by filtering by room, user, or date if required
+
+# This is the end of the Streamlit app
+
