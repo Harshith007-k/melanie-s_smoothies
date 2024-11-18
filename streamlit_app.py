@@ -175,3 +175,29 @@ if page == "View Bookings":
     st.write("### All Booked Slots")
     if not bookings_df.empty:
         bookings_df["Date"] = pd.to_datetime(bookings)
+
+# Ensure bookings_df is properly loaded from CSV
+if os.path.exists(BOOKINGS_FILE):
+    bookings_df = pd.read_csv(BOOKINGS_FILE)
+    
+    # Safely convert 'Date' and other columns to datetime format
+    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors='coerce')  # Ensure proper conversion
+    bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors='coerce')
+    bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors='coerce')
+    
+    # Drop rows with invalid dates (NaT means "Not a Time" which could occur from coercion)
+    bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
+else:
+    bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
+
+# Check for missing or invalid columns
+if "Date" not in bookings_df or "Start" not in bookings_df or "End" not in bookings_df:
+    st.error("Essential columns are missing in the bookings data.")
+else:
+    # Proceed with date conversion
+    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors='coerce')
+    bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors='coerce')
+    bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors='coerce')
+    bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
+
+
