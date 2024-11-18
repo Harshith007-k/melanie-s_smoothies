@@ -230,7 +230,7 @@ if page == "Admin":
         # Display the styled table
         st.dataframe(styled_df)
 
-        # Allow admins to delete bookings
+        # Admin to delete bookings
         booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
         if booking_to_delete:
             selected_booking = bookings_df[bookings_df["User"] == booking_to_delete].iloc[0]
@@ -240,14 +240,51 @@ if page == "Admin":
                 bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
                 save_bookings(bookings_df)
                 st.success(f"Booking by {selected_booking['User']} has been deleted.")
+        
+        # Admin to update bookings
+        booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
+        if booking_to_update:
+            selected_booking = bookings_df[bookings_df["User"] == booking_to_update].iloc[0]
+            st.write(f"Selected Booking to Update: {selected_booking['User']} on {selected_booking['Room']} ({selected_booking['Date']})")
+
+            # Create input fields to update booking details
+            with st.form("update_booking_form"):
+                # Get existing details from the selected booking
+                updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
+                updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
+                updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
+                updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
+                updated_description = st.text_area("Update Description", value=selected_booking["Description"])
+                updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
+                updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
+                updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
+
+                # Convert start and end times to datetime
+                updated_start_datetime = datetime.combine(updated_date, updated_start_time)
+                updated_end_datetime = datetime.combine(updated_date, updated_end_time)
+
+                # Check for booking conflicts before allowing the update
+                conflict = False
+                for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
+                    if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]):
+                        conflict = True
+                        st.error("⚠️ This time slot is already booked! Please choose a different time.")
+                        break
+
+                if st.form_submit_button("Update Booking") and not conflict:
+                    # Update the booking details in the DataFrame
+                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
+                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
+                    ]
+                    save_bookings(bookings_df)
+
+                    # Send updated email confirmation
+                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
+
+                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
+                    st.balloons()
+
     else:
         st.write("No bookings found in the system.")
 
-    st.write("#### View and Manage Booking Requests")
-    # Admin can view all booking requests without accepting or declining them
-
-    # Manage Pending Requests (if needed) could be added here if there's a concept of pending requests
-    # Admin can also view specific bookings by filtering by room, user, or date if required
-
-# This is the end of the Streamlit app
 
