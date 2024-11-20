@@ -150,9 +150,15 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
     
     for _, booking in conflicts.iterrows():
         # Check if the new booking overlaps with any existing booking
+        # Overlap condition: new start time before an existing booking's end time 
+        # AND new end time after an existing booking's start time
         if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
             return False
     return True
+
+# Function to save the bookings to the CSV file
+def save_bookings(df):
+    df.to_csv("conference_bookings.csv", index=False)
 
 # Booking Form Section
 if page == "Book a Conference Room":
