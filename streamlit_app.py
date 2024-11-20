@@ -271,6 +271,17 @@ def apply_priority_colors(row):
     return [f"background-color: {color}" for _ in row]
 
 # View Bookings Page
+def priority_to_color(priority):
+    color_map = {
+        "Low": "#4CAF50",
+        "Medium-Low": "#80deea",
+        "Medium": "#ffcc80",
+        "Medium-High": "#ff7043",
+        "High": "#e57373",
+    }
+    return color_map.get(priority, "#FFFFFF")
+
+# View Bookings Page
 if page == "View Bookings":
     st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
 
@@ -291,8 +302,14 @@ if page == "View Bookings":
     st.write(bookings_filtered)
 
     if not bookings_filtered.empty:
-        # Display bookings in AgGrid (without styling)
-        AgGrid(bookings_filtered)
+        # Prepare the grid options to apply row styles
+        grid_options = GridOptionsBuilder.from_dataframe(bookings_filtered)
+        
+        # Apply custom row styles based on priority
+        grid_options.configure_column("Priority", cellStyle=priority_to_color)
+        
+        # Display bookings in AgGrid with custom styling
+        AgGrid(bookings_filtered, gridOptions=grid_options.build())
     else:
         st.warning(f"No bookings available for {selected_date}.")
 # Admin Page: Admin Login for booking management
