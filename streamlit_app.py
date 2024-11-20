@@ -58,10 +58,30 @@ if os.path.exists(BOOKINGS_FILE):
     # Load the CSV safely
     # Replace append with concat
     new_booking_df = pd.DataFrame([new_booking])  # Convert the new booking to DataFrame
-    bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)  # Concatenate
-    save_bookings(bookings_df)  # Save the updated DataFrame
+  # Convert the new booking to DataFrame
+    # If form is valid and submitted, process the booking
+if submit_button and valid_name and valid_email and valid_times and not conflict:
+    new_booking = {
+        "User": user_name,
+        "Email": user_email,
+        "Date": selected_date,
+        "Room": selected_room,
+        "Priority": priority,
+        "Description": description,
+        "Start": start_datetime,
+        "End": end_datetime
+    }
 
+    # Append the new booking to the DataFrame and save it
+    bookings_df = bookings_df.append(new_booking, ignore_index=True)
+    save_bookings(bookings_df)
 
+    # Send a confirmation email to the user and admin
+    send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
+
+    # Success message
+    st.success(f"Booking successfully confirmed for {user_name}!")
+    st.info("You will receive a confirmation email shortly.")
     # Normalize 'Date', 'Start', 'End' columns
     try:
         bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date  # Convert to `datetime.date`
