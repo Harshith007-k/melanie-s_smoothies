@@ -247,8 +247,6 @@ if page == "Book a Conference Room":
                 st.error("⚠️ Please ensure all fields are valid and try again.")
 
 # Admin Page: View all bookings with a Calendar
-# Admin Page: View all bookings with a Calendar
-# Assuming you have the DataFrame `bookings_df` loaded already
 # View Bookings Page
 if page == "View Bookings":
     st.write("### View Bookings by Date")
