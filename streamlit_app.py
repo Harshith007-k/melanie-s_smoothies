@@ -48,7 +48,7 @@ st.markdown("""
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["View Bookings","Book a Conference Room", "Admin"])
+page = st.sidebar.radio("Choose a page:", ["Book a Conference Room","View Bookings", "Admin"])
 
 # Load the bookings from CSV
 BOOKINGS_FILE = "conference_bookings.csv"
@@ -124,9 +124,11 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         st.error(f"Error sending email: {e}")
 
 # Display Bookings Section
+# Display Bookings Section
 if page == "View Bookings":
     st.write("### All Booked Slots")
     if not bookings_df.empty:
+        # Convert 'Date', 'Start', 'End' columns to readable formats
         bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
         bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
         bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
@@ -134,23 +136,37 @@ if page == "View Bookings":
         # Apply priority color coding
         def get_priority_color(priority):
             priority_colors = {
-                "Low": "lightgreen",
-                "Medium-Low": "lightyellow",
-                "Medium": "lightorange",
-                "Medium-High": "orange",
-                "High": "red"
+                "Low": "#e0f7fa",
+                "Medium-Low": "#80deea",
+                "Medium": "#ffcc80",
+                "Medium-High": "#ff7043",
+                "High": "#e57373"
             }
-            return priority_colors.get(priority, "lightgreen")
+            return priority_colors.get(priority, "#ffffff")
 
-        # Apply the priority color to the "Priority" column for each row
-        def apply_priority_color(val):
-            return f'background-color: {get_priority_color(val)}'
+        # Generate HTML table with color-coded rows
+        def generate_html_table(df):
+            html = '<table border="1" style="border-collapse: collapse; width: 100%;">'
+            html += "<thead><tr>"
+            for col in df.columns:
+                html += f'<th style="padding: 8px; background-color: #4CAF50; color: white;">{col}</th>'
+            html += "</tr></thead><tbody>"
+            
+            for _, row in df.iterrows():
+                color = get_priority_color(row["Priority"])
+                html += f'<tr style="background-color: {color};">'
+                for col in df.columns:
+                    html += f'<td style="padding: 8px; text-align: left;">{row[col]}</td>'
+                html += "</tr>"
+            
+            html += "</tbody></table>"
+            return html
 
-        # Use Styler to apply the background color to the "Priority" column
-        styled_df = bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]].style.applymap(apply_priority_color, subset=["Priority"])
-
-        # Display the styled table
-        st.dataframe(styled_df)
+        # Generate and display the HTML table
+        table_html = generate_html_table(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
+        st.markdown(table_html, unsafe_allow_html=True)
+    else:
+        st.write("No bookings found.")
 
 # Booking Form Section
 if page == "Book a Conference Room":
