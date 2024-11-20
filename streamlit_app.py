@@ -194,8 +194,10 @@ if page == "View Bookings":
     
     # Add a calendar widget for selecting the date
     selected_view_date = st.date_input(
-        "Select a date to view bookings", 
-        min_value=datetime.today().date()
+        "Select a date to view bookings",
+        value=datetime.today().date(),  # Default to today's date
+        min_value=None,                # Allow past dates
+        max_value=None                 # No restriction on future dates
     )
     
     # Filter the bookings DataFrame for the selected date
