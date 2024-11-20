@@ -54,16 +54,24 @@ page = st.sidebar.radio("Choose a page:", ["Book a Conference Room","View Bookin
 BOOKINGS_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS_FILE):
-    st.write("Debug: Current Bookings CSV Content")
-    with open(BOOKINGS_FILE, "r") as file:
-        st.text(file.read())
-    
-    # Convert 'Date', 'Start', 'End' columns to datetime safely
-    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors='coerce')
-    bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors='coerce')
-    bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors='coerce')
-    bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
+    # Load the CSV safely
+    bookings_df = pd.read_csv(BOOKINGS_FILE)
+
+    # Normalize 'Date', 'Start', 'End' columns
+    try:
+        bookings_df["Date"] = bookings_df["Date"].apply(
+            lambda x: pd.to_datetime(x, errors="coerce").date()  # Convert to `datetime.date`
+        )
+        bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
+        bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
+
+        # Drop rows with invalid dates/times
+        bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
+    except Exception as e:
+        st.error(f"Error processing the bookings file: {e}")
+        bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 else:
+    # Create an empty DataFrame if the file doesn't exist
     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
 # Save bookings to the CSV file
