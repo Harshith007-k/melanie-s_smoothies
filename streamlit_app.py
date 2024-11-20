@@ -1,11 +1,11 @@
+import os
+import re
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta, time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import os
-import re
 
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "password123"
@@ -56,7 +56,6 @@ BOOKINGS_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS_FILE):
     # Load the CSV safely
-    # Replace append with concat
     bookings_df = pd.read_csv(BOOKINGS_FILE)
     try:
         bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date  # Convert to `datetime.date`
@@ -147,8 +146,6 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
     return True
 
 # Booking Form Section
-#page = "Book a Conference Room"  # Assuming you have a mechanism to define the current page
-
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
@@ -191,7 +188,8 @@ if page == "Book a Conference Room":
         elif not is_valid_email(user_email):
             st.error("⚠️ Please enter a valid email address.")
             valid_email = False
-                    # Check if the timeslot is available
+                    
+        # Check if the timeslot is available
         if not is_time_slot_available(bookings_df, selected_room, selected_date, start_datetime, end_datetime):
             st.error("⚠️ The selected time slot is already booked for this room.")
             conflict = True
@@ -212,52 +210,51 @@ if page == "Book a Conference Room":
                 "End": end_datetime
             }
 
-            # Append the new booking to the DataFrame and save it
-            bookings_df = bookings_df.append(new_booking, ignore_index=True)
+            # Use pd.concat
+                   # Create a DataFrame for the new booking
+            new_booking_df = pd.DataFrame([new_booking])
+
+            # Concatenate the new booking with the existing bookings DataFrame
+            bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)
+
+            # Save the updated bookings DataFrame to the CSV
             save_bookings(bookings_df)
 
-            # Send a confirmation email to the user and admin
+            # Show a success message to the user
+            st.success(f"Your room has been successfully booked! A confirmation email has been sent to {user_email}.")
+            
+            # Send email confirmation to user and admin
             send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
 
-            # Success message
-            st.success(f"Booking successfully confirmed for {user_name}!")
-            st.info("You will receive a confirmation email shortly.")
+        # If form is not valid, show an error message
+        elif submit_button and not (valid_name and valid_email and valid_times):
+            st.error("⚠️ Please ensure all fields are valid and try again.")
 
-# View Bookings Section
-elif page == "View Bookings":
-    st.write('<h1 class="title">View Bookings</h1>', unsafe_allow_html=True)
-    
-    # Display all bookings
-    if bookings_df.empty:
-        st.warning("No bookings yet.")
+# Admin Page: View all bookings
+if page == "View Bookings":
+    st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
+
+    if not bookings_df.empty:
+        bookings_df_sorted = bookings_df.sort_values(by="Date")
+        
+        # Display the bookings table
+        st.dataframe(bookings_df_sorted)
+
     else:
-        st.dataframe(bookings_df)
+        st.warning("No bookings available yet.")
 
-# Admin Section
-elif page == "Admin":
+# Admin Page: Admin Login for booking management
+if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
-    
-    # Admin login form
-    with st.form("admin_login"):
-        username = st.text_input("Admin Username", placeholder="Enter your admin username")
-        password = st.text_input("Admin Password", type="password", placeholder="Enter your password")
-        login_button = st.form_submit_button("Login")
 
-    # Check if admin credentials are correct
-    if login_button:
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-            st.success("Login successful!")
-            st.write('<h2 class="title">Manage Bookings</h2>', unsafe_allow_html=True)
+            st.success("Logged in successfully!")
 
-            # Show the list of bookings for the admin
-            st.dataframe(bookings_df)
-
-            # Option to delete a booking
-            booking_to_delete = st.selectbox("Select booking to delete", bookings_df.index)
-            if st.button("Delete Booking"):
-                bookings_df = bookings_df.drop(booking_to_delete).reset_index(drop=True)
-                save_bookings(bookings_df)
-                st.success("Booking deleted successfully.")
+            # Optionally, allow the admin to view, delete, or edit bookings here.
+            st.write("Admin functionalities can be added here.")
         else:
-            st.error("Incorrect username or password.")
-
+            st.error("Invalid credentials. Please try again.")
