@@ -185,31 +185,34 @@ if page == "Book a Conference Room":
             st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
             st.balloons()
 
+# Function to map priority levels to colors
+def get_priority_color(priority):
+    priority_colors = {
+        "Low": "background-color: #98FB98",  # Light green
+        "Medium-Low": "background-color: #FFFF99",  # Light yellow
+        "Medium": "background-color: #FFCC66",  # Light orange
+        "Medium-High": "background-color: #FF9966",  # Darker orange
+        "High": "background-color: #FF6666",  # Light red
+    }
+    return priority_colors.get(priority, "")
+
+# Apply color coding to the priority column
+def style_priority(val):
+    return get_priority_color(val)
+
 if page == "View Bookings":
     st.write("### All Booked Slots")
-
-    # Ensure CSV loading and handle inconsistencies
-    try:
-        bookings_df["Date"] = bookings_df["Date"].apply(
-            lambda x: pd.to_datetime(x, errors="coerce")
-        )
-        bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
-        bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
-        bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
-    except Exception as e:
-        st.error(f"Error loading bookings: {e}")
-        bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
-
     if not bookings_df.empty:
-        # Format the dates for display
-        display_df = bookings_df.copy()
-        display_df["Date"] = display_df["Date"].dt.strftime("%A, %B %d, %Y")
-        display_df["Start"] = display_df["Start"].dt.strftime("%H:%M")
-        display_df["End"] = display_df["End"].dt.strftime("%H:%M")
+        # Convert datetime objects to readable strings for display
+        bookings_df["Date"] = bookings_df["Date"].apply(lambda x: x.strftime('%A, %B %d, %Y'))
+        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
+        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
 
-        # Display the DataFrame
-        st.write("### Current Bookings")
-        st.table(display_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
+        # Style the DataFrame to add color coding for "Priority"
+        styled_df = bookings_df.style.applymap(style_priority, subset=["Priority"])
+
+        # Display the styled DataFrame
+        st.dataframe(styled_df)
     else:
         st.write("No bookings found.")
 
