@@ -134,12 +134,20 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
     except Exception as e:
         st.error(f"Error sending email: {e}")
 
-import re
-
 # Function to validate email format using regex
 def is_valid_email(email):
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return re.match(email_regex, email) is not None
+
+# Function to check if the time slot overlaps with any existing bookings
+def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
+    # Check for conflicting bookings for the same room on the selected date
+    conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
+    for _, booking in conflicts.iterrows():
+        # If there's an overlap with an existing booking, return False
+        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
+            return False
+    return True
 
 # Booking Form Section
 if page == "Book a Conference Room":
@@ -167,32 +175,32 @@ if page == "Book a Conference Room":
         end_datetime = datetime.combine(selected_date, end_time)
         
         # Validation checks
+        valid_name = True
+        valid_email = True
+        valid_times = True
+        conflict = False
+
+        # Check if name is empty
         if not user_name:
             st.error("⚠️ Name cannot be empty.")
             valid_name = False
-        else:
-            valid_name = True
 
+        # Check if email is valid
         if not is_valid_email(user_email):
             st.error("⚠️ Please enter a valid email address.")
             valid_email = False
-        else:
-            valid_email = True
-        
+
+        # Check if start time is before end time
         if start_datetime >= end_datetime:
             st.error("⚠️ Start time must be earlier than end time.")
             valid_times = False
-        else:
-            valid_times = True
 
-        conflict = False
-        # Check for conflicts in booking times
-        for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == selected_room)].iterrows():
-            if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
-                conflict = True
-                st.error("⚠️ This time slot is already booked! Please choose a different time.")
-                break
+        # Check if the selected time slot conflicts with existing bookings
+        if not is_time_slot_available(bookings_df, selected_room, selected_date, start_datetime, end_datetime):
+            st.error("⚠️ This time slot is already booked! Please choose a different time.")
+            conflict = True
         
+        # If all fields are valid, proceed with the booking
         if st.form_submit_button("Confirm Booking") and valid_name and valid_email and valid_times and not conflict:
             new_booking = pd.DataFrame({
                 "User": [user_name],
