@@ -266,7 +266,7 @@ if page == "View Bookings":
     )
     
     # Filter the bookings DataFrame for the selected date
-    filtered_booking_df = bookings_df[bookings_df["User"] == booking_to_update]
+    filtered_booking_df = bookings_df[bookings_df["User"] == booking_to_update
     ]
     
     if not filtered_bookings.empty:
