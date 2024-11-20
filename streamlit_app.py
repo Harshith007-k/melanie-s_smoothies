@@ -277,13 +277,14 @@ if page == "View Bookings":
     # Select a date
     selected_date = st.date_input("Select a Date to View Bookings", min_value=datetime.today().date())
 
-    # Debug: Show selected date and booking data
+    # Debug: Show selected date
     st.write(f"Selected Date: {selected_date}")
-    st.write("All Bookings:")
-    st.write(bookings_df)
+
+    # Ensure 'Date' column is in datetime format (if not already)
+    bookings_df['Date'] = pd.to_datetime(bookings_df['Date']).dt.date
 
     # Filter bookings by selected date
-    bookings_filtered = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_date)]
+    bookings_filtered = bookings_df[bookings_df['Date'] == selected_date]
 
     # Debug: Show filtered bookings
     st.write(f"Filtered Bookings for {selected_date}:")
