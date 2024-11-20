@@ -300,6 +300,7 @@ if page == "View Bookings":
 
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
+# Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
 
@@ -322,13 +323,21 @@ if page == "Admin":
                     # Clear all bookings, even those without a username
                     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
-                    # Save the empty DataFrame to the CSV
+                    # Save the empty DataFrame to the CSV file
                     save_bookings(bookings_df)
 
-                    st.success("All bookings have been cleared successfully.")
+                    # Reload the DataFrame from the CSV to confirm it's cleared
+                    bookings_df = pd.read_csv(BOOKINGS_FILE)
+
+                    # Check if the DataFrame is empty
+                    if bookings_df.empty:
+                        st.success("All bookings have been cleared successfully.")
+                    else:
+                        st.error("There was an issue clearing the bookings. Please try again.")
                 else:
                     st.warning("Clearing bookings has been canceled.")
         else:
             st.error("Invalid credentials. Please try again.")
+
 
 
