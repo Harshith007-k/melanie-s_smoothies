@@ -253,46 +253,37 @@ if page == "Book a Conference Room":
 
 # Admin Page: View all bookings with a Calendar
 # Admin Page: View all bookings with a Calendar
+# Assuming you have the DataFrame `bookings_df` loaded already
+
+# Define a function to apply color based on priority
+def priority_to_color(priority):
+    color_map = {
+        "Low": "#4CAF50",         # Green for Low priority
+        "Medium-Low": "#80deea",  # Light blue for Medium-Low
+        "Medium": "#ffcc80",      # Orange for Medium
+        "Medium-High": "#ff7043", # Darker orange for Medium-High
+        "High": "#e57373"         # Red for High
+    }
+    return color_map.get(priority, "#FFFFFF")  # Default to white if priority is unknown
+
+# Admin Page: View all bookings
 if page == "View Bookings":
     st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
 
     if not bookings_df.empty:
-        # Convert the "Date" column to datetime if it's not already
-        if not pd.api.types.is_datetime64_any_dtype(bookings_df["Date"]):
-            bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+        bookings_df_sorted = bookings_df.sort_values(by="Date")
 
-        # Create a set of dates with bookings
-        booked_dates = set(bookings_df["Date"].dt.date)
+        # Apply color formatting based on priority
+        bookings_df_sorted['Color'] = bookings_df_sorted['Priority'].apply(priority_to_color)
 
-        # Display a calendar to choose the date
-        selected_date_for_viewing = st.date_input("Select Date to View Bookings", min_value=datetime.today().date())
+        # Display bookings in a table with color coding for priority
+        st.dataframe(bookings_df_sorted.style.apply(
+            lambda x: ['background-color: {}'.format(c) for c in x.Color], axis=1
+        ).hide_columns(['Color']))  # Hide the 'Color' column used for styling
 
-        # Show bookings for the selected date
-        bookings_on_selected_date = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_date_for_viewing)].sort_values(by="Start")
-        
-        if not bookings_on_selected_date.empty:
-            st.write(f"Bookings for {selected_date_for_viewing.strftime('%A, %B %d, %Y')}:")
-            st.dataframe(bookings_on_selected_date[['User', 'Room', 'Start', 'End', 'Priority']])
-        else:
-            st.warning("No bookings for the selected date.")
-        
-        # Display a calendar that highlights booked dates
-        st.write("Available dates will be shown on the calendar, with booked dates highlighted.")
-        # Highlight the booked dates on the calendar
-        st.markdown("""
-        <style>
-        .stCalendar .stCalendar__selected {
-            background-color: #003366;
-            color: white;
-        }
-        .stCalendar .stCalendar__date--booked {
-            background-color: #f44336;
-            color: white;
-        }
-        </style>
-        """, unsafe_allow_html=True)
     else:
         st.warning("No bookings available yet.")
+
 
 # Admin Page: Admin Login for booking management
 if page == "Admin":
