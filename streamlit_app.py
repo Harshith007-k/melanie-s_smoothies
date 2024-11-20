@@ -379,8 +379,7 @@ if page == "Admin":
                 st.success("Logged out successfully.")
         else:
             st.write("No bookings found in the system.")
-
-                    st.warning("No bookings remain after deletion.")
+            st.warning("No bookings remain after deletion.")
                 else:
                     st.write("Updated Bookings:")
                     bookings_df_updated_sorted = bookings_df_updated.sort_values(by="Date")
