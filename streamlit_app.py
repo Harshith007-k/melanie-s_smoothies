@@ -56,7 +56,7 @@ BOOKINGS_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS_FILE):
     # Load the CSV safely
-    bookings_df = pd.read_csv(BOOKINGS_FILE)
+    bookings_df = bookings_df.append(new_booking, ignore_index=True)
 
     # Normalize 'Date', 'Start', 'End' columns
     try:
