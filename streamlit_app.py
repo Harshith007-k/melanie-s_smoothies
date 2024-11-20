@@ -249,52 +249,55 @@ if page == "Book a Conference Room":
 # Admin Page: View all bookings with a Calendar
 # Admin Page: View all bookings with a Calendar
 # Assuming you have the DataFrame `bookings_df` loaded already
-# Function to apply background colors based on Priority
-def apply_priority_colors(row):
-    color = priority_to_color(row["Priority"])
-    return [f"background-color: {color}" for _ in row]
-
-def priority_to_color(priority):
-    color_map = {
-        "Low": "#4CAF50",
-        "Medium-Low": "#80deea",
-        "Medium": "#ffcc80",
-        "Medium-High": "#ff7043",
-        "High": "#e57373",
-    }
-    return color_map.get(priority, "#FFFFFF")
-
 # View Bookings Page
 if page == "View Bookings":
-    st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
+    st.write("### View Bookings by Date")
+    
+    # Ensure the Date column is in datetime format
+    if not pd.api.types.is_datetime64_any_dtype(bookings_df["Date"]):
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+    
+    # Add a calendar widget for selecting the date
+    selected_view_date = st.date_input(
+        "Select a date to view bookings",
+        value=datetime.today().date(),  # Default to today's date
+        min_value=None,                # Allow past dates
+        max_value=None                 # No restriction on future dates
+    )
+    
+    # Filter the bookings DataFrame for the selected date
+    filtered_bookings = bookings_df[
+        bookings_df["Date"].dt.date == selected_view_date
+    ]
+    
+    if not filtered_bookings.empty:
+        # Convert datetime objects to readable strings for display
+        filtered_bookings["Date"] = filtered_bookings["Date"].apply(lambda x: x.strftime('%A, %B %d, %Y'))
+        filtered_bookings["Start"] = filtered_bookings["Start"].dt.strftime('%H:%M')
+        filtered_bookings["End"] = filtered_bookings["End"].dt.strftime('%H:%M')
 
-    # Select a date
-    selected_date = st.date_input("Select a Date to View Bookings", min_value=datetime.today().date())
+        # Priority color mapping
+        def get_priority_color(priority):
+            priority_colors = {
+                "Low": "background-color: #98FB98",  # Light green
+                "Medium-Low": "background-color: #FFFF99",  # Light yellow
+                "Medium": "background-color: #FFCC66",  # Light orange
+                "Medium-High": "background-color: #FF9966",  # Darker orange
+                "High": "background-color: #FF6666",  # Light red
+            }
+            return priority_colors.get(priority, "")
 
-    # Debug: Show selected date
-    st.write(f"Selected Date: {selected_date}")
+        def style_priority(val):
+            return get_priority_color(val)
 
-    # Ensure 'Date' column is in datetime format (if not already)
-    bookings_df['Date'] = pd.to_datetime(bookings_df['Date']).dt.date
-
-    # Filter bookings by selected date
-    bookings_filtered = bookings_df[bookings_df['Date'] == selected_date]
-
-    # Debug: Show filtered bookings
-    st.write(f"Filtered Bookings for {selected_date}:")
-    st.write(bookings_filtered)
-
-    if not bookings_filtered.empty:
-        # Prepare the grid options to apply row styles
-        grid_options = GridOptionsBuilder.from_dataframe(bookings_filtered)
+        # Apply color coding to the priority column
+        styled_df = filtered_bookings.style.applymap(style_priority, subset=["Priority"])
         
-        # Apply custom row styles based on priority
-        grid_options.configure_column("Priority", cellStyle=priority_to_color)
-        
-        # Display bookings in AgGrid with custom styling
-        AgGrid(bookings_filtered, gridOptions=grid_options.build())
+        # Display the styled DataFrame
+        st.dataframe(styled_df)
     else:
-        st.warning(f"No bookings available for {selected_date}.")
+        st.write(f"No bookings found for {selected_view_date.strftime('%A, %B %d, %Y')}.")
+
 # Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
