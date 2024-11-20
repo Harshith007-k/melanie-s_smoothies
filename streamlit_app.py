@@ -144,11 +144,6 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
 # Booking Form Section
 # Booking Form Section
 # Function to check if the time slot overlaps with any existing bookings
-import pandas as pd
-from datetime import datetime, timedelta, time
-import streamlit as st
-import re
-
 # Function to check if the time slot overlaps with any existing bookings
 def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
     # Filter bookings that match the room and date
@@ -255,21 +250,7 @@ if page == "Book a Conference Room":
 # Admin Page: View all bookings with a Calendar
 # Assuming you have the DataFrame `bookings_df` loaded already
 
-# Define a function to apply color based on priority
-def priority_to_color(priority):
-    color_map = {
-        "Low": "#4CAF50",         # Green for Low priority
-        "Medium-Low": "#80deea",  # Light blue for Medium-Low
-        "Medium": "#ffcc80",      # Orange for Medium
-        "Medium-High": "#ff7043", # Darker orange for Medium-High
-        "High": "#e57373"         # Red for High
-    }
-    return color_map.get(priority, "#FFFFFF")  # Default to white if priority is unknown
-
 # Admin Page: View all bookings
-import pandas as pd
-import streamlit as st
-
 # Function to map priority to a background color
 def priority_to_color(priority):
     color_map = {
