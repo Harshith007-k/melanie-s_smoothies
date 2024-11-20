@@ -152,7 +152,22 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
 def save_bookings(bookings_df):
     bookings_df.to_csv("bookings.csv", index=False)
 
+# Function to send confirmation email (Placeholder for actual email logic)
+def send_email(email, user_name, room, date, start_time, end_time):
+    pass  # You can add email sending functionality here.
+
+# Initialize or load the bookings DataFrame
+try:
+    bookings_df = pd.read_csv("bookings.csv")
+    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+    bookings_df["Start"] = pd.to_datetime(bookings_df["Start"])
+    bookings_df["End"] = pd.to_datetime(bookings_df["End"])
+except:
+    bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
+
 # Booking Form Section
+page = "Book a Conference Room"  # Assuming you have a mechanism to define the current page
+
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
