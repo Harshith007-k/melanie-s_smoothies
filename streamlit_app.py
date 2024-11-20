@@ -5,6 +5,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
+import re
 
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "password123"
@@ -133,9 +134,11 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
     except Exception as e:
         st.error(f"Error sending email: {e}")
 
-# Display Bookings Section
-# Display Bookings Section
-# Display Bookings Section# Booking Form Section
+def is_valid_email(email):
+    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    return re.match(email_regex, email) is not None
+
+# Booking Form Section
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
@@ -159,14 +162,29 @@ if page == "Book a Conference Room":
         
         start_datetime = datetime.combine(selected_date, start_time)
         end_datetime = datetime.combine(selected_date, end_time)
+        
+        # Validation checks
+        if not is_valid_email(user_email):
+            st.error("⚠️ Please enter a valid email address.")
+            valid_email = False
+        else:
+            valid_email = True
+        
+        if start_datetime >= end_datetime:
+            st.error("⚠️ Start time must be earlier than end time.")
+            valid_times = False
+        else:
+            valid_times = True
+
         conflict = False
+        # Check for conflicts in booking times
         for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == selected_room)].iterrows():
             if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
                 conflict = True
                 st.error("⚠️ This time slot is already booked! Please choose a different time.")
                 break
         
-        if st.form_submit_button("Confirm Booking") and not conflict:
+        if st.form_submit_button("Confirm Booking") and valid_email and valid_times and not conflict:
             new_booking = pd.DataFrame({
                 "User": [user_name],
                 "Email": [user_email],
