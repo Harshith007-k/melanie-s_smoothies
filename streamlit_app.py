@@ -188,6 +188,10 @@ if page == "Book a Conference Room":
 if page == "View Bookings":
     st.write("### View Bookings by Date")
     
+    # Ensure the Date column is in datetime format
+    if not pd.api.types.is_datetime64_any_dtype(bookings_df["Date"]):
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+    
     # Add a calendar widget for selecting the date
     selected_view_date = st.date_input(
         "Select a date to view bookings", 
@@ -226,8 +230,6 @@ if page == "View Bookings":
         st.dataframe(styled_df)
     else:
         st.write(f"No bookings found for {selected_view_date.strftime('%A, %B %d, %Y')}.")
-
-
 # Admin Section
 if page == "Admin":
     # Admin Authentication
