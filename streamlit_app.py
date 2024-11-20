@@ -248,3 +248,147 @@ if page == "Admin":
             st.write("Admin functionalities can be added here.")
         else:
             st.error("Invalid credentials. Please try again.")
+                        # Use pd.concat to append the new booking to the existing DataFrame
+            new_booking_df = pd.DataFrame([new_booking])
+
+            # Concatenate the new booking with the existing bookings DataFrame
+            bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)
+
+            # Save the updated bookings DataFrame to the CSV
+            save_bookings(bookings_df)
+
+            # Show a success message to the user
+            st.success(f"Your room has been successfully booked! A confirmation email has been sent to {user_email}.")
+            
+            # Send email confirmation to user and admin
+            send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
+
+        # If form is not valid, show an error message
+        elif submit_button and not (valid_name and valid_email and valid_times):
+            st.error("⚠️ Please ensure all fields are valid and try again.")
+
+# Admin Page: View all bookings with a Calendar
+if page == "View Bookings":
+    st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
+
+    if not bookings_df.empty:
+        # Create a set of dates with bookings
+        booked_dates = set(bookings_df["Date"].dt.date)
+
+        # Display a calendar to choose the date
+        selected_date_for_viewing = st.date_input("Select Date to View Bookings", min_value=datetime.today().date())
+
+        # Show bookings for the selected date
+        bookings_on_selected_date = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_date_for_viewing)].sort_values(by="Start")
+        
+        if not bookings_on_selected_date.empty:
+            st.write(f"Bookings for {selected_date_for_viewing.strftime('%A, %B %d, %Y')}:")
+            st.dataframe(bookings_on_selected_date[['User', 'Room', 'Start', 'End', 'Priority']])
+        else:
+            st.warning("No bookings for the selected date.")
+        
+        # Display a calendar that highlights booked dates
+        st.write("Available dates will be shown on the calendar, with booked dates highlighted.")
+        # Highlight the booked dates on the calendar
+        st.markdown("""
+        <style>
+        .stCalendar .stCalendar__selected {
+            background-color: #003366;
+            color: white;
+        }
+        .stCalendar .stCalendar__date--booked {
+            background-color: #f44336;
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    else:
+        st.warning("No bookings available yet.")
+
+# Admin Page: Admin Login for booking management
+if page == "Admin":
+    st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
+
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            st.success("Logged in successfully!")
+
+            # Optionally, allow the admin to view, delete, or edit bookings here.
+            st.write("Admin functionalities can be added here.")
+        else:
+            st.error("Invalid credentials. Please try again.")
+            # Use pd.concat to append the new booking to the existing DataFrame
+            new_booking_df = pd.DataFrame([new_booking])
+
+            # Concatenate the new booking with the existing bookings DataFrame
+            bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)
+
+            # Save the updated bookings DataFrame to the CSV
+            save_bookings(bookings_df)
+
+            # Show a success message to the user
+            st.success(f"Your room has been successfully booked! A confirmation email has been sent to {user_email}.")
+            
+            # Send email confirmation to user and admin
+            send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
+
+        # If form is not valid, show an error message
+        elif submit_button and not (valid_name and valid_email and valid_times):
+            st.error("⚠️ Please ensure all fields are valid and try again.")
+
+# Admin Page: View all bookings with a Calendar
+if page == "View Bookings":
+    st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
+
+    if not bookings_df.empty:
+        # Create a set of dates with bookings
+        booked_dates = set(bookings_df["Date"].dt.date)
+
+        # Display a calendar to choose the date
+        selected_date_for_viewing = st.date_input("Select Date to View Bookings", min_value=datetime.today().date())
+
+        # Show bookings for the selected date
+        bookings_on_selected_date = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_date_for_viewing)].sort_values(by="Start")
+        
+        if not bookings_on_selected_date.empty:
+            st.write(f"Bookings for {selected_date_for_viewing.strftime('%A, %B %d, %Y')}:")
+            st.dataframe(bookings_on_selected_date[['User', 'Room', 'Start', 'End', 'Priority']])
+        else:
+            st.warning("No bookings for the selected date.")
+        
+        # Display a calendar that highlights booked dates
+        st.write("Available dates will be shown on the calendar, with booked dates highlighted.")
+        # Highlight the booked dates on the calendar
+        st.markdown("""
+        <style>
+        .stCalendar .stCalendar__selected {
+            background-color: #003366;
+            color: white;
+        }
+        .stCalendar .stCalendar__date--booked {
+            background-color: #f44336;
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    else:
+        st.warning("No bookings available yet.")
+
+# Admin Page: Admin Login for booking management
+if page == "Admin":
+    st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
+
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            st.success("Logged in successfully!")
+
+            # Optionally, allow the admin to view, delete, or edit bookings here.
+            st.write("Admin functionalities can be added here.")
+        else:
+            st.error("Invalid credentials. Please try again.")
