@@ -54,7 +54,9 @@ page = st.sidebar.radio("Choose a page:", ["Book a Conference Room","View Bookin
 BOOKINGS_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS_FILE):
-    bookings_df = pd.read_csv(BOOKINGS_FILE)
+    st.write("Debug: Current Bookings CSV Content")
+    with open(BOOKINGS_FILE, "r") as file:
+        st.text(file.read())
     
     # Convert 'Date', 'Start', 'End' columns to datetime safely
     bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors='coerce')
