@@ -275,7 +275,7 @@ if page == "View Bookings":
         filtered_bookings["Start"] = filtered_bookings["Start"].dt.strftime('%H:%M')
         filtered_bookings["End"] = filtered_bookings["End"].dt.strftime('%H:%M')
         selected_booking = filtered_booking_df.iloc[0]
-    else:
+    elif:
         st.error(f"No booking found for user: {booking_to_update}")   
 
         # Priority color mapping
