@@ -250,31 +250,48 @@ if page == "Book a Conference Room":
 # Admin Page: View all bookings with a Calendar
 # Assuming you have the DataFrame `bookings_df` loaded already
 
-# Admin Page: View all bookings
-# Function to map priority to a background color
+import pandas as pd
+import streamlit as st
+
+# Sample DataFrame for testing
+data = {
+    "User": ["Alice", "Bob", "Charlie"],
+    "Email": ["alice@example.com", "bob@example.com", "charlie@example.com"],
+    "Date": ["2024-11-20", "2024-11-21", "2024-11-22"],
+    "Room": ["Big Conference room", "Discussion_room_1", "Discussion_room_2"],
+    "Priority": ["Low", "Medium", "High"],
+    "Start": ["11:00", "12:00", "13:00"],
+    "End": ["12:00", "13:00", "14:00"],
+}
+bookings_df = pd.DataFrame(data)
+
+# Function to map priority to background color
 def priority_to_color(priority):
     color_map = {
         "Low": "#4CAF50",         # Green
         "Medium-Low": "#80deea",  # Light blue
         "Medium": "#ffcc80",      # Orange
         "Medium-High": "#ff7043", # Darker orange
-        "High": "#e57373"         # Red
+        "High": "#e57373",        # Red
     }
     return color_map.get(priority, "#FFFFFF")  # Default to white
 
-# Function to style DataFrame for HTML rendering
-def style_dataframe(df):
-    styled_df = df.style.apply(
-        lambda x: [
-            f"background-color: {priority_to_color(priority)}"
-            for priority in x["Priority"]
-        ],
-        subset=["Priority"],
-        axis=1
-    ).set_table_styles([
-        {"selector": "th", "props": [("background-color", "#f4f4f4")]}
-    ])
-    return styled_df
+# Function to apply background colors based on Priority
+def apply_priority_colors(row):
+    color = priority_to_color(row["Priority"])
+    return [f"background-color: {color}" for _ in row]
+
+# Streamlit application logic
+st.title("Conference Room Bookings")
+
+if not bookings_df.empty:
+    # Apply styling to the DataFrame
+    styled_df = bookings_df.style.apply(apply_priority_colors, axis=1)
+    
+    # Render the styled DataFrame in Streamlit
+    st.write(styled_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+else:
+    st.warning("No bookings available.")
 
 # Admin Page: View bookings
 if page == "View Bookings":
