@@ -148,7 +148,7 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
     return True
 
 # Booking Form Section
-page = "Book a Conference Room"  # Assuming you have a mechanism to define the current page
+#page = "Book a Conference Room"  # Assuming you have a mechanism to define the current page
 
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
