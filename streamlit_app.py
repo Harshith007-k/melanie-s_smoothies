@@ -53,10 +53,10 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page:", ["Book a Conference Room", "View Bookings", "Admin"])
 
 # Load the bookings from CSV
-BOOKINGS_FILE = "conference_bookings.csv"
+BOOKINGS1_FILE = "conference_bookings.csv"
 
-if os.path.exists(BOOKINGS_FILE):
-    bookings_df = pd.read_csv(BOOKINGS_FILE)
+if os.path.exists(BOOKINGS1_FILE):
+    bookings_df = pd.read_csv(BOOKINGS1_FILE)
     try:
         bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
         bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
@@ -70,7 +70,7 @@ else:
 
 # Save bookings to the CSV file
 def save_bookings(df):
-    df.to_csv(BOOKINGS_FILE, index=False)
+    df.to_csv(BOOKINGS1_FILE, index=False)
 
 # Email-sending function
 def send_email(user_email, user_name, room, date, start_time, end_time):
