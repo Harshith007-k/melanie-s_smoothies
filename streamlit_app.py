@@ -125,48 +125,22 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
 
 # Display Bookings Section
 # Display Bookings Section
+# Display Bookings Section
 if page == "View Bookings":
     st.write("### All Booked Slots")
     if not bookings_df.empty:
-        # Convert 'Date', 'Start', 'End' columns to readable formats
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"]).dt.strftime('%A, %B %d, %Y')
-        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
-        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
+        # Convert 'Date', 'Start', 'End' columns to readable formats for display
+        display_df = bookings_df.copy()
+        display_df["Date"] = pd.to_datetime(display_df["Date"]).dt.strftime('%A, %B %d, %Y')
+        display_df["Start"] = pd.to_datetime(display_df["Start"]).dt.strftime('%H:%M')
+        display_df["End"] = pd.to_datetime(display_df["End"]).dt.strftime('%H:%M')
 
-        # Apply priority color coding
-        def get_priority_color(priority):
-            priority_colors = {
-                "Low": "#e0f7fa",
-                "Medium-Low": "#80deea",
-                "Medium": "#ffcc80",
-                "Medium-High": "#ff7043",
-                "High": "#e57373"
-            }
-            return priority_colors.get(priority, "#ffffff")
-
-        # Generate HTML table with color-coded rows
-        def generate_html_table(df):
-            html = '<table border="1" style="border-collapse: collapse; width: 100%;">'
-            html += "<thead><tr>"
-            for col in df.columns:
-                html += f'<th style="padding: 8px; background-color: #4CAF50; color: white;">{col}</th>'
-            html += "</tr></thead><tbody>"
-            
-            for _, row in df.iterrows():
-                color = get_priority_color(row["Priority"])
-                html += f'<tr style="background-color: {color};">'
-                for col in df.columns:
-                    html += f'<td style="padding: 8px; text-align: left;">{row[col]}</td>'
-                html += "</tr>"
-            
-            html += "</tbody></table>"
-            return html
-
-        # Generate and display the HTML table
-        table_html = generate_html_table(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
-        st.markdown(table_html, unsafe_allow_html=True)
+        # Select relevant columns to display
+        display_columns = ["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]
+        st.table(display_df[display_columns])
     else:
         st.write("No bookings found.")
+
 
 # Booking Form Section
 if page == "Book a Conference Room":
