@@ -243,7 +243,7 @@ if page == "Book a Conference Room":
             st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
             st.balloons()
 if page == "View Bookings":
-    st.write("### View Bookings by Date")
+st.write("### View Bookings by Date")
     
     # Ensure the Date column is in datetime format
     if not pd.api.types.is_datetime64_any_dtype(bookings_df["Date"]):
