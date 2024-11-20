@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime, timedelta, time
+from datetime import datetime, time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -52,27 +52,24 @@ st.markdown("""
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page:", ["Book a Conference Room", "View Bookings", "Admin"])
 
-# Load the bookings from CSV
+# File to save bookings
 BOOKINGS_FILE = "conference_bookings.csv"
 
+# Load existing bookings or initialize an empty DataFrame
 if os.path.exists(BOOKINGS_FILE):
     bookings_df = pd.read_csv(BOOKINGS_FILE)
-    try:
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
-        bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
-        bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
-        bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
-    except Exception as e:
-        st.error(f"Error processing the bookings file: {e}")
-        bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
+    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
+    bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
+    bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
+    bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
 else:
     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
-# Save bookings to the CSV file
+# Save bookings
 def save_bookings(df):
     df.to_csv(BOOKINGS_FILE, index=False)
 
-# Email-sending function
+# Send email
 def send_email(user_email, user_name, room, date, start_time, end_time):
     sender_email = "19bd1a1021@gmail.com"
     sender_password = "agvrujrctxxwcggk"
@@ -110,216 +107,104 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
     """
     
     try:
-        # Prepare the email
         msg = MIMEMultipart()
         msg["From"] = sender_email
         msg["To"] = f"{user_email}, kteja@phoenixteam.com"
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "html"))
 
-        # Connect to SMTP server and send the email
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
             server.login(sender_email, sender_password)
             server.send_message(msg)
-        
-        st.success(f"Email confirmation sent to {user_email} and admin.")
+
+        st.success(f"Confirmation email sent to {user_email} and admin.")
     except Exception as e:
         st.error(f"Error sending email: {e}")
 
-# Function to validate email format using regex
+# Validate email
 def is_valid_email(email):
-    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    return re.match(email_regex, email) is not None
+    return re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email) is not None
 
-# Function to check if the time slot overlaps with any existing bookings
-def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
-    conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
-    for _, booking in conflicts.iterrows():
-        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
-            return False
-    return True
-
-# Booking Form Section
-# Booking Form Section
-# Booking Form Section
-# Function to check if the time slot overlaps with any existing bookings
-# Function to check if the time slot overlaps with any existing bookings
-def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
-    # Filter bookings that match the room and date
+# Check time slot availability
+def is_time_slot_available(room, selected_date, start_datetime, end_datetime):
     conflicts = bookings_df[(bookings_df["Date"] == selected_date) & (bookings_df["Room"] == room)]
-    
-    # Check if the new booking overlaps with any existing booking
     for _, booking in conflicts.iterrows():
-        # Check if the new booking overlaps with an existing booking
-        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
+        if start_datetime < booking["End"] and end_datetime > booking["Start"]:
             return False
     return True
 
-# Function to save the bookings to the CSV file
-def save_bookings(df):
-    df.to_csv("conference_bookings.csv", index=False)
+# Priority to color mapping
+def priority_to_color(priority):
+    return {
+        "Low": "#e0f7fa",
+        "Medium-Low": "#80deea",
+        "Medium": "#ffcc80",
+        "Medium-High": "#ff7043",
+        "High": "#e57373",
+    }.get(priority, "#FFFFFF")
 
-# Booking Form Section
+# Style DataFrame rows
+def style_dataframe(df):
+    def apply_colors(row):
+        color = priority_to_color(row["Priority"])
+        return [f"background-color: {color}" for _ in row]
+    return df.style.apply(apply_colors, axis=1)
+
+# Booking Form
 if page == "Book a Conference Room":
-    st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
-    st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
-    
+    st.title("Book a Conference Room")
     with st.form("booking_form"):
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            user_name = st.text_input("Your Name", placeholder="Enter your full name")
-            user_email = st.text_input("Your Email", placeholder="Enter your email")
-        with col2:
-            selected_room = st.selectbox("Choose Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"])
-        with col3:
-            priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
-
-        description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
+        user_name = st.text_input("Your Name")
+        user_email = st.text_input("Your Email")
+        selected_room = st.selectbox("Choose Room", ["Big Conference Room", "Discussion Room 1", "Discussion Room 2"])
+        priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
+        description = st.text_area("Description (optional)")
         selected_date = st.date_input("Select Date", min_value=datetime.today().date())
-        
         start_time = st.time_input("Start Time", value=time(11, 0))
         end_time = st.time_input("End Time", value=time(12, 0))
 
-        # Prevent zero-duration bookings
-        if start_time >= end_time:
-            st.error("⚠️ End time must be later than start time.")
-            valid_times = False
-        else:
+        if st.form_submit_button("Book Room"):
             start_datetime = datetime.combine(selected_date, start_time)
             end_datetime = datetime.combine(selected_date, end_time)
 
-            # Validation checks
-            valid_name = True
-            valid_email = True
-            valid_times = True
-            conflict = False
-
             if not user_name:
-                st.error("⚠️ Name cannot be empty.")
-                valid_name = False
-
-            if not user_email:
-                st.error("⚠️ Email cannot be empty.")
-                valid_email = False
+                st.error("Name cannot be empty.")
             elif not is_valid_email(user_email):
-                st.error("⚠️ Please enter a valid email address.")
-                valid_email = False
-
-            # Check if the time slot is available
-            if not is_time_slot_available(bookings_df, selected_room, selected_date, start_datetime, end_datetime):
-                st.error("⚠️ The selected time slot is already booked for this room.")
-                conflict = True
-                valid_times = False
-
-            submit_button = st.form_submit_button("Book Room")
-
-            if submit_button and valid_name and valid_email and valid_times and not conflict:
-                # Proceed with booking if valid
-                new_booking = {
-                    "User": user_name,
-                    "Email": user_email,
-                    "Date": selected_date,
-                    "Room": selected_room,
-                    "Priority": priority,
-                    "Description": description,
-                    "Start": start_datetime,
-                    "End": end_datetime
-                }
-
-                # Create a DataFrame for the new booking
-                new_booking_df = pd.DataFrame([new_booking])
-
-                # Concatenate the new booking with the existing bookings DataFrame
-                bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)
-
-                # Save the updated bookings DataFrame to the CSV
+                st.error("Invalid email.")
+            elif start_datetime >= end_datetime:
+                st.error("End time must be after start time.")
+            elif not is_time_slot_available(selected_room, selected_date, start_datetime, end_datetime):
+                st.error("This time slot is already booked.")
+            else:
+                bookings_df = pd.concat([bookings_df, pd.DataFrame([{
+                    "User": user_name, "Email": user_email, "Date": selected_date, 
+                    "Room": selected_room, "Priority": priority, "Description": description, 
+                    "Start": start_datetime, "End": end_datetime
+                }])], ignore_index=True)
                 save_bookings(bookings_df)
-
-                # Show a success message to the user
-                st.success(f"Your room has been successfully booked! A confirmation email has been sent to {user_email}.")
-                
-                # Send email confirmation to user and admin
+                st.success("Room booked successfully!")
                 send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
 
-            # If form is not valid, show an error message
-            elif submit_button and not (valid_name and valid_email and valid_times):
-                st.error("⚠️ Please ensure all fields are valid and try again.")
-
-# Admin Page: View all bookings with a Calendar
-# Admin Page: View all bookings with a Calendar
-# Assuming you have the DataFrame `bookings_df` loaded already
-
-import pandas as pd
-import streamlit as st
-
-# Sample DataFrame for testing
-data = {
-    "User": ["Alice", "Bob", "Charlie"],
-    "Email": ["alice@example.com", "bob@example.com", "charlie@example.com"],
-    "Date": ["2024-11-20", "2024-11-21", "2024-11-22"],
-    "Room": ["Big Conference room", "Discussion_room_1", "Discussion_room_2"],
-    "Priority": ["Low", "Medium", "High"],
-    "Start": ["11:00", "12:00", "13:00"],
-    "End": ["12:00", "13:00", "14:00"],
-}
-bookings_df = pd.DataFrame(data)
-
-# Function to map priority to background color
-def priority_to_color(priority):
-    color_map = {
-        "Low": "#4CAF50",         # Green
-        "Medium-Low": "#80deea",  # Light blue
-        "Medium": "#ffcc80",      # Orange
-        "Medium-High": "#ff7043", # Darker orange
-        "High": "#e57373",        # Red
-    }
-    return color_map.get(priority, "#FFFFFF")  # Default to white
-
-# Function to apply background colors based on Priority
-def apply_priority_colors(row):
-    color = priority_to_color(row["Priority"])
-    return [f"background-color: {color}" for _ in row]
-
-# Streamlit application logic
-st.title("Conference Room Bookings")
-
-if not bookings_df.empty:
-    # Apply styling to the DataFrame
-    styled_df = bookings_df.style.apply(apply_priority_colors, axis=1)
-    
-    # Render the styled DataFrame in Streamlit
-    st.write(styled_df.to_html(escape=False, index=False), unsafe_allow_html=True)
-else:
-    st.warning("No bookings available.")
-
-# Admin Page: View bookings
-if page == "View Bookings":
-    st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
-
-    if not bookings_df.empty:
-        bookings_df_sorted = bookings_df.sort_values(by="Date")
-
-        # Render the styled DataFrame as HTML
-        st.write(
-            style_dataframe(bookings_df_sorted).to_html(escape=False, index=False),
-            unsafe_allow_html=True,
-        )
+# View Bookings
+elif page == "View Bookings":
+    st.title("All Bookings")
+    if bookings_df.empty:
+        st.warning("No bookings available.")
     else:
-        st.warning("No bookings available yet.")
-# Admin Page: Admin Login for booking management
-if page == "Admin":
-    st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
+        st.write(style_dataframe(bookings_df.sort_values(["Date", "Start"])).to_html(), unsafe_allow_html=True)
 
+# Admin Page
+elif page == "Admin":
+    st.title("Admin Login")
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
-
     if st.button("Login"):
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-            st.success("Logged in successfully!")
-
-            # Optionally, allow the admin to view, delete, or edit bookings here.
-            st.write("Admin functionalities can be added here.")
+            st.success("Logged in as admin!")
+            if st.button("Clear All Bookings"):
+                bookings_df = bookings_df.iloc[0:0]
+                save_bookings(bookings_df)
+                st.success("All bookings cleared.")
         else:
-            st.error("Invalid credentials. Please try again.")
-
+            st.error("Invalid credentials.")
