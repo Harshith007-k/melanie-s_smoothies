@@ -298,12 +298,6 @@ if page == "View Bookings":
 
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
 if page == "Admin":
     # Admin Authentication
     if "authenticated" not in st.session_state:
@@ -379,13 +373,7 @@ if page == "Admin":
                 st.success("Logged out successfully.")
         else:
             st.write("No bookings found in the system.")
-            st.warning("No bookings remain after deletion.")
-                else:
-                    st.write("Updated Bookings:")
-                    bookings_df_updated_sorted = bookings_df_updated.sort_values(by="Date")
-                    st.write(bookings_df_updated_sorted)
-        else:
-            st.error("Invalid credentials. Please try again.")
+
 
 
 
