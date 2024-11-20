@@ -56,7 +56,11 @@ BOOKINGS_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS_FILE):
     # Load the CSV safely
-    bookings_df = bookings_df.append(new_booking, ignore_index=True)
+    # Replace append with concat
+    new_booking_df = pd.DataFrame([new_booking])  # Convert the new booking to DataFrame
+    bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)  # Concatenate
+    save_bookings(bookings_df)  # Save the updated DataFrame
+
 
     # Normalize 'Date', 'Start', 'End' columns
     try:
