@@ -180,16 +180,20 @@ if page == "Book a Conference Room":
 if page == "View Bookings":
     st.write("### All Booked Slots")
 
-    if not bookings_df.empty:
-        # Ensure Date, Start, and End are in readable formats
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+    # Ensure CSV loading and handle inconsistencies
+    try:
+        bookings_df["Date"] = bookings_df["Date"].apply(
+            lambda x: pd.to_datetime(x, errors="coerce")
+        )
         bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
         bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
-        
-        # Drop any rows with invalid date formats
         bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
-        
-        # Prepare the DataFrame for display
+    except Exception as e:
+        st.error(f"Error loading bookings: {e}")
+        bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
+
+    if not bookings_df.empty:
+        # Format the dates for display
         display_df = bookings_df.copy()
         display_df["Date"] = display_df["Date"].dt.strftime("%A, %B %d, %Y")
         display_df["Start"] = display_df["Start"].dt.strftime("%H:%M")
