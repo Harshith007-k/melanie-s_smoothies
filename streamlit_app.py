@@ -299,6 +299,7 @@ if page == "View Bookings":
         st.write(f"No bookings found for {selected_view_date.strftime('%A, %B %d, %Y')}.")
 
 # Admin Page: Admin Login for booking management
+# Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
 
@@ -318,7 +319,7 @@ if page == "Admin":
                 confirmation = st.selectbox("Are you sure you want to clear all bookings?", ["No", "Yes"])
 
                 if confirmation == "Yes":
-                    # Clear all bookings
+                    # Clear all bookings, even those without a username
                     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
                     # Save the empty DataFrame to the CSV
