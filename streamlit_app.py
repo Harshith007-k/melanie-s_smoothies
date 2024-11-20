@@ -277,8 +277,17 @@ if page == "View Bookings":
     # Select a date
     selected_date = st.date_input("Select a Date to View Bookings", min_value=datetime.today().date())
 
+    # Debug: Show selected date and booking data
+    st.write(f"Selected Date: {selected_date}")
+    st.write("All Bookings:")
+    st.write(bookings_df)
+
     # Filter bookings by selected date
     bookings_filtered = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_date)]
+
+    # Debug: Show filtered bookings
+    st.write(f"Filtered Bookings for {selected_date}:")
+    st.write(bookings_filtered)
 
     if not bookings_filtered.empty:
         # Sort bookings by time
@@ -286,7 +295,7 @@ if page == "View Bookings":
 
         # Apply the color formatting to the priority column only
         styled_df = bookings_filtered_sorted.style.apply(apply_priority_colors, axis=1)
-        
+
         # Display bookings with the priority color
         AgGrid(styled_df, use_table_modal=True)
     else:
