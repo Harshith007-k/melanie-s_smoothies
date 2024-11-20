@@ -144,14 +144,19 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
 # Booking Form Section
 # Booking Form Section
 # Function to check if the time slot overlaps with any existing bookings
+import pandas as pd
+from datetime import datetime, timedelta, time
+import streamlit as st
+import re
+
+# Function to check if the time slot overlaps with any existing bookings
 def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
     # Filter bookings that match the room and date
-    conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
+    conflicts = bookings_df[(bookings_df["Date"] == selected_date) & (bookings_df["Room"] == room)]
     
+    # Check if the new booking overlaps with any existing booking
     for _, booking in conflicts.iterrows():
-        # Check if the new booking overlaps with any existing booking
-        # Overlap condition: new start time before an existing booking's end time 
-        # AND new end time after an existing booking's start time
+        # Check if the new booking overlaps with an existing booking
         if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
             return False
     return True
@@ -178,9 +183,9 @@ if page == "Book a Conference Room":
         description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
         selected_date = st.date_input("Select Date", min_value=datetime.today().date())
         
-        start_time = st.slider("Start Time", value=time(11, 0), min_value=time(11, 0), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm")
-        end_time = st.slider("End Time", value=time(12, 0), min_value=time(11, 30), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm")
-        
+        start_time = st.time_input("Start Time", value=time(11, 0))
+        end_time = st.time_input("End Time", value=time(12, 0))
+
         # Prevent zero-duration bookings
         if start_time >= end_time:
             st.error("⚠️ End time must be later than start time.")
