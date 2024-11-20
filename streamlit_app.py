@@ -141,6 +141,7 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
     return True
 
 # Booking Form Section
+# Booking Form Section
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
@@ -181,6 +182,7 @@ if page == "Book a Conference Room":
             st.error("⚠️ Please enter a valid email address.")
             valid_email = False
 
+        # Check if the time slot is available
         if not is_time_slot_available(bookings_df, selected_room, selected_date, start_datetime, end_datetime):
             st.error("⚠️ The selected time slot is already booked for this room.")
             conflict = True
@@ -189,6 +191,7 @@ if page == "Book a Conference Room":
         submit_button = st.form_submit_button("Book Room")
 
         if submit_button and valid_name and valid_email and valid_times and not conflict:
+            # Proceed with booking if valid
             new_booking = {
                 "User": user_name,
                 "Email": user_email,
@@ -199,7 +202,8 @@ if page == "Book a Conference Room":
                 "Start": start_datetime,
                 "End": end_datetime
             }
-                        # Use pd.concat to append the new booking to the existing DataFrame
+
+            # Create a DataFrame for the new booking
             new_booking_df = pd.DataFrame([new_booking])
 
             # Concatenate the new booking with the existing bookings DataFrame
@@ -217,7 +221,6 @@ if page == "Book a Conference Room":
         # If form is not valid, show an error message
         elif submit_button and not (valid_name and valid_email and valid_times):
             st.error("⚠️ Please ensure all fields are valid and try again.")
-
 # Admin Page: View all bookings with a Calendar
 # Admin Page: View all bookings with a Calendar
 if page == "View Bookings":
