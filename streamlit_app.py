@@ -125,24 +125,7 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
 
 # Display Bookings Section
 # Display Bookings Section
-# Display Bookings Section
-if page == "View Bookings":
-    st.write("### All Booked Slots")
-    if not bookings_df.empty:
-        # Convert 'Date', 'Start', 'End' columns to readable formats for display
-        display_df = bookings_df.copy()
-        display_df["Date"] = pd.to_datetime(display_df["Date"]).dt.strftime('%A, %B %d, %Y')
-        display_df["Start"] = pd.to_datetime(display_df["Start"]).dt.strftime('%H:%M')
-        display_df["End"] = pd.to_datetime(display_df["End"]).dt.strftime('%H:%M')
-
-        # Select relevant columns to display
-        display_columns = ["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]
-        st.table(display_df[display_columns])
-    else:
-        st.write("No bookings found.")
-
-
-# Booking Form Section
+# Display Bookings Section# Booking Form Section
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
@@ -191,6 +174,30 @@ if page == "Book a Conference Room":
 
             st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
             st.balloons()
+
+if page == "View Bookings":
+    st.write("### All Booked Slots")
+
+    if not bookings_df.empty:
+        # Ensure Date, Start, and End are in readable formats
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+        bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
+        bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
+        
+        # Drop any rows with invalid date formats
+        bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
+        
+        # Prepare the DataFrame for display
+        display_df = bookings_df.copy()
+        display_df["Date"] = display_df["Date"].dt.strftime("%A, %B %d, %Y")
+        display_df["Start"] = display_df["Start"].dt.strftime("%H:%M")
+        display_df["End"] = display_df["End"].dt.strftime("%H:%M")
+
+        # Display the DataFrame
+        st.write("### Current Bookings")
+        st.table(display_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
+    else:
+        st.write("No bookings found.")
 
 # Admin Section
 if page == "Admin":
