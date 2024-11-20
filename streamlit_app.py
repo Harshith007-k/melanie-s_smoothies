@@ -219,10 +219,15 @@ if page == "Book a Conference Room":
             st.error("⚠️ Please ensure all fields are valid and try again.")
 
 # Admin Page: View all bookings with a Calendar
+# Admin Page: View all bookings with a Calendar
 if page == "View Bookings":
     st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
 
     if not bookings_df.empty:
+        # Convert the "Date" column to datetime if it's not already
+        if not pd.api.types.is_datetime64_any_dtype(bookings_df["Date"]):
+            bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce")
+
         # Create a set of dates with bookings
         booked_dates = set(bookings_df["Date"].dt.date)
 
