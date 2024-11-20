@@ -133,6 +133,10 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         st.success(f"Email confirmation sent to {user_email} and admin.")
     except Exception as e:
         st.error(f"Error sending email: {e}")
+import re
+import pandas as pd
+from datetime import datetime, time, timedelta
+
 # Function to validate email format using regex
 def is_valid_email(email):
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -204,6 +208,7 @@ if page == "Book a Conference Room":
         
         # If all fields are valid, proceed with the booking
         if st.form_submit_button("Confirm Booking") and valid_name and valid_email and valid_times and not conflict:
+            # Adding new booking to DataFrame
             new_booking = pd.DataFrame({
                 "User": [user_name],
                 "Email": [user_email],
@@ -217,6 +222,7 @@ if page == "Book a Conference Room":
             bookings_df = pd.concat([bookings_df, new_booking], ignore_index=True)
             save_bookings(bookings_df)
 
+            # Send confirmation email (you can add actual email sending logic here)
             send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
 
             st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
