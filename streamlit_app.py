@@ -134,6 +134,9 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
     except Exception as e:
         st.error(f"Error sending email: {e}")
 
+import re
+
+# Function to validate email format using regex
 def is_valid_email(email):
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return re.match(email_regex, email) is not None
@@ -164,6 +167,12 @@ if page == "Book a Conference Room":
         end_datetime = datetime.combine(selected_date, end_time)
         
         # Validation checks
+        if not user_name:
+            st.error("⚠️ Name cannot be empty.")
+            valid_name = False
+        else:
+            valid_name = True
+
         if not is_valid_email(user_email):
             st.error("⚠️ Please enter a valid email address.")
             valid_email = False
@@ -184,7 +193,7 @@ if page == "Book a Conference Room":
                 st.error("⚠️ This time slot is already booked! Please choose a different time.")
                 break
         
-        if st.form_submit_button("Confirm Booking") and valid_email and valid_times and not conflict:
+        if st.form_submit_button("Confirm Booking") and valid_name and valid_email and valid_times and not conflict:
             new_booking = pd.DataFrame({
                 "User": [user_name],
                 "Email": [user_email],
