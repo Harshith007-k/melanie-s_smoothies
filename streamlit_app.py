@@ -302,6 +302,7 @@ if page == "View Bookings":
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
+# Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
 
@@ -315,47 +316,25 @@ if page == "Admin":
             # Display options for deleting timeslots
             st.write("### Admin functionalities")
 
-            # Button to delete timeslots with no username and duplicates
-            if st.button("Delete Invalid and Duplicate Timeslots"):
-                # Remove bookings with no username
-                bookings_df_cleaned = bookings_df[bookings_df["User"].notna() & (bookings_df["User"] != "")]
-                
-                # Check and remove duplicate timeslots (same room, same date, overlapping time)
-                def is_duplicate(row, df):
-                    # Check if there is any booking with the same room and date where times overlap
-                    selected_room = row['Room']
-                    selected_date = row['Date']
-                    start_time = pd.to_datetime(row['Start'])
-                    end_time = pd.to_datetime(row['End'])
+            # Button to delete all timeslots
+            if st.button("Clear All Timeslots"):
+                # Clear the entire bookings DataFrame
+                bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
-                    # Filter bookings for the same room and date
-                    conflicting_bookings = df[(df["Room"] == selected_room) & (df["Date"] == selected_date)]
-                    for _, booking in conflicting_bookings.iterrows():
-                        if (start_time < booking["End"]) and (end_time > booking["Start"]):
-                            return True  # Conflict found
-                    return False
+                # Save the empty DataFrame to the CSV
+                save_bookings(bookings_df)
 
-                # Apply the duplicate check to remove conflicting bookings
-                bookings_df_no_duplicates = bookings_df_cleaned[~bookings_df_cleaned.apply(is_duplicate, axis=1, df=bookings_df_cleaned)]
-                
-                # Save the cleaned DataFrame to the CSV
-                save_bookings(bookings_df_no_duplicates)
-
-                # Reload the DataFrame from the CSV to confirm it's cleaned
+                # Reload the DataFrame from the CSV to confirm it's cleared
                 bookings_df = pd.read_csv(BOOKINGS_FILE)
 
-                # Check if the DataFrame is cleaned after deleting invalid/duplicate bookings
-                st.success(f"{len(bookings_df_cleaned) - len(bookings_df_no_duplicates)} invalid and duplicate bookings have been deleted.")
-                
-                if bookings_df_no_duplicates.empty:
-                    st.warning("No bookings remain after cleaning.")
-                else:
-                    st.write("Cleaned bookings:")
-                    # Display the cleaned bookings
-                    bookings_df_no_duplicates_sorted = bookings_df_no_duplicates.sort_values(by="Date")
-                    st.write(bookings_df_no_duplicates_sorted)
+                # Provide feedback to the admin
+                st.success("All timeslots have been cleared.")
+
+                # Optionally, display the empty DataFrame or a message indicating it's cleared
+                st.write("All timeslots have been removed.")
         else:
             st.error("Invalid credentials. Please try again.")
+
 
 
 
