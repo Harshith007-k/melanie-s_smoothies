@@ -148,6 +148,10 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
             return False
     return True
 
+# Function to save the updated bookings (to CSV or database)
+def save_bookings(bookings_df):
+    bookings_df.to_csv("bookings.csv", index=False)
+
 # Booking Form Section
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
@@ -223,7 +227,6 @@ if page == "Book a Conference Room":
 
             st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
             st.balloons()
-
 if page == "View Bookings":
     st.write("### View Bookings by Date")
     
