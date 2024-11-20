@@ -1,12 +1,13 @@
-import os
-import re
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta, time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
+import re
 
+# Admin credentials
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "password123"
 
@@ -55,20 +56,16 @@ page = st.sidebar.radio("Choose a page:", ["Book a Conference Room", "View Booki
 BOOKINGS_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS_FILE):
-    # Load the CSV safely
     bookings_df = pd.read_csv(BOOKINGS_FILE)
     try:
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date  # Convert to `datetime.date`
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
         bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
         bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
-
-        # Drop rows with invalid dates/times
         bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
     except Exception as e:
         st.error(f"Error processing the bookings file: {e}")
         bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 else:
-    # Create an empty DataFrame if the file doesn't exist
     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
 # Save bookings to the CSV file
@@ -78,7 +75,7 @@ def save_bookings(df):
 # Email-sending function
 def send_email(user_email, user_name, room, date, start_time, end_time):
     sender_email = "19bd1a1021@gmail.com"
-    sender_password = "agvrujrctxxwcggk"  # Use environment variables for sensitive information
+    sender_password = "agvrujrctxxwcggk"
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
@@ -116,7 +113,7 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         # Prepare the email
         msg = MIMEMultipart()
         msg["From"] = sender_email
-        msg["To"] = f"{user_email}, kteja@phoenixteam.com"  # Send to both user and admin
+        msg["To"] = f"{user_email}, kteja@phoenixteam.com"
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "html"))
 
@@ -137,10 +134,8 @@ def is_valid_email(email):
 
 # Function to check if the time slot overlaps with any existing bookings
 def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
-    # Check for conflicting bookings for the same room on the selected date
     conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
     for _, booking in conflicts.iterrows():
-        # If there's an overlap with an existing booking, return False
         if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
             return False
     return True
@@ -163,33 +158,29 @@ if page == "Book a Conference Room":
         description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
         selected_date = st.date_input("Select Date", min_value=datetime.today().date())
         
-        # Time Range Slider with custom color
-        start_time = st.slider("Start Time", value=time(11, 0), min_value=time(11, 0), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm", help="Select start time")
-        end_time = st.slider("End Time", value=time(12, 0), min_value=time(11, 30), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm", help="Select end time")
+        start_time = st.slider("Start Time", value=time(11, 0), min_value=time(11, 0), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm")
+        end_time = st.slider("End Time", value=time(12, 0), min_value=time(11, 30), max_value=time(20, 0), step=timedelta(minutes=30), format="HH:mm")
         
         start_datetime = datetime.combine(selected_date, start_time)
         end_datetime = datetime.combine(selected_date, end_time)
-        
+
         # Validation checks
         valid_name = True
         valid_email = True
         valid_times = True
         conflict = False
 
-        # Check if name is empty
         if not user_name:
             st.error("⚠️ Name cannot be empty.")
             valid_name = False
 
-        # Check if email is valid
         if not user_email:
             st.error("⚠️ Email cannot be empty.")
             valid_email = False
         elif not is_valid_email(user_email):
             st.error("⚠️ Please enter a valid email address.")
             valid_email = False
-                    
-        # Check if the timeslot is available
+
         if not is_time_slot_available(bookings_df, selected_room, selected_date, start_datetime, end_datetime):
             st.error("⚠️ The selected time slot is already booked for this room.")
             conflict = True
@@ -197,7 +188,6 @@ if page == "Book a Conference Room":
 
         submit_button = st.form_submit_button("Book Room")
 
-        # If form is valid and submitted, process the booking
         if submit_button and valid_name and valid_email and valid_times and not conflict:
             new_booking = {
                 "User": user_name,
