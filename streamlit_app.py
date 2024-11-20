@@ -143,6 +143,18 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
 # Booking Form Section
 # Booking Form Section
 # Booking Form Section
+# Function to check if the time slot overlaps with any existing bookings
+def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
+    # Filter bookings that match the room and date
+    conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
+    
+    for _, booking in conflicts.iterrows():
+        # Check if the new booking overlaps with any existing booking
+        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
+            return False
+    return True
+
+# Booking Form Section
 if page == "Book a Conference Room":
     st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
@@ -227,6 +239,7 @@ if page == "Book a Conference Room":
             # If form is not valid, show an error message
             elif submit_button and not (valid_name and valid_email and valid_times):
                 st.error("⚠️ Please ensure all fields are valid and try again.")
+
 # Admin Page: View all bookings with a Calendar
 # Admin Page: View all bookings with a Calendar
 if page == "View Bookings":
