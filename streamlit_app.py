@@ -133,7 +133,6 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         st.success(f"Email confirmation sent to {user_email} and admin.")
     except Exception as e:
         st.error(f"Error sending email: {e}")
-
 # Function to validate email format using regex
 def is_valid_email(email):
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -186,7 +185,10 @@ if page == "Book a Conference Room":
             valid_name = False
 
         # Check if email is valid
-        if not is_valid_email(user_email):
+        if not user_email:
+            st.error("⚠️ Email cannot be empty.")
+            valid_email = False
+        elif not is_valid_email(user_email):
             st.error("⚠️ Please enter a valid email address.")
             valid_email = False
 
