@@ -266,7 +266,8 @@ if page == "View Bookings":
     )
     
     # Filter the bookings DataFrame for the selected date
-    filtered_booking_df = bookings_df[bookings_df["User"] == booking_to_update
+    filtered_bookings = bookings_df[
+        bookings_df["Date"].dt.date == selected_view_date
     ]
     
     if not filtered_bookings.empty:
@@ -274,7 +275,6 @@ if page == "View Bookings":
         filtered_bookings["Date"] = filtered_bookings["Date"].apply(lambda x: x.strftime('%A, %B %d, %Y'))
         filtered_bookings["Start"] = filtered_bookings["Start"].dt.strftime('%H:%M')
         filtered_bookings["End"] = filtered_bookings["End"].dt.strftime('%H:%M')
-        selected_booking = filtered_booking_df.iloc[0]  
 
         # Priority color mapping
         def get_priority_color(priority):
