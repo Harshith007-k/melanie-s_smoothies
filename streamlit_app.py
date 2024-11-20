@@ -250,17 +250,9 @@ if page == "Book a Conference Room":
 # Admin Page: View all bookings with a Calendar
 # Assuming you have the DataFrame `bookings_df` loaded already
 
-# Sample DataFrame for testing
-data = {
-    "User": ["Alice", "Bob", "Charlie"],
-    "Email": ["alice@example.com", "bob@example.com", "charlie@example.com"],
-    "Date": ["2024-11-20", "2024-11-21", "2024-11-22"],
-    "Room": ["Big Conference room", "Discussion_room_1", "Discussion_room_2"],
-    "Priority": ["Low", "Medium", "High"],
-    "Start": ["11:00", "12:00", "13:00"],
-    "End": ["12:00", "13:00", "14:00"],
-}
-bookings_df = pd.DataFrame(data)
+# Save bookings to the CSV file
+def save_bookings(df):
+    df.to_csv(BOOKINGS_FILE, index=False)
 
 # Function to map priority to background color
 def priority_to_color(priority):
@@ -279,24 +271,26 @@ def apply_priority_colors(row):
     return [f"background-color: {color}" for _ in row]
 
 # View Bookings Page
-# View Bookings Page
 if page == "View Bookings":
     st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
 
-    # Reload bookings data to ensure the latest changes are reflected
-    if os.path.exists(BOOKINGS_FILE):
-        bookings_df = pd.read_csv(BOOKINGS_FILE)
-        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
-        bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
-        bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
-        bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
-    
-    if not bookings_df.empty:
-        bookings_df_sorted = bookings_df.sort_values(by="Date")
-        styled_df = bookings_df_sorted.style.apply(apply_priority_colors, axis=1)
-        st.write(styled_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+    # Select a date
+    selected_date = st.date_input("Select a Date to View Bookings", min_value=datetime.today().date())
+
+    # Filter bookings by selected date
+    bookings_filtered = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_date)]
+
+    if not bookings_filtered.empty:
+        # Sort bookings by time
+        bookings_filtered_sorted = bookings_filtered.sort_values(by="Start")
+
+        # Apply the color formatting to the priority column only
+        styled_df = bookings_filtered_sorted.style.apply(apply_priority_colors, axis=1)
+        
+        # Display bookings with the priority color
+        AgGrid(styled_df, use_table_modal=True)
     else:
-        st.warning("No bookings available yet.")
+        st.warning(f"No bookings available for {selected_date}.")
 # Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
