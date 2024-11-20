@@ -263,7 +263,6 @@ if page == "Admin":
             # Send email confirmation to user and admin
             send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
 
-        # If form is not valid, show an error message
         elif submit_button and not (valid_name and valid_email and valid_times):
             st.error("⚠️ Please ensure all fields are valid and try again.")
 
