@@ -265,43 +265,27 @@ bookings_df = pd.DataFrame(data)
 # Function to map priority to background color
 def priority_to_color(priority):
     color_map = {
-        "Low": "#4CAF50",         # Green
-        "Medium-Low": "#80deea",  # Light blue
-        "Medium": "#ffcc80",      # Orange
-        "Medium-High": "#ff7043", # Darker orange
-        "High": "#e57373",        # Red
+        "Low": "#4CAF50",
+        "Medium-Low": "#80deea",
+        "Medium": "#ffcc80",
+        "Medium-High": "#ff7043",
+        "High": "#e57373",
     }
-    return color_map.get(priority, "#FFFFFF")  # Default to white
+    return color_map.get(priority, "#FFFFFF")
 
 # Function to apply background colors based on Priority
 def apply_priority_colors(row):
     color = priority_to_color(row["Priority"])
     return [f"background-color: {color}" for _ in row]
 
-# Streamlit application logic
-st.title("Conference Room Bookings")
-
-if not bookings_df.empty:
-    # Apply styling to the DataFrame
-    styled_df = bookings_df.style.apply(apply_priority_colors, axis=1)
-    
-    # Render the styled DataFrame in Streamlit
-    st.write(styled_df.to_html(escape=False, index=False), unsafe_allow_html=True)
-else:
-    st.warning("No bookings available.")
-
-# Admin Page: View bookings
+# View Bookings Page
 if page == "View Bookings":
     st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
 
     if not bookings_df.empty:
         bookings_df_sorted = bookings_df.sort_values(by="Date")
-
-        # Render the styled DataFrame as HTML
-        st.write(
-            style_dataframe(bookings_df_sorted).to_html(escape=False, index=False),
-            unsafe_allow_html=True,
-        )
+        styled_df = bookings_df_sorted.style.apply(apply_priority_colors, axis=1)
+        st.write(styled_df.to_html(escape=False, index=False), unsafe_allow_html=True)
     else:
         st.warning("No bookings available yet.")
 # Admin Page: Admin Login for booking management
