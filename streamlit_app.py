@@ -53,7 +53,7 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page:", ["Book a Conference Room", "View Bookings", "Admin"])
 
 # Load the bookings from CSV
-BOOKINGS1_FILE = "conference_bookings1.csv"
+BOOKINGS1_FILE = "conference_bookings.csv"
 
 if os.path.exists(BOOKINGS1_FILE):
     bookings_df = pd.read_csv(BOOKINGS1_FILE)
