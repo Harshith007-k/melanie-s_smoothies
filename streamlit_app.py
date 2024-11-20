@@ -291,14 +291,8 @@ if page == "View Bookings":
     st.write(bookings_filtered)
 
     if not bookings_filtered.empty:
-        # Sort bookings by time
-        bookings_filtered_sorted = bookings_filtered.sort_values(by="Start")
-
-        # Apply the color formatting to the priority column only
-        styled_df = bookings_filtered_sorted.style.apply(apply_priority_colors, axis=1)
-
-        # Display bookings with the priority color
-        AgGrid(styled_df, use_table_modal=True)
+        # Display bookings in AgGrid (without styling)
+        AgGrid(bookings_filtered)
     else:
         st.warning(f"No bookings available for {selected_date}.")
 # Admin Page: Admin Login for booking management
