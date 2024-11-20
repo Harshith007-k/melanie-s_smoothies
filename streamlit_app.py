@@ -267,24 +267,48 @@ def priority_to_color(priority):
     return color_map.get(priority, "#FFFFFF")  # Default to white if priority is unknown
 
 # Admin Page: View all bookings
+import pandas as pd
+import streamlit as st
+
+# Function to map priority to a background color
+def priority_to_color(priority):
+    color_map = {
+        "Low": "#4CAF50",         # Green
+        "Medium-Low": "#80deea",  # Light blue
+        "Medium": "#ffcc80",      # Orange
+        "Medium-High": "#ff7043", # Darker orange
+        "High": "#e57373"         # Red
+    }
+    return color_map.get(priority, "#FFFFFF")  # Default to white
+
+# Function to style DataFrame for HTML rendering
+def style_dataframe(df):
+    styled_df = df.style.apply(
+        lambda x: [
+            f"background-color: {priority_to_color(priority)}"
+            for priority in x["Priority"]
+        ],
+        subset=["Priority"],
+        axis=1
+    ).set_table_styles([
+        {"selector": "th", "props": [("background-color", "#f4f4f4")]}
+    ])
+    return styled_df
+
+# Admin Page: View bookings
 if page == "View Bookings":
     st.write('<h1 class="title">All Bookings</h1>', unsafe_allow_html=True)
 
     if not bookings_df.empty:
         bookings_df_sorted = bookings_df.sort_values(by="Date")
 
-        # Apply color formatting based on priority
-        bookings_df_sorted['Color'] = bookings_df_sorted['Priority'].apply(priority_to_color)
-
-        # Display bookings in a table with color coding for priority
-        st.dataframe(bookings_df_sorted.style.apply(
-            lambda x: ['background-color: {}'.format(c) for c in x.Color], axis=1
-        ).hide_columns(['Color']))  # Hide the 'Color' column used for styling
-
+        # Render the styled DataFrame as HTML
+        st.write(
+            style_dataframe(bookings_df_sorted).to_html(escape=False, index=False),
+            unsafe_allow_html=True,
+        )
     else:
         st.warning("No bookings available yet.")
-
-
 # Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
