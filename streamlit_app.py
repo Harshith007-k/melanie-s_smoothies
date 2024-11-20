@@ -303,6 +303,7 @@ if page == "View Bookings":
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
+# Admin Page: Admin Login for booking management
 if page == "Admin":
     st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
 
@@ -317,25 +318,33 @@ if page == "Admin":
             st.write("### Admin functionalities")
 
             # Button to delete all timeslots
-            if st.button("Clear All Timeslots"):
-                # Clear the entire bookings DataFrame
-                bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
+            st.write("#### Delete All Timeslots from a Specific Date")
+            
+            # Date picker for admin to select a date
+            date_to_delete = st.date_input("Select a Date to Delete Timeslots", value=datetime.today().date())
 
-                # Save the empty DataFrame to the CSV
-                save_bookings(bookings_df)
+            if st.button("Delete Timeslots for Selected Date"):
+                # Filter out bookings for the selected date
+                bookings_df_updated = bookings_df[bookings_df["Date"] != pd.to_datetime(date_to_delete)]
 
-                # Reload the DataFrame from the CSV to confirm it's cleared
+                # Save the updated DataFrame to the CSV file
+                save_bookings(bookings_df_updated)
+
+                # Reload the updated bookings from the CSV
                 bookings_df = pd.read_csv(BOOKINGS_FILE)
 
                 # Provide feedback to the admin
-                st.success("All timeslots have been cleared.")
+                st.success(f"All timeslots for {date_to_delete.strftime('%A, %B %d, %Y')} have been deleted.")
 
-                # Optionally, display the empty DataFrame or a message indicating it's cleared
-                st.write("All timeslots have been removed.")
+                # Optionally, display the remaining bookings or message
+                if bookings_df_updated.empty:
+                    st.warning("No bookings remain after deletion.")
+                else:
+                    st.write("Updated Bookings:")
+                    bookings_df_updated_sorted = bookings_df_updated.sort_values(by="Date")
+                    st.write(bookings_df_updated_sorted)
         else:
             st.error("Invalid credentials. Please try again.")
-
-
 
 
 
