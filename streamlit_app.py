@@ -253,24 +253,11 @@ if page == "Book a Conference Room":
 # Save bookings to the CSV file
 def save_bookings(df):
     df.to_csv(BOOKINGS_FILE, index=False)
-
-# Function to map priority to background color
-def priority_to_color(priority):
-    color_map = {
-        "Low": "#4CAF50",
-        "Medium-Low": "#80deea",
-        "Medium": "#ffcc80",
-        "Medium-High": "#ff7043",
-        "High": "#e57373",
-    }
-    return color_map.get(priority, "#FFFFFF")
-
 # Function to apply background colors based on Priority
 def apply_priority_colors(row):
     color = priority_to_color(row["Priority"])
     return [f"background-color: {color}" for _ in row]
 
-# View Bookings Page
 def priority_to_color(priority):
     color_map = {
         "Low": "#4CAF50",
