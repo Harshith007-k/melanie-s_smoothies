@@ -185,36 +185,48 @@ if page == "Book a Conference Room":
             st.success(f"🎉 {selected_room} successfully booked from {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}.")
             st.balloons()
 
-# Function to map priority levels to colors
-def get_priority_color(priority):
-    priority_colors = {
-        "Low": "background-color: #98FB98",  # Light green
-        "Medium-Low": "background-color: #FFFF99",  # Light yellow
-        "Medium": "background-color: #FFCC66",  # Light orange
-        "Medium-High": "background-color: #FF9966",  # Darker orange
-        "High": "background-color: #FF6666",  # Light red
-    }
-    return priority_colors.get(priority, "")
-
-# Apply color coding to the priority column
-def style_priority(val):
-    return get_priority_color(val)
-
 if page == "View Bookings":
-    st.write("### All Booked Slots")
-    if not bookings_df.empty:
+    st.write("### View Bookings by Date")
+    
+    # Add a calendar widget for selecting the date
+    selected_view_date = st.date_input(
+        "Select a date to view bookings", 
+        min_value=datetime.today().date()
+    )
+    
+    # Filter the bookings DataFrame for the selected date
+    filtered_bookings = bookings_df[
+        bookings_df["Date"].dt.date == selected_view_date
+    ]
+    
+    if not filtered_bookings.empty:
         # Convert datetime objects to readable strings for display
-        bookings_df["Date"] = bookings_df["Date"].apply(lambda x: x.strftime('%A, %B %d, %Y'))
-        bookings_df["Start"] = bookings_df["Start"].dt.strftime('%H:%M')
-        bookings_df["End"] = bookings_df["End"].dt.strftime('%H:%M')
+        filtered_bookings["Date"] = filtered_bookings["Date"].apply(lambda x: x.strftime('%A, %B %d, %Y'))
+        filtered_bookings["Start"] = filtered_bookings["Start"].dt.strftime('%H:%M')
+        filtered_bookings["End"] = filtered_bookings["End"].dt.strftime('%H:%M')
 
-        # Style the DataFrame to add color coding for "Priority"
-        styled_df = bookings_df.style.applymap(style_priority, subset=["Priority"])
+        # Priority color mapping
+        def get_priority_color(priority):
+            priority_colors = {
+                "Low": "background-color: #98FB98",  # Light green
+                "Medium-Low": "background-color: #FFFF99",  # Light yellow
+                "Medium": "background-color: #FFCC66",  # Light orange
+                "Medium-High": "background-color: #FF9966",  # Darker orange
+                "High": "background-color: #FF6666",  # Light red
+            }
+            return priority_colors.get(priority, "")
 
+        def style_priority(val):
+            return get_priority_color(val)
+
+        # Apply color coding to the priority column
+        styled_df = filtered_bookings.style.applymap(style_priority, subset=["Priority"])
+        
         # Display the styled DataFrame
         st.dataframe(styled_df)
     else:
-        st.write("No bookings found.")
+        st.write(f"No bookings found for {selected_view_date.strftime('%A, %B %d, %Y')}.")
+
 
 # Admin Section
 if page == "Admin":
