@@ -305,46 +305,81 @@ if page == "View Bookings":
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
 if page == "Admin":
-    st.write('<h1 class="title">Admin Login</h1>', unsafe_allow_html=True)
+    # Admin Authentication
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
 
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-            st.success("Logged in successfully!")
-
-            # Display options for deleting timeslots
-            st.write("### Admin functionalities")
-
-            # Button to delete all timeslots
-            st.write("#### Delete All Timeslots from a Specific Date")
+    if not st.session_state.authenticated:
+        st.write("### Admin Login")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        if st.button("Login"):
+            if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+                st.session_state.authenticated = True
+                st.success("Login successful!")
+            else:
+                st.error("Invalid username or password.")
+    else:
+        st.write("### Admin Dashboard")
+        st.write("#### Manage Bookings")
+        
+        if not bookings_df.empty:
+            # Display all bookings in a table
+            st.write("### All Current Bookings")
+            st.dataframe(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
             
-            # Date picker for admin to select a date
-            date_to_delete = st.date_input("Select a Date to Delete Timeslots", value=datetime.today().date())
+            # Delete Booking
+            booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
+            if st.button("Delete Booking"):
+                bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
+                save_bookings(bookings_df)
+                st.success(f"Booking by {booking_to_delete} has been deleted.")
+            
+            # Update Booking
+            booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
+            selected_booking = bookings_df[bookings_df["User"] == booking_to_update].iloc[0]
+            
+            with st.form("update_booking_form"):
+                updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
+                updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
+                updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
+                updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
+                updated_description = st.text_area("Update Description", value=selected_booking["Description"])
+                updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
+                updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
+                updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
+                
+                updated_start_datetime = datetime.combine(updated_date, updated_start_time)
+                updated_end_datetime = datetime.combine(updated_date, updated_end_time)
 
-            if st.button("Delete Timeslots for Selected Date"):
-                # Filter out bookings for the selected date
-                bookings_df_updated = bookings_df[bookings_df["Date"] != pd.to_datetime(date_to_delete)]
+                # Check for time conflicts
+                conflict = False
+                for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
+                    if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]) and booking["User"] != booking_to_update:
+                        conflict = True
+                        st.error("⚠️ This time slot is already booked! Please choose a different time.")
+                        break
+                
+                if st.form_submit_button("Update Booking") and not conflict:
+                    # Update the booking in the DataFrame
+                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
+                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
+                    ]
+                    save_bookings(bookings_df)
 
-                # Save the updated DataFrame to the CSV file
-                save_bookings(bookings_df_updated)
+                    # Send updated email confirmation
+                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
 
-                # Reload the updated bookings from the CSV
-                bookings_df = pd.read_csv(BOOKINGS_FILE)
-
-                # Provide feedback to the admin
-                st.success(f"All timeslots for {date_to_delete.strftime('%A, %B %d, %Y')} have been deleted.")
-
-                # Optionally, display the remaining bookings or message
-                if bookings_df_updated.empty:
-                    st.warning("No bookings remain after deletion.")
-                else:
-                    st.write("Updated Bookings:")
-                    bookings_df_updated_sorted = bookings_df_updated.sort_values(by="Date")
-                    st.write(bookings_df_updated_sorted)
+                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
+                    #st.balloons()
+            
+            # Logout option for admin
+            if st.button("Logout"):
+                st.session_state.authenticated = False
+                st.success("Logged out successfully.")
         else:
-            st.error("Invalid credentials. Please try again.")
+            st.write("No bookings found in the system.")
+
 
 
 
