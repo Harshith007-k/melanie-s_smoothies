@@ -172,7 +172,7 @@ if page == "Book a Conference Room":
             user_name = st.text_input("Your Name", placeholder="Enter your full name")
             user_email = st.text_input("Your Email", placeholder="Enter your email")
         with col2:
-            selected_room = st.selectbox("Choose Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"])
+            selected_room = st.selectbox("Choose Room", ["Collaborate", "Innovate", "Echo","Vibe"])
         with col3:
             priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
 
