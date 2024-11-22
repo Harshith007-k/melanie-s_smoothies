@@ -7,6 +7,9 @@ from email.mime.multipart import MIMEMultipart
 import os
 import re
 import plotly.express as px
+#import plotly.express as px
+import plotly.graph_objects as go
+from streamlit_extras.metric_cards import style_metric_cards
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -147,18 +150,74 @@ elif page == "Admin":
             st.error("Invalid credentials.")
 
 elif page == "Analytics":
-    st.title("Booking Analytics")
+    st.title("Analytics Dashboard")
 
-    if not bookings_df.empty:
-        room_counts = bookings_df["Room"].value_counts()
-        priority_counts = bookings_df["Priority"].value_counts()
+    # Calculate summary metrics
+    total_bookings = len(bookings_df)
+    unique_users = bookings_df["User"].nunique()
+    rooms_booked = bookings_df["Room"].nunique()
+    high_priority_bookings = bookings_df[bookings_df["Priority"] == "High"].shape[0]
 
-        tab1, tab2 = st.tabs(["Room Usage", "Priority Distribution"])
-        with tab1:
-            fig = px.bar(room_counts, x=room_counts.index, y=room_counts.values, labels={'x': 'Room', 'y': 'Bookings'})
-            st.plotly_chart(fig)
-        with tab2:
-            fig = px.pie(priority_counts, names=priority_counts.index, values=priority_counts.values, title="Priority Distribution")
-            st.plotly_chart(fig)
-    else:
-        st.warning("No data available for analytics.")
+    # Display metric cards
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Total Bookings", total_bookings, help="Total number of conference room bookings.")
+    col2.metric("Unique Users", unique_users, help="Number of unique users who booked rooms.")
+    col3.metric("Rooms Booked", rooms_booked, help="Number of different rooms booked.")
+    col4.metric("High Priority Bookings", high_priority_bookings, help="Number of high-priority bookings.")
+    style_metric_cards()
+
+    # Analytics Tabs
+    tab1, tab2, tab3 = st.tabs(["Priority Distribution", "Room Utilization", "Booking Trends"])
+
+    # Priority Distribution Pie Chart
+    with tab1:
+        st.subheader("Priority Distribution")
+        if not bookings_df.empty:
+            priority_counts = bookings_df["Priority"].value_counts()
+            fig = px.pie(
+                names=priority_counts.index,
+                values=priority_counts.values,
+                title="Distribution of Booking Priorities",
+                color_discrete_sequence=px.colors.qualitative.Set3,
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("No data available for priority distribution.")
+
+    # Room Utilization Bar Chart
+    with tab2:
+        st.subheader("Room Utilization")
+        if not bookings_df.empty:
+            room_counts = bookings_df["Room"].value_counts()
+            fig = px.bar(
+                x=room_counts.index,
+                y=room_counts.values,
+                title="Number of Bookings per Room",
+                labels={"x": "Room", "y": "Bookings"},
+                color=room_counts.index,
+                color_discrete_sequence=px.colors.qualitative.Set2,
+            )
+            fig.update_layout(showlegend=False)
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("No data available for room utilization.")
+
+    # Booking Trends Over Time
+    with tab3:
+        st.subheader("Booking Trends Over Time")
+        if not bookings_df.empty:
+            bookings_df["Date"] = pd.to_datetime(bookings_df["Date"])
+            bookings_by_date = bookings_df.groupby("Date").size().reset_index(name="Bookings")
+
+            fig = px.line(
+                bookings_by_date,
+                x="Date",
+                y="Bookings",
+                title="Bookings Over Time",
+                markers=True,
+                labels={"Date": "Date", "Bookings": "Number of Bookings"},
+            )
+            fig.update_traces(line=dict(color="royalblue"))
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("No data available for booking trends.")
