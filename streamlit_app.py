@@ -11,6 +11,16 @@ import plotly.express as px
 import plotly.graph_objects as go
 from streamlit_extras.metric_cards import style_metric_cards
 
+metrics = {
+    "Total Bookings": len(bookings_df),
+    "Unique Users": bookings_df["User"].nunique(),
+    "Rooms Booked": bookings_df["Room"].nunique(),
+    "High Priority Bookings": bookings_df[bookings_df["Priority"] == "High"].shape[0],
+}
+
+style_metric_cards(metrics)
+
+
 # Admin credentials
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "password123"
