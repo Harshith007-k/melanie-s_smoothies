@@ -149,7 +149,8 @@ elif page == "Admin":
         else:
             st.error("Invalid credentials.")
 
-elif page == "Analytics":
+el# Assuming `bookings_df` is already defined in your app
+if page == "Analytics":
     st.title("Analytics Dashboard")
 
     # Calculate summary metrics
@@ -158,13 +159,12 @@ elif page == "Analytics":
     rooms_booked = bookings_df["Room"].nunique()
     high_priority_bookings = bookings_df[bookings_df["Priority"] == "High"].shape[0]
 
-    # Display metric cards
+    # Display metrics without using the external package
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Bookings", total_bookings, help="Total number of conference room bookings.")
-    col2.metric("Unique Users", unique_users, help="Number of unique users who booked rooms.")
-    col3.metric("Rooms Booked", rooms_booked, help="Number of different rooms booked.")
-    col4.metric("High Priority Bookings", high_priority_bookings, help="Number of high-priority bookings.")
-    style_metric_cards()
+    col1.metric("Total Bookings", total_bookings)
+    col2.metric("Unique Users", unique_users)
+    col3.metric("Rooms Booked", rooms_booked)
+    col4.metric("High Priority Bookings", high_priority_bookings)
 
     # Analytics Tabs
     tab1, tab2, tab3 = st.tabs(["Priority Distribution", "Room Utilization", "Booking Trends"])
