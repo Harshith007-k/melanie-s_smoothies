@@ -184,6 +184,9 @@ if st.session_state.authenticated:
         st.subheader("Booking Analytics")
         room_counts = bookings_df["Room"].value_counts()
         st.bar_chart(room_counts)
+        st.write("### Priority Breakdown")
+        priority_counts = bookings_df["Priority"].value_counts()
+        st.pie_chart(priority_counts)
     
     st.write("### Priority Breakdown")
     priority_counts = bookings_df["Priority"].value_counts()
