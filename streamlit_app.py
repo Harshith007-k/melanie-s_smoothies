@@ -150,7 +150,7 @@ elif page == "Admin":
             st.error("Invalid credentials.")
 
 el# Assuming `bookings_df` is already defined in your app
-if page == "Analytics":
+elif page == "Analytics":
     st.title("Analytics Dashboard")
 
     # Calculate summary metrics
