@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 import re
+import plotly.express as px
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -178,13 +179,20 @@ if st.session_state.authenticated:
                     st.success("Room booked successfully!")
 
     # Tab: Analytics
+    # Tab: Analytics
     with tabs[2]:
-        st.subheader("Booking Analytics")
-        room_counts = bookings_df["Room"].value_counts()
-        st.bar_chart(room_counts)
-        st.write("### Priority Breakdown")
-        priority_counts = bookings_df["Priority"].value_counts()
-        st.pie_chart(priority_counts)
+    st.subheader("Booking Analytics")
+    room_counts = bookings_df["Room"].value_counts()
+    st.bar_chart(room_counts)
+    
+    st.write("### Priority Breakdown")
+    priority_counts = bookings_df["Priority"].value_counts()
+    fig = px.pie(priority_counts, 
+                 values=priority_counts.values, 
+                 names=priority_counts.index, 
+                 title="Priority Distribution")
+    st.plotly_chart(fig)
+
 
     # Tab: Admin
     with tabs[3]:
