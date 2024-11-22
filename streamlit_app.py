@@ -181,9 +181,9 @@ if st.session_state.authenticated:
     # Tab: Analytics
     # Tab: Analytics
     with tabs[2]:
-    st.subheader("Booking Analytics")
-    room_counts = bookings_df["Room"].value_counts()
-    st.bar_chart(room_counts)
+        st.subheader("Booking Analytics")
+        room_counts = bookings_df["Room"].value_counts()
+        st.bar_chart(room_counts)
     
     st.write("### Priority Breakdown")
     priority_counts = bookings_df["Priority"].value_counts()
