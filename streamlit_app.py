@@ -6,17 +6,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 import re
-import plotly.express as px
-import matplotlib.pyplot as plt
-
-# Priority Breakdown with Matplotlib
-st.write("### Priority Breakdown")
-priority_counts = bookings_df["Priority"].value_counts()
-
-fig, ax = plt.subplots()
-ax.pie(priority_counts, labels=priority_counts.index, autopct="%1.1f%%", startangle=90)
-ax.axis("equal")  # Equal aspect ratio ensures the pie is circular.
-st.pyplot(fig)
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -189,7 +178,6 @@ if st.session_state.authenticated:
                     st.success("Room booked successfully!")
 
     # Tab: Analytics
-    # Tab: Analytics
     with tabs[2]:
         st.subheader("Booking Analytics")
         room_counts = bookings_df["Room"].value_counts()
@@ -197,15 +185,6 @@ if st.session_state.authenticated:
         st.write("### Priority Breakdown")
         priority_counts = bookings_df["Priority"].value_counts()
         st.pie_chart(priority_counts)
-    
-    st.write("### Priority Breakdown")
-    priority_counts = bookings_df["Priority"].value_counts()
-    fig = px.pie(priority_counts, 
-                 values=priority_counts.values, 
-                 names=priority_counts.index, 
-                 title="Priority Distribution")
-    st.plotly_chart(fig)
-
 
     # Tab: Admin
     with tabs[3]:
