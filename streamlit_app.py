@@ -158,13 +158,6 @@ elif page == "Analytics":
     rooms_booked = bookings_df["Room"].nunique()
     high_priority_bookings = bookings_df[bookings_df["Priority"] == "High"].shape[0]
 
-    # Display metrics without using the external package
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Bookings", total_bookings)
-    col2.metric("Unique Users", unique_users)
-    col3.metric("Rooms Booked", rooms_booked)
-    col4.metric("High Priority Bookings", high_priority_bookings)
-
     # Analytics Tabs
     tab1, tab2, tab3 = st.tabs(["Priority Distribution", "Room Utilization", "Booking Trends"])
 
