@@ -129,6 +129,25 @@ elif page == "Analytics":
     rooms_booked = bookings_df["Room"].nunique()
     high_priority_bookings = bookings_df[bookings_df["Priority"] == "High"].shape[0]
 
+    # Use styled metric cards for displaying key metrics
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        style_metric_cards(
+            label="Total Bookings", value=str(total_bookings), delta=None, icon="📅"
+        )
+    with col2:
+        style_metric_cards(
+            label="Unique Users", value=str(unique_users), delta=None, icon="👥"
+        )
+    with col3:
+        style_metric_cards(
+            label="Rooms Booked", value=str(rooms_booked), delta=None, icon="🏢"
+        )
+    with col4:
+        style_metric_cards(
+            label="High Priority Bookings", value=str(high_priority_bookings), delta=None, icon="⚠️"
+        )
+
     # Analytics Tabs
     tab1, tab2, tab3 = st.tabs(["Priority Distribution", "Room Utilization", "Booking Trends"])
 
