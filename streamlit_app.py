@@ -59,35 +59,6 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
         </body>
     </html>
     """
-
-    try:
-        msg = MIMEMultipart()
-        msg["From"] = sender_email
-        msg["To"] = user_email
-        msg["Subject"] = subject
-        msg.attach(MIMEText(body, "html"))
-
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.send_message(msg)
-        st.success(f"Confirmation email sent to {user_email}")
-    except Exception as e:
-        st.error(f"Failed to send email: {e}")
-
-# Utility Functions
-def is_time_slot_available(room, selected_date, start_time, end_time):
-    conflicts = bookings_df[(bookings_df["Room"] == room) & (bookings_df["Date"] == selected_date)]
-    for _, row in conflicts.iterrows():
-        if (start_time < row["End"]) and (end_time > row["Start"]):
-            return False
-    return True
-
-def is_valid_email(email):
-    regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    return re.match(regex, email) is not None
-
-# Pages
 if page == "Book a Room":
     st.title("Book a Conference Room")
 
