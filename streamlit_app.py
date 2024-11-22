@@ -101,7 +101,7 @@ def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end
 # Authentication and navigation
 with st.sidebar:
     st.title("Conference Room Booking")
-    st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
+    st.image("https://iiakerala.com/wp-content/uploads/2022/05/busy-working.gif")
 
     if not st.session_state.authenticated:
         with st.form("login_form"):
