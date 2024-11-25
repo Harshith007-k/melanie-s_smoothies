@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime, timedelta, time
+import plotly.express as px
+from datetime import datetime, time
 import os
-import re
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -27,6 +27,11 @@ else:
 def save_bookings(df):
     df.to_csv(BOOKINGS_FILE, index=False)
 
+# Redirect "View Bookings" page to the "View Bookings" tab
+if page == "View Bookings":
+    st.experimental_set_query_params(tab="View Bookings")
+    page = "Home"
+
 # Tabs on the Home Page
 if page == "Home":
     st.title("Welcome to the Conference Room Booking System")
@@ -45,14 +50,17 @@ if page == "Home":
                 priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
             description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
             selected_date = st.date_input("Select Date", min_value=datetime.today().date())
-            start_time = st.time_input("Start Time", value=time(11, 0))
-            end_time = st.time_input("End Time", value=time(12, 0))
 
-            if st.form_submit_button("Book Room"):
-                # Check for validation and time slot conflicts
-                if start_time >= end_time:
-                    st.error("End time must be after start time.")
-                else:
+            # Restrict time inputs
+            start_time = st.time_input("Start Time", value=time(11, 0), step=300)
+            end_time = st.time_input("End Time", value=time(20, 0), step=300)
+
+            if start_time < time(11, 0) or end_time > time(20, 0):
+                st.error("⚠️ Bookings are only allowed between 11:00 AM and 8:00 PM.")
+            elif start_time >= end_time:
+                st.error("⚠️ End time must be after start time.")
+            else:
+                if st.form_submit_button("Book Room"):
                     new_booking = {
                         "User": user_name,
                         "Email": user_email,
@@ -61,7 +69,7 @@ if page == "Home":
                         "Priority": priority,
                         "Description": description,
                         "Start": start_time,
-                        "End": end_time
+                        "End": end_time,
                     }
                     bookings_df = pd.concat([bookings_df, pd.DataFrame([new_booking])], ignore_index=True)
                     save_bookings(bookings_df)
@@ -73,7 +81,6 @@ if page == "Home":
         if not bookings_df.empty:
             selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
             filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
-            
             if not filtered_df.empty:
                 st.dataframe(filtered_df)
             else:
@@ -87,8 +94,33 @@ if page == "Home":
         total_bookings = len(bookings_df)
         st.metric("Total Bookings", total_bookings)
         st.metric("Unique Rooms", bookings_df["Room"].nunique())
+
         if not bookings_df.empty:
-            st.metric("High Priority Bookings", len(bookings_df[bookings_df["Priority"] == "High"]))
+            # Chart: Bookings by Date
+            st.subheader("📅 Bookings Over Time")
+            bookings_by_date = bookings_df["Date"].value_counts().reset_index()
+            bookings_by_date.columns = ["Date", "Count"]
+            bookings_by_date = bookings_by_date.sort_values(by="Date")
+            fig_date = px.line(bookings_by_date, x="Date", y="Count", title="Bookings Over Time", markers=True)
+            st.plotly_chart(fig_date, use_container_width=True)
+
+            # Chart: Bookings by Room
+            st.subheader("🏢 Bookings by Room")
+            bookings_by_room = bookings_df["Room"].value_counts().reset_index()
+            bookings_by_room.columns = ["Room", "Count"]
+            fig_room = px.bar(bookings_by_room, x="Room", y="Count", title="Bookings by Room", text="Count")
+            st.plotly_chart(fig_room, use_container_width=True)
+
+            # Chart: Priority Levels
+            st.subheader("📊 Priority Level Distribution")
+            priority_counts = bookings_df["Priority"].value_counts().reset_index()
+            priority_counts.columns = ["Priority", "Count"]
+            fig_priority = px.pie(priority_counts, names="Priority", values="Count", title="Priority Level Distribution")
+            st.plotly_chart(fig_priority, use_container_width=True)
+
+            # Summary Table
+            st.subheader("📋 Summary")
+            st.dataframe(bookings_df)
 
 # Admin Page
 elif page == "Admin":
