@@ -249,32 +249,56 @@ if page == "Book a Conference Room":
 
 # Admin Page: View all bookings with a Calendar
 # Tabs on the Home Page
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 if page == "View Bookings":
     st.title("Conference Room Booking Overview")
 
     # Tab layout
     tab1, tab2 = st.tabs(["📅 View Bookings", "📊 Metrics"])
 
-    # Tab 1: View Bookings
-    with tab1:
-        st.subheader("View and Filter Bookings")
+    # Tab 2: Metrics
+    with tab2:
+        st.header("Booking Metrics")
+
         if not bookings_df.empty:
-            # Debug: Display all data
-            st.write("All bookings data:")
-            st.dataframe(bookings_df)
+            # Total number of bookings
+            total_bookings = len(bookings_df)
+            st.metric("Total Bookings", total_bookings)
 
-            # Allow filtering by date
-            selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
-            filtered_df = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_view_date)]
+            # Unique rooms used
+            unique_rooms = bookings_df["Room"].nunique()
+            st.metric("Unique Rooms", unique_rooms)
 
-            if not filtered_df.empty:
-                st.write("Bookings for the selected date:")
-                st.dataframe(filtered_df)
-            else:
-                st.warning(f"No bookings available for {selected_view_date}.")
+            # High priority bookings
+            high_priority = bookings_df[bookings_df["Priority"] == "High"]
+            st.metric("High Priority Bookings", len(high_priority))
+
+            # Number of bookings per room (bar chart)
+            room_booking_count = bookings_df["Room"].value_counts()
+
+            # Plot bar chart for room usage
+            fig, ax = plt.subplots()
+            sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
+            ax.set_title("Bookings per Room")
+            ax.set_xlabel("Room")
+            ax.set_ylabel("Booking Count")
+            st.pyplot(fig)
+
+            # Number of bookings per priority level (bar chart)
+            priority_count = bookings_df["Priority"].value_counts()
+
+            # Plot bar chart for priority levels
+            fig, ax = plt.subplots()
+            sns.barplot(x=priority_count.index, y=priority_count.values, ax=ax)
+            ax.set_title("Bookings per Priority Level")
+            ax.set_xlabel("Priority Level")
+            ax.set_ylabel("Booking Count")
+            st.pyplot(fig)
+            
         else:
-            st.warning("No bookings available yet.")
-
+            st.warning("No bookings available to generate metrics.")
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
 if page == "Admin":
