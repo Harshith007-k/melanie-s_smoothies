@@ -295,11 +295,9 @@ with tabs[0]:
         metrics_data = {"Metric1": 50, "Metric2": 75, "Metric3": 100}
         bar_data = pd.DataFrame({"Room": ["Collaborate", "Innovate", "Echo", "Vibe"], "Bookings": [5, 8, 3, 6]})
         pie_data = pd.DataFrame({"Status": ["Confirmed", "Pending", "Cancelled"], "Count": [10, 5, 2]})
-
-       # Display Metrics (with smaller size)
-       st.write("### Metrics")
-       for metric, value in metrics_data.items():
-       st.metric(label=metric, value=f"{value}", help="This is a metric", delta=f"+{value*0.1:.2f}")
+        st.write("### Metrics")
+        for metric, value in metrics_data.items():
+            st.metric(label=metric, value=f"{value}", help="This is a metric", delta=f"+{value*0.1:.2f}")
 
        # Bar Chart (Smaller size and styling)
        st.write("### Room Bookings Overview")
