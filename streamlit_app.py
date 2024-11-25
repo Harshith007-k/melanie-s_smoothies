@@ -272,7 +272,7 @@ if page == "View Bookings":
     tab1,tab2 = st.tabs(["view bookings","📊 Metrics"])
 
     # Tab 2: Metrics
-    with tab2:
+    with tab1:
         st.header("Booking Metrics")
 
         if not bookings_df.empty:
