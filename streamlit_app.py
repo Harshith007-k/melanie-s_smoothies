@@ -299,8 +299,6 @@ fig_pie.update_layout(
     plot_bgcolor="white"
 )
 st.plotly_chart(fig_pie, use_container_width=True)
-        else:
-            st.warning("No bookings available to generate metrics.")
 # Admin Page: Admin Login for booking management
 # Update Booking Section
 if page == "Admin":
