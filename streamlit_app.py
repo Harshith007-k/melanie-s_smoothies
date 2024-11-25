@@ -368,23 +368,6 @@ if page == "Admin":
                 bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
                 save_bookings(bookings_df)
                 st.success(f"Booking by {booking_to_delete} has been deleted.")
-            
-            # Update Booking
-            booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
-            selected_booking = bookings_df[bookings_df["User"] == booking_to_update].iloc[0]
-            
-            with st.form("update_booking_form"):
-                updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
-                updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
-                updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
-                updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
-                updated_description = st.text_area("Update Description", value=selected_booking["Description"])
-                updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
-                updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
-                updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
-                
-                updated_start_datetime = datetime.combine(updated_date, updated_start_time)
-                updated_end_datetime = datetime.combine(updated_date, updated_end_time)
 
                 # Check for time conflicts
                 conflict = False
