@@ -13,7 +13,7 @@ st.set_page_config(page_title="Conference Room Booking", layout="wide")
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["Home", "Book a Conference Room", "Admin"])
+page = st.sidebar.radio("Choose a page:", ["Home", "View Bookings", "Admin"])
 
 # Load bookings from CSV
 BOOKINGS_FILE = "conference_bookings.csv"
@@ -69,10 +69,15 @@ if page == "Home":
 
     # Tab 2: View Bookings
     with tab2:
-        st.header("All Bookings")
+        st.header("View Bookings")
         if not bookings_df.empty:
-            styled_df = bookings_df.style.highlight_max(axis=0)
-            st.dataframe(styled_df)
+            selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
+            filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
+            
+            if not filtered_df.empty:
+                st.dataframe(filtered_df)
+            else:
+                st.warning(f"No bookings available for {selected_view_date}.")
         else:
             st.warning("No bookings available yet.")
 
