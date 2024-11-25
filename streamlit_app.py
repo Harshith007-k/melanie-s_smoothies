@@ -30,11 +30,13 @@ else:
 def save_bookings(df):
     df.to_csv(BOOKINGS_FILE, index=False)
 
-# Email configuration
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "your_email@gmail.com"  # Replace with your email
-SENDER_PASSWORD = "your_email_password"  # Replace with your email password
+# Email-sending function
+def send_email(user_email, user_name, room, date, start_time, end_time):
+    sender_email = "fahmad@phoenixteam.com"
+    sender_password = "qbtmrkwyspwxpbln"
+    smtp_server = "smtp-mail.outlook.com"
+    smtp_encryption = "STARTTLS"
+    smtp_port = 587
 
 # Function to send email
 def send_booking_email(user_email, admin_email, booking_details):
@@ -124,7 +126,7 @@ if page == "Home":
                     st.success("Your room has been successfully booked!")
 
                     # Send confirmation email
-                    send_booking_email(user_email, "abcd@gmail.com", new_booking)
+                    send_booking_email(user_email, "kteja@phoenixteam.com", new_booking)
 
     # Tab 3: Metrics
     with tab3:
