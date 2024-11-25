@@ -35,7 +35,7 @@ if page == "View Bookings":
 # Tabs on the Home Page
 if page == "Home":
     st.title("Welcome to the Conference Room Booking System")
-    tab1, tab2, tab3 = st.tabs(["🗂 View Bookings","📅 Book a Room","📊 Metrics"])
+    tab1, tab2, tab3 = st.tabs(["📅 Book a Room","🗂 View Bookings","📊 Metrics"])
 
     # Tab 1: Book a Room
     with tab1:
