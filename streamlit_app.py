@@ -337,7 +337,7 @@ with tabs[0]:
     else:
         st.warning("No bookings available to generate metrics.")
 # Admin Page: Admin Login for booking management
-# Admin Page: Admin Login for booking management
+# Update Booking Section
 if page == "Admin":
     # Admin Authentication
     if "authenticated" not in st.session_state:
@@ -356,18 +356,10 @@ if page == "Admin":
     else:
         st.write("### Admin Dashboard")
         st.write("#### Manage Bookings")
-        
         if not bookings_df.empty:
             # Display all bookings in a table
             st.write("### All Current Bookings")
             st.dataframe(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
-            
-            # Delete Booking
-            booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
-            if st.button("Delete Booking"):
-                bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
-                save_bookings(bookings_df)
-                st.success(f"Booking by {booking_to_delete} has been deleted.")
             
             # Update Booking
             booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
@@ -382,11 +374,9 @@ if page == "Admin":
                 updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
                 updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
                 updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
-                
                 updated_start_datetime = datetime.combine(updated_date, updated_start_time)
                 updated_end_datetime = datetime.combine(updated_date, updated_end_time)
-
-                # Check for time conflicts
+                
                 conflict = False
                 for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
                     if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]) and booking["User"] != booking_to_update:
@@ -394,8 +384,10 @@ if page == "Admin":
                         st.error("⚠️ This time slot is already booked! Please choose a different time.")
                         break
                 
-                if st.form_submit_button("Update Booking") and not conflict:
-                    # Update the booking in the DataFrame
+                # Ensure the submit button is inside the form
+                submit_button = st.form_submit_button("Update Booking")
+
+                if submit_button and not conflict:
                     bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
                         updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
                     ]
@@ -405,7 +397,6 @@ if page == "Admin":
                     send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
 
                     st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
-                    st.balloons()
             
             # Logout option for admin
             if st.button("Logout"):
@@ -413,5 +404,6 @@ if page == "Admin":
                 st.success("Logged out successfully.")
         else:
             st.write("No bookings found in the system.")
+
 
 
