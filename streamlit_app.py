@@ -340,7 +340,7 @@ with tabs[0]:
 # Update Booking Section
 if page == "Admin":
     if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
+        st.session_state.authenticated = False
 
 # Authentication Check
 if not st.session_state.authenticated:
