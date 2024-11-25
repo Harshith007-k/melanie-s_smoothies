@@ -264,84 +264,66 @@ if page == "View Bookings":
             st.dataframe(filtered_df)
         else:
             st.warning(f"No bookings available for {selected_view_date}.")
-   # Correct way to create and reference tabs
-tabs = st.tabs(["📊 Metrics"])
+    
+    # Correct way to create and reference tabs
+    tabs = st.tabs(["📊 Metrics"])
 
-with tabs[0]:
-    st.header("Booking Metrics")
+    with tabs[0]:
+        st.header("Booking Metrics")
 
-    if not bookings_df.empty:
-        metrics_data = {"Metric1": 50, "Metric2": 75, "Metric3": 100}
-bar_data = pd.DataFrame({"Room": ["Collaborate", "Innovate", "Echo", "Vibe"], "Bookings": [5, 8, 3, 6]})
-pie_data = pd.DataFrame({"Status": ["Confirmed", "Pending", "Cancelled"], "Count": [10, 5, 2]})
+        if not bookings_df.empty:
+            # Plot bar chart for room usage
+            room_booking_count = bookings_df["Room"].value_counts()
+            fig_bar = go.Figure(go.Bar(x=room_booking_count.index, y=room_booking_count.values, marker_color='royalblue'))
+            fig_bar.update_layout(
+                title="Bookings per Room",
+                xaxis_title="Room",
+                yaxis_title="Booking Count",
+                height=300,
+                width=500,
+                margin=dict(l=40, r=40, t=40, b=40),
+                plot_bgcolor="white"
+            )
+            st.plotly_chart(fig_bar)
 
-# Display Metrics (with smaller size)
-st.write("### Metrics")
-for metric, value in metrics_data.items():
-    st.metric(label=metric, value=f"{value}", help="This is a metric", delta=f"+{value*0.1:.2f}")
+            # Total number of bookings
+            total_bookings = len(bookings_df)
+            st.metric("Total Bookings", total_bookings)
 
-# Bar Chart (Smaller size and styling)
-st.write("### Room Bookings Overview")
-fig_bar = go.Figure(go.Bar(x=bar_data['Room'], y=bar_data['Bookings'], marker_color='royalblue'))
-fig_bar.update_layout(
-    title="Room Booking Summary",
-    xaxis_title="Rooms",
-    yaxis_title="Number of Bookings",
-    height=300,  # Make the bar chart smaller
-    width=500,   # Adjust width for a cleaner look
-    margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins for better layout
-    plot_bgcolor="white"
-)
-st.plotly_chart(fig_bar, use_container_width=True)
+            # Unique rooms used
+            unique_rooms = bookings_df["Room"].nunique()
+            st.metric("Unique Rooms", unique_rooms)
 
-# Pie Chart (Smaller size and styling)
-st.write("### Booking Status Overview")
-fig_pie = go.Figure(go.Pie(labels=pie_data['Status'], values=pie_data['Count'], hole=0.3))
-fig_pie.update_layout(
-    title="Booking Status Distribution",
-    height=300,  # Make the pie chart smaller
-    width=500,   # Adjust width for better proportion
-    margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins
-    plot_bgcolor="white"
-)
-st.plotly_chart(fig_pie, use_container_width=True)
-       
-        # Plot bar chart for room usage
-        fig, ax = plt.subplots()
-        sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
-        ax.set_title("Bookings per Room")
-        ax.set_xlabel("Room")
-        ax.set_ylabel("Booking Count")
-        st.pyplot(fig)
-        
-        # Total number of bookings
-        total_bookings = len(bookings_df)
-        st.metric("Total Bookings", total_bookings)
+            # High priority bookings
+            high_priority = bookings_df[bookings_df["Priority"] == "High"]
+            st.metric("High Priority Bookings", len(high_priority))
+            
+            # Priority distribution (pie chart)
+            priority_distribution = bookings_df["Priority"].value_counts()
+            fig_pie = go.Figure(go.Pie(labels=priority_distribution.index, values=priority_distribution.values, hole=0.3))
+            fig_pie.update_layout(
+                title="Priority Distribution",
+                height=300,
+                width=500,
+                margin=dict(l=40, r=40, t=40, b=40),
+                plot_bgcolor="white"
+            )
+            st.plotly_chart(fig_pie)
 
-        # Unique rooms used
-        unique_rooms = bookings_df["Room"].nunique()
-        st.metric("Unique Rooms", unique_rooms)
+            # Room distribution (pie chart)
+            room_distribution = bookings_df["Room"].value_counts()
+            fig_room_pie = go.Figure(go.Pie(labels=room_distribution.index, values=room_distribution.values, hole=0.3))
+            fig_room_pie.update_layout(
+                title="Room Distribution",
+                height=300,
+                width=500,
+                margin=dict(l=40, r=40, t=40, b=40),
+                plot_bgcolor="white"
+            )
+            st.plotly_chart(fig_room_pie)
 
-        # High priority bookings
-        high_priority = bookings_df[bookings_df["Priority"] == "High"]
-        st.metric("High Priority Bookings", len(high_priority))
-        
-        # Priority distribution (pie chart)
-        priority_distribution = bookings_df["Priority"].value_counts()
-        fig, ax = plt.subplots()
-        ax.pie(priority_distribution, labels=priority_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set3", len(priority_distribution)))
-        ax.set_title("Priority Distribution")
-        st.pyplot(fig)
-
-        # Room distribution (pie chart)
-        room_distribution = bookings_df["Room"].value_counts()
-        fig, ax = plt.subplots()
-        ax.pie(room_distribution, labels=room_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(room_distribution)))
-        ax.set_title("Room Distribution")
-        st.pyplot(fig)
-
-    else:
-        st.warning("No bookings available to generate metrics.")           
+        else:
+            st.warning("No bookings available to generate metrics.")           
 # Admin Page: Admin Login for booking management
 # Update Booking Section
 if page == "Admin":
