@@ -268,12 +268,11 @@ if page == "View Bookings":
             st.dataframe(filtered_df)
         else:
             st.warning(f"No bookings available for {selected_view_date}.")
-    # Tab layout
-    tab1 = st.tabs(["📊 Metrics"])
+   # Correct way to create and reference tabs
+tabs = st.tabs(["📊 Metrics"])
 
-    # Tab 1: Metrics
-    with tab1:
-        st.header("Booking Metrics")
+with tabs[0]:
+    st.header("Booking Metrics")
 
     if not bookings_df.empty:
         # Total number of bookings
