@@ -269,7 +269,7 @@ if page == "View Bookings":
         else:
             st.warning(f"No bookings available for {selected_view_date}.")
     # Tab layout
-    tab1,tab2 = st.tabs(["view bookings","📊 Metrics"])
+    tab1,tab2 = st.tabs(["📊 Metrics",""])
 
     # Tab 2: Metrics
     with tab1:
