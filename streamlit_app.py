@@ -372,38 +372,40 @@ if page == "Admin":
             selected_booking = bookings_df[bookings_df["User"] == booking_to_update].iloc[0]
             
             with st.form("update_booking_form"):
-                updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
-                updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
-                updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
-                updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
-                updated_description = st.text_area("Update Description", value=selected_booking["Description"])
-                updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
-                updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
-                updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
-                
-                updated_start_datetime = datetime.combine(updated_date, updated_start_time)
-                updated_end_datetime = datetime.combine(updated_date, updated_end_time)
+    updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
+    updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
+    updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
+    updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
+    updated_description = st.text_area("Update Description", value=selected_booking["Description"])
+    updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
+    updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
+    updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
+    
+    updated_start_datetime = datetime.combine(updated_date, updated_start_time)
+    updated_end_datetime = datetime.combine(updated_date, updated_end_time)
 
-                # Check for time conflicts
-                conflict = False
-                for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
-                    if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]) and booking["User"] != booking_to_update:
-                        conflict = True
-                        st.error("⚠️ This time slot is already booked! Please choose a different time.")
-                        break
-                
-                if st.form_submit_button("Update Booking") and not conflict:
-                    # Update the booking in the DataFrame
-                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
-                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
-                    ]
-                    save_bookings(bookings_df)
+    # Check for time conflicts
+    conflict = False
+    for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
+        if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]) and booking["User"] != booking_to_update:
+            conflict = True
+            st.error("⚠️ This time slot is already booked! Please choose a different time.")
+            break
+    
+    # Add the submit button inside the form
+    submit_button = st.form_submit_button("Update Booking")
 
-                    # Send updated email confirmation
-                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
+    if submit_button and not conflict:
+        # Update the booking in the DataFrame
+        bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
+            updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
+        ]
+        save_bookings(bookings_df)
 
-                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
-                    #st.balloons()
+        # Send updated email confirmation
+        send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
+
+        st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
             
             # Logout option for admin
             if st.button("Logout"):
