@@ -271,18 +271,6 @@ with tabs[0]:
     st.header("Booking Metrics")
 
     if not bookings_df.empty:
-        # Total number of bookings
-        total_bookings = len(bookings_df)
-        st.metric("Total Bookings", total_bookings)
-
-        # Unique rooms used
-        unique_rooms = bookings_df["Room"].nunique()
-        st.metric("Unique Rooms", unique_rooms)
-
-        # High priority bookings
-        high_priority = bookings_df[bookings_df["Priority"] == "High"]
-        st.metric("High Priority Bookings", len(high_priority))
-
         metrics_data = {"Metric1": 50, "Metric2": 75, "Metric3": 100}
         bar_data = pd.DataFrame({"Room": ["Collaborate", "Innovate", "Echo", "Vibe"], "Bookings": [5, 8, 3, 6]})
         pie_data = pd.DataFrame({"Status": ["Confirmed", "Pending", "Cancelled"], "Count": [10, 5, 2]})
@@ -319,6 +307,18 @@ with tabs[0]:
         ax.set_xlabel("Room")
         ax.set_ylabel("Booking Count")
         st.pyplot(fig)
+        
+        # Total number of bookings
+        total_bookings = len(bookings_df)
+        st.metric("Total Bookings", total_bookings)
+
+        # Unique rooms used
+        unique_rooms = bookings_df["Room"].nunique()
+        st.metric("Unique Rooms", unique_rooms)
+
+        # High priority bookings
+        high_priority = bookings_df[bookings_df["Priority"] == "High"]
+        st.metric("High Priority Bookings", len(high_priority))
         
         # Priority distribution (pie chart)
         priority_distribution = bookings_df["Priority"].value_counts()
