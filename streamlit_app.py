@@ -32,13 +32,26 @@ if page == "View Bookings":
     st.experimental_set_query_params(tab="View Bookings")
     page = "Home"
 
-# Tabs on the Home Page
 if page == "Home":
     st.title("Welcome to the Conference Room Booking System")
-    tab1, tab2, tab3 = st.tabs(["📅 Book a Room","🗂 View Bookings","📊 Metrics"])
+    tab1, tab2, tab3 = st.tabs(["🗂 View Bookings", "📅 Book a Room", "📊 Metrics"])  # Reordered tabs
 
-    # Tab 1: Book a Room
+    # Tab 1: View Bookings (now the first tab)
     with tab1:
+        st.header("View Bookings")
+        st.image("https://backdocket.com/wp-content/uploads/2020/01/About-icon.gif")
+        if not bookings_df.empty:
+            selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
+            filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
+            if not filtered_df.empty:
+                st.dataframe(filtered_df)
+            else:
+                st.warning(f"No bookings available for {selected_view_date}.")
+        else:
+            st.warning("No bookings available yet.")
+
+    # Tab 2: Book a Room (now the second tab)
+    with tab2:
         st.header("Book a Conference Room")
         with st.form("booking_form"):
             col1, col2 = st.columns(2)
@@ -74,20 +87,6 @@ if page == "Home":
                     bookings_df = pd.concat([bookings_df, pd.DataFrame([new_booking])], ignore_index=True)
                     save_bookings(bookings_df)
                     st.success("Your room has been successfully booked!")
-
-    # Tab 2: View Bookings
-    with tab2:
-        st.header("View Bookings")
-        st.image("https://backdocket.com/wp-content/uploads/2020/01/About-icon.gif")
-        if not bookings_df.empty:
-            selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
-            filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
-            if not filtered_df.empty:
-                st.dataframe(filtered_df)
-            else:
-                st.warning(f"No bookings available for {selected_view_date}.")
-        else:
-            st.warning("No bookings available yet.")
 
     # Tab 3: Metrics
     with tab3:
