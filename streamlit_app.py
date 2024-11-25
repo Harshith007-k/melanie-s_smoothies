@@ -6,6 +6,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 import re
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -249,12 +251,23 @@ if page == "Book a Conference Room":
 
 # Admin Page: View all bookings with a Calendar
 # Tabs on the Home Page
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 if page == "View Bookings":
-    st.title("Conference Room Booking Overview")
-
+    st.title("View Bookings")
+    
+    if bookings_df.empty:
+        st.warning("No bookings available yet.")
+    else:
+        # Date selection input
+        selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
+        
+        # Filter the bookings based on the selected date
+        filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
+        
+        # Display the filtered bookings
+        if not filtered_df.empty:
+            st.dataframe(filtered_df)
+        else:
+            st.warning(f"No bookings available for {selected_view_date}.")
     # Tab layout
     tab1, tab2 = st.tabs(["📅 View Bookings", "📊 Metrics"])
 
