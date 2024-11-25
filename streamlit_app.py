@@ -272,8 +272,7 @@ if page == "View Bookings":
         st.header("Booking Metrics")
 
         if not bookings_df.empty:
-    # Calculate room booking count
-    room_booking_count = bookings_df["Room"].value_counts()
+            room_booking_count = bookings_df["Room"].value_counts()
     
     # Plot bar chart for room usage
     fig, ax = plt.subplots()
