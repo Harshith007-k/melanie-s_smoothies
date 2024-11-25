@@ -13,7 +13,7 @@ st.set_page_config(page_title="Conference Room Booking", layout="wide")
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["Home", "View Bookings", "Admin"])
+page = st.sidebar.radio("Choose a page:", ["Home", "Admin"])
 
 # Load bookings from CSV
 BOOKINGS_FILE = "conference_bookings.csv"
