@@ -78,6 +78,7 @@ if page == "Home":
     # Tab 2: View Bookings
     with tab2:
         st.header("View Bookings")
+        st.image("https://bayanbox.ir/view/2779566542267071065/image-processing20200413-32591-o56who.gif")
         if not bookings_df.empty:
             selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
             filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
