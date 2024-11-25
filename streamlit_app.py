@@ -50,7 +50,7 @@ st.markdown("""
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["View Bookings","Admin"])
+page = st.sidebar.radio("Choose a page:", ["View Bookings","Book a Conference Room","Admin"])
 
 # Load the bookings from CSV
 BOOKINGS1_FILE = "conference_bookings.csv"
@@ -253,45 +253,10 @@ if page == "Book a Conference Room":
 # Tabs on the Home Page
 if page == "View Bookings":
     st.title("Welcome to the Conference Room Booking System")
-    tab1, tab2, tab3 = st.tabs(["📅 Book a Room", "🗂 View Bookings", "📊 Metrics"])
+    tab1, tab2, tab3 = st.tabs(["🗂 View Bookings", "📊 Metrics"])
 
-    # Tab 1: Book a Room
+     # Tab 2: View Bookings
     with tab1:
-        st.header("Book a Conference Room")
-        with st.form("booking_form"):
-            col1, col2 = st.columns(2)
-            with col1:
-                user_name = st.text_input("Your Name", placeholder="Enter your full name")
-                user_email = st.text_input("Your Email", placeholder="Enter your email")
-            with col2:
-                selected_room = st.selectbox("Choose Room", ["Big Conference Room", "Discussion Room 1", "Discussion Room 2"])
-                priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
-            description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
-            selected_date = st.date_input("Select Date", min_value=datetime.today().date())
-            start_time = st.time_input("Start Time", value=time(11, 0))
-            end_time = st.time_input("End Time", value=time(12, 0))
-
-            if st.form_submit_button("Book Room"):
-                # Check for validation and time slot conflicts
-                if start_time >= end_time:
-                    st.error("End time must be after start time.")
-                else:
-                    new_booking = {
-                        "User": user_name,
-                        "Email": user_email,
-                        "Date": selected_date,
-                        "Room": selected_room,
-                        "Priority": priority,
-                        "Description": description,
-                        "Start": start_time,
-                        "End": end_time
-                    }
-                    bookings_df = pd.concat([bookings_df, pd.DataFrame([new_booking])], ignore_index=True)
-                    save_bookings(bookings_df)
-                    st.success("Your room has been successfully booked!")
-
-    # Tab 2: View Bookings
-    with tab2:
         st.header("View Bookings")
         if not bookings_df.empty:
             selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
