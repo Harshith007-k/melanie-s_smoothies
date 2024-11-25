@@ -4,3 +4,7 @@ streamlit
 requests
 plotly
 streamlit-extras
+seaborn
+matplotlib
+pandas
+
