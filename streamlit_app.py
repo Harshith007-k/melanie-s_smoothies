@@ -33,7 +33,7 @@ def save_bookings(df):
 # Email-sending function
 def send_email(user_email, user_name, room, date, start_time, end_time):
     sender_email = "19bd1a1021@gmail.com"
-    sender_password = "agvrujrctxxwcggk"
+    sender_password = "nsibiqxbmavsbzuj"
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
