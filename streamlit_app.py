@@ -290,41 +290,35 @@ with tabs[0]:
         ax.set_xlabel("Room")
         ax.set_ylabel("Booking Count")
         st.pyplot(fig)
-
-        # Sample data for the metrics and charts
         metrics_data = {"Metric1": 50, "Metric2": 75, "Metric3": 100}
         bar_data = pd.DataFrame({"Room": ["Collaborate", "Innovate", "Echo", "Vibe"], "Bookings": [5, 8, 3, 6]})
         pie_data = pd.DataFrame({"Status": ["Confirmed", "Pending", "Cancelled"], "Count": [10, 5, 2]})
         st.write("### Metrics")
         for metric, value in metrics_data.items():
             st.metric(label=metric, value=f"{value}", help="This is a metric", delta=f"+{value*0.1:.2f}")
-
-       # Bar Chart (Smaller size and styling)
-       st.write("### Room Bookings Overview")
-       fig_bar = go.Figure(go.Bar(x=bar_data['Room'], y=bar_data['Bookings'], marker_color='royalblue'))
-       fig_bar.update_layout(
-       title="Room Booking Summary",
-       xaxis_title="Rooms",
-       yaxis_title="Number of Bookings",
-       height=300,  # Make the bar chart smaller
-       width=500,   # Adjust width for a cleaner look
-       margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins for better layout
-       plot_bgcolor="white"
-       )
-       st.plotly_chart(fig_bar, use_container_width=True)
-
-       # Pie Chart (Smaller size and styling)
-       st.write("### Booking Status Overview")
-       fig_pie = go.Figure(go.Pie(labels=pie_data['Status'], values=pie_data['Count'], hole=0.3))
-       fig_pie.update_layout(
-       title="Booking Status Distribution",
-       height=300,  # Make the pie chart smaller
-       width=500,   # Adjust width for better proportion
-       margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins
-       plot_bgcolor="white"
-       )
-       st.plotly_chart(fig_pie, use_container_width=True)
-
+            st.write("### Room Bookings Overview")
+            fig_bar = go.Figure(go.Bar(x=bar_data['Room'], y=bar_data['Bookings'], marker_color='royalblue'))
+            fig_bar.update_layout(
+                title="Room Booking Summary",
+                xaxis_title="Rooms",
+                yaxis_title="Number of Bookings",
+                height=300,  # Make the bar chart smaller
+                width=500,   # Adjust width for a cleaner look
+                margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins for better layout
+                plot_bgcolor="white"
+            )
+            st.plotly_chart(fig_bar, use_container_width=True)
+            st.write("### Booking Status Overview")
+            fig_pie = go.Figure(go.Pie(labels=pie_data['Status'], values=pie_data['Count'], hole=0.3))
+            fig_pie.update_layout(
+                title="Booking Status Distribution",
+                height=300,  # Make the pie chart smaller
+                width=500,   # Adjust width for better proportion
+                margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins
+                plot_bgcolor="white"
+            )
+            st.plotly_chart(fig_pie, use_container_width=True)
+        
         
         # Priority distribution (pie chart)
         priority_distribution = bookings_df["Priority"].value_counts()
