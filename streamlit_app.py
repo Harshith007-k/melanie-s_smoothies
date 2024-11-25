@@ -264,44 +264,74 @@ if page == "View Bookings":
             st.dataframe(filtered_df)
         else:
             st.warning(f"No bookings available for {selected_view_date}.")
+   # Correct way to create and reference tabs
+tabs = st.tabs(["📊 Metrics"])
 
-                if not bookings_df.empty:
-            # Total number of bookings
-            total_bookings = len(bookings_df)
-            st.metric("Total Bookings", total_bookings)
+with tabs[0]:
+    st.header("Booking Metrics")
 
-            # Unique rooms used
-            unique_rooms = bookings_df["Room"].nunique()
-            st.metric("Unique Rooms", unique_rooms)
+    if not bookings_df.empty:
+        # Total number of bookings
+        total_bookings = len(bookings_df)
+        st.metric("Total Bookings", total_bookings)
 
-            # High priority bookings
-            high_priority = bookings_df[bookings_df["Priority"] == "High"]
-            st.metric("High Priority Bookings", len(high_priority))
+        # Unique rooms used
+        unique_rooms = bookings_df["Room"].nunique()
+        st.metric("Unique Rooms", unique_rooms)
 
-            # Number of bookings per room (bar chart)
-            room_booking_count = bookings_df["Room"].value_counts()
+        # High priority bookings
+        high_priority = bookings_df[bookings_df["Priority"] == "High"]
+        st.metric("High Priority Bookings", len(high_priority))
 
-            # Plot bar chart for room usage
-            fig, ax = plt.subplots()
-            sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
-            ax.set_title("Bookings per Room")
-            ax.set_xlabel("Room")
-            ax.set_ylabel("Booking Count")
-            st.pyplot(fig)
+        # Bookings per room (bar chart)
+        room_booking_count = bookings_df["Room"].value_counts()
 
-            # Number of bookings per priority level (bar chart)
-            priority_count = bookings_df["Priority"].value_counts()
+        # Plot bar chart for room usage
+        fig, ax = plt.subplots()
+        sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
+        ax.set_title("Bookings per Room")
+        ax.set_xlabel("Room")
+        ax.set_ylabel("Booking Count")
+        st.pyplot(fig)
 
-            # Plot bar chart for priority levels
-            fig, ax = plt.subplots()
-            sns.barplot(x=priority_count.index, y=priority_count.values, ax=ax)
-            ax.set_title("Bookings per Priority Level")
-            ax.set_xlabel("Priority Level")
-            ax.set_ylabel("Booking Count")
-            st.pyplot(fig)
-            
-        else:
-            st.warning("No bookings available to generate metrics.")
+        # Bookings per priority level (bar chart)
+        priority_count = bookings_df["Priority"].value_counts()
+
+        # Plot bar chart for priority levels
+        fig, ax = plt.subplots()
+        sns.barplot(x=priority_count.index, y=priority_count.values, ax=ax)
+        ax.set_title("Bookings per Priority Level")
+        ax.set_xlabel("Priority Level")
+        ax.set_ylabel("Booking Count")
+        st.pyplot(fig)
+
+        # Bookings per user (bar chart)
+        user_booking_count = bookings_df["User"].value_counts()
+
+        # Plot bar chart for bookings per user
+        fig, ax = plt.subplots()
+        sns.barplot(x=user_booking_count.index, y=user_booking_count.values, ax=ax)
+        ax.set_title("Bookings per User")
+        ax.set_xlabel("User")
+        ax.set_ylabel("Booking Count")
+        st.pyplot(fig)
+
+        # Priority distribution (pie chart)
+        priority_distribution = bookings_df["Priority"].value_counts()
+        fig, ax = plt.subplots()
+        ax.pie(priority_distribution, labels=priority_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set3", len(priority_distribution)))
+        ax.set_title("Priority Distribution")
+        st.pyplot(fig)
+
+        # Room distribution (pie chart)
+        room_distribution = bookings_df["Room"].value_counts()
+        fig, ax = plt.subplots()
+        ax.pie(room_distribution, labels=room_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(room_distribution)))
+        ax.set_title("Room Distribution")
+        st.pyplot(fig)
+
+    else:
+        st.warning("No bookings available to generate metrics.")           
 # Admin Page: Admin Login for booking management
 # Update Booking Section
 if page == "Admin":
