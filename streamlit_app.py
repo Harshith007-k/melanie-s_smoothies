@@ -3,6 +3,9 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime, time
 import os
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -27,30 +30,62 @@ else:
 def save_bookings(df):
     df.to_csv(BOOKINGS_FILE, index=False)
 
-# Redirect "View Bookings" page to the "View Bookings" tab
-if page == "View Bookings":
-    st.experimental_set_query_params(tab="View Bookings")
-    page = "Home"
+# Email configuration
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+SENDER_EMAIL = "your_email@gmail.com"  # Replace with your email
+SENDER_PASSWORD = "your_email_password"  # Replace with your email password
 
+# Function to send email
+def send_booking_email(user_email, admin_email, booking_details):
+    try:
+        # Email content
+        subject = "Conference Room Booking Confirmation"
+        body = f"""
+        Dear User,
+
+        Your conference room has been successfully booked. Here are the details:
+
+        User: {booking_details['User']}
+        Email: {booking_details['Email']}
+        Room: {booking_details['Room']}
+        Date: {booking_details['Date']}
+        Start Time: {booking_details['Start']}
+        End Time: {booking_details['End']}
+        Priority: {booking_details['Priority']}
+        Description: {booking_details['Description']}
+
+        Thank you for using the Conference Room Booking System.
+
+        Regards,
+        Admin
+        """
+
+        # Create the email
+        message = MIMEMultipart()
+        message["From"] = SENDER_EMAIL
+        message["To"] = user_email
+        message["Cc"] = admin_email
+        message["Subject"] = subject
+
+        message.attach(MIMEText(body, "plain"))
+
+        # Connect to SMTP server and send email
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+            server.starttls()  # Upgrade connection to secure
+            server.login(SENDER_EMAIL, SENDER_PASSWORD)
+            server.sendmail(SENDER_EMAIL, [user_email, admin_email], message.as_string())
+        print("Email sent successfully!")
+
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+# Updated Booking Section
 if page == "Home":
     st.title("Welcome to the Conference Room Booking System")
     tab1, tab2, tab3 = st.tabs(["🗂 View Bookings", "📅 Book a Room", "📊 Metrics"])  # Reordered tabs
 
-    # Tab 1: View Bookings (now the first tab)
-    with tab1:
-        st.header("View Bookings")
-        st.image("https://backdocket.com/wp-content/uploads/2020/01/About-icon.gif")
-        if not bookings_df.empty:
-            selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
-            filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
-            if not filtered_df.empty:
-                st.dataframe(filtered_df)
-            else:
-                st.warning(f"No bookings available for {selected_view_date}.")
-        else:
-            st.warning("No bookings available yet.")
-
-    # Tab 2: Book a Room (now the second tab)
+    # Tab 2: Book a Room
     with tab2:
         st.header("Book a Conference Room")
         with st.form("booking_form"):
@@ -87,6 +122,9 @@ if page == "Home":
                     bookings_df = pd.concat([bookings_df, pd.DataFrame([new_booking])], ignore_index=True)
                     save_bookings(bookings_df)
                     st.success("Your room has been successfully booked!")
+
+                    # Send confirmation email
+                    send_booking_email(user_email, "abcd@gmail.com", new_booking)
 
     # Tab 3: Metrics
     with tab3:
