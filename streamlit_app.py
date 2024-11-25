@@ -259,37 +259,21 @@ if page == "View Bookings":
     with tab1:
         st.subheader("View and Filter Bookings")
         if not bookings_df.empty:
+            # Debug: Display all data
+            st.write("All bookings data:")
+            st.dataframe(bookings_df)
+
             # Allow filtering by date
             selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
             filtered_df = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_view_date)]
 
-            # Display filtered bookings or show a message if none exist
             if not filtered_df.empty:
-                st.dataframe(filtered_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
+                st.write("Bookings for the selected date:")
+                st.dataframe(filtered_df)
             else:
                 st.warning(f"No bookings available for {selected_view_date}.")
         else:
             st.warning("No bookings available yet.")
-
-    # Tab 2: Metrics
-    with tab2:
-        st.subheader("Booking Metrics")
-        if not bookings_df.empty:
-            # Total bookings
-            total_bookings = len(bookings_df)
-
-            # Unique rooms
-            unique_rooms = bookings_df["Room"].nunique()
-
-            # High-priority bookings
-            high_priority_count = len(bookings_df[bookings_df["Priority"] == "High"])
-
-            # Display metrics
-            st.metric("Total Bookings", total_bookings)
-            st.metric("Unique Rooms Booked", unique_rooms)
-            st.metric("High-Priority Bookings", high_priority_count)
-        else:
-            st.warning("No bookings data available to display metrics.")
 
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
