@@ -248,35 +248,48 @@ if page == "Book a Conference Room":
                 st.error("⚠️ Please ensure all fields are valid and try again.")
 
 # Admin Page: View all bookings with a Calendar
-# View Bookings Page
-#if page == "View Bookings":
 # Tabs on the Home Page
 if page == "View Bookings":
-    st.title("Welcome to the Conference Room Booking System")
-    tab1, tab2, tab3 = st.tabs(["🗂 View Bookings", "📊 Metrics"])
+    st.title("Conference Room Booking Overview")
 
-     # Tab 2: View Bookings
+    # Tab layout
+    tab1, tab2 = st.tabs(["📅 View Bookings", "📊 Metrics"])
+
+    # Tab 1: View Bookings
     with tab1:
-        st.header("View Bookings")
+        st.subheader("View and Filter Bookings")
         if not bookings_df.empty:
+            # Allow filtering by date
             selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
-            filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
-            
+            filtered_df = bookings_df[bookings_df["Date"] == pd.Timestamp(selected_view_date)]
+
+            # Display filtered bookings or show a message if none exist
             if not filtered_df.empty:
-                st.dataframe(filtered_df)
+                st.dataframe(filtered_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
             else:
                 st.warning(f"No bookings available for {selected_view_date}.")
         else:
             st.warning("No bookings available yet.")
 
-    # Tab 3: Metrics
-    with tab3:
-        st.header("Metrics")
-        total_bookings = len(bookings_df)
-        st.metric("Total Bookings", total_bookings)
-        st.metric("Unique Rooms", bookings_df["Room"].nunique())
+    # Tab 2: Metrics
+    with tab2:
+        st.subheader("Booking Metrics")
         if not bookings_df.empty:
-            st.metric("High Priority Bookings", len(bookings_df[bookings_df["Priority"] == "High"]))
+            # Total bookings
+            total_bookings = len(bookings_df)
+
+            # Unique rooms
+            unique_rooms = bookings_df["Room"].nunique()
+
+            # High-priority bookings
+            high_priority_count = len(bookings_df[bookings_df["Priority"] == "High"])
+
+            # Display metrics
+            st.metric("Total Bookings", total_bookings)
+            st.metric("Unique Rooms Booked", unique_rooms)
+            st.metric("High-Priority Bookings", high_priority_count)
+        else:
+            st.warning("No bookings data available to display metrics.")
 
 # Admin Page: Admin Login for booking management
 # Admin Page: Admin Login for booking management
