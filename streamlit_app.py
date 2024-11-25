@@ -269,10 +269,10 @@ if page == "View Bookings":
         else:
             st.warning(f"No bookings available for {selected_view_date}.")
     # Tab layout
-    tab1 = st.tabs(["📊 Metrics"])
+    tab2 = st.tabs(["📊 Metrics"])
 
     # Tab 2: Metrics
-    with tab1:
+    with tab2:
         st.header("Booking Metrics")
 
         if not bookings_df.empty:
