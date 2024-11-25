@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-from datetime import datetime, time
-import os
+from datetime import datetime, timedelta, time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
+import re
 
 # Admin credentials
 ADMIN_USERNAME = "admin"
@@ -14,80 +14,249 @@ ADMIN_PASSWORD = "password123"
 # Set up page configuration
 st.set_page_config(page_title="Conference Room Booking", layout="wide")
 
+# Custom CSS for styling
+st.markdown("""
+    <style>
+        .title {
+            text-align: center;
+            color: #003366;
+        }
+        .booking-table th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px;
+        }
+        .booking-table td {
+            padding: 8px;
+            text-align: left;
+        }
+        .low-priority {
+            background-color: #e0f7fa;
+        }
+        .medium-low-priority {
+            background-color: #80deea;
+        }
+        .medium-priority {
+            background-color: #ffcc80;
+        }
+        .medium-high-priority {
+            background-color: #ff7043;
+        }
+        .high-priority {
+            background-color: #e57373;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["Home", "Admin"])
+page = st.sidebar.radio("Choose a page:", ["View Bookings","Book a Conference Room","Admin"])
 
-# Load bookings from CSV
-BOOKINGS_FILE = "conference_bookings.csv"
-if os.path.exists(BOOKINGS_FILE):
-    bookings_df = pd.read_csv(BOOKINGS_FILE)
-    bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
+# Load the bookings from CSV
+BOOKINGS1_FILE = "conference_bookings.csv"
+
+if os.path.exists(BOOKINGS1_FILE):
+    bookings_df = pd.read_csv(BOOKINGS1_FILE)
+    try:
+        bookings_df["Date"] = pd.to_datetime(bookings_df["Date"], errors="coerce").dt.date
+        bookings_df["Start"] = pd.to_datetime(bookings_df["Start"], errors="coerce")
+        bookings_df["End"] = pd.to_datetime(bookings_df["End"], errors="coerce")
+        bookings_df = bookings_df.dropna(subset=["Date", "Start", "End"])
+    except Exception as e:
+        st.error(f"Error processing the bookings file: {e}")
+        bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 else:
     bookings_df = pd.DataFrame(columns=["User", "Email", "Date", "Room", "Priority", "Description", "Start", "End"])
 
 # Save bookings to the CSV file
 def save_bookings(df):
-    df.to_csv(BOOKINGS_FILE, index=False)
+    df.to_csv(BOOKINGS1_FILE, index=False)
 
 # Email-sending function
 def send_email(user_email, user_name, room, date, start_time, end_time):
-    sender_email = "19bd1a1021@gmail.com"
-    sender_password = "nsibiqxbmavsbzuj"
-    smtp_server = "smtp.gmail.com"
+    sender_email = "fahmad@phoenixteam.com"
+    sender_password = "qbtmrkwyspwxpbln"
+    smtp_server = "smtp-mail.outlook.com"
+    smtp_encryption = "STARTTLS"
     smtp_port = 587
 
-# Function to send email
-def send_booking_email(user_email, admin_email, booking_details):
+    subject = "Conference Room Booking Confirmation"
+    body = f"""
+    <html>
+        <body>
+            <p>Dear {user_name},</p>
+            <p>Your booking has been confirmed! Here are the details:</p>
+            <table border="1" style="border-collapse: collapse; width: 50%; text-align: left;">
+                <tr>
+                    <th style="padding: 8px; background-color: #f2f2f2;">Field</th>
+                    <th style="padding: 8px; background-color: #f2f2f2;">Details</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Room</td>
+                    <td style="padding: 8px;">{room}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Date</td>
+                    <td style="padding: 8px;">{date.strftime('%A, %B %d, %Y')}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Time</td>
+                    <td style="padding: 8px;">{start_time.strftime('%H:%M')} - {end_time.strftime('%H:%M')}</td>
+                </tr>
+            </table>
+            <p>If you have any questions, feel free to contact us.</p>
+            <p>Best regards,<br>Conference Room Booking Team</p>
+        </body>
+    </html>
+    """
+    
     try:
-        # Email content
-        subject = "Conference Room Booking Confirmation"
-        body = f"""
-        Dear User,
+        # Prepare the email
+        msg = MIMEMultipart()
+        msg["From"] = sender_email
+        msg["To"] = f"{user_email}, kteja@phoenixteam.com"
+        msg["Subject"] = subject
+        msg.attach(MIMEText(body, "html"))
 
-        Your conference room has been successfully booked. Here are the details:
-
-        User: {booking_details['User']}
-        Email: {booking_details['Email']}
-        Room: {booking_details['Room']}
-        Date: {booking_details['Date']}
-        Start Time: {booking_details['Start']}
-        End Time: {booking_details['End']}
-        Priority: {booking_details['Priority']}
-        Description: {booking_details['Description']}
-
-        Thank you for using the Conference Room Booking System.
-
-        Regards,
-        Admin
-        """
-
-        # Create the email
-        message = MIMEMultipart()
-        message["From"] = SENDER_EMAIL
-        message["To"] = user_email
-        message["Cc"] = admin_email
-        message["Subject"] = subject
-
-        message.attach(MIMEText(body, "plain"))
-
-        # Connect to SMTP server and send email
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()  # Upgrade connection to secure
-            server.login(SENDER_EMAIL, SENDER_PASSWORD)
-            server.sendmail(SENDER_EMAIL, [user_email, admin_email], message.as_string())
-        print("Email sent successfully!")
-
+        # Connect to SMTP server and send the email
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+        
+        st.success(f"Email confirmation sent to {user_email} and admin.")
     except Exception as e:
-        print(f"Error sending email: {e}")
+        st.error(f"Error sending email: {e}")
 
-# Updated Booking Section
-if page == "Home":
+# Function to validate email format using regex
+# Function to validate email format using regex and domain check
+def is_valid_email(email):
+    email_regex = r'^[a-zA-Z0-9_.+-]+@phoenixteam\.com$'
+    return re.match(email_regex, email) is not None
+# Function to check if the time slot overlaps with any existing bookings
+def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
+    conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
+    for _, booking in conflicts.iterrows():
+        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
+            return False
+    return True
+
+# Booking Form Section
+# Booking Form Section
+# Booking Form Section
+# Function to check if the time slot overlaps with any existing bookings
+# Function to check if the time slot overlaps with any existing bookings
+def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
+    # Filter bookings that match the room and date
+    conflicts = bookings_df[(bookings_df["Date"] == selected_date) & (bookings_df["Room"] == room)]
+    
+    # Check if the new booking overlaps with any existing booking
+    for _, booking in conflicts.iterrows():
+        # Check if the new booking overlaps with an existing booking
+        if (start_datetime < booking["End"]) and (end_datetime > booking["Start"]):
+            return False
+    return True
+
+# Function to save the bookings to the CSV file
+def save_bookings(df):
+    df.to_csv("conference_bookings.csv", index=False)
+
+# Booking Form Section
+if page == "Book a Conference Room":
+    st.image("https://phoenixteam.com/wp-content/uploads/2024/02/Phoenix-Logo.png", width=200)
+    st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
+    
+    with st.form("booking_form"):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            user_name = st.text_input("Your Name", placeholder="Enter your full name")
+            user_email = st.text_input("Your Email", placeholder="Enter your email")
+        with col2:
+            selected_room = st.selectbox("Choose Room", ["Collaborate", "Innovate", "Echo","Vibe"])
+        with col3:
+            priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
+
+        description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
+        selected_date = st.date_input("Select Date", min_value=datetime.today().date())
+        
+        start_time = st.time_input("Start Time", value=time(11, 0))
+        end_time = st.time_input("End Time", value=time(12, 0))
+
+        # Prevent zero-duration bookings
+        if start_time >= end_time:
+            st.error("⚠️ End time must be later than start time.")
+            valid_times = False
+        else:
+            start_datetime = datetime.combine(selected_date, start_time)
+            end_datetime = datetime.combine(selected_date, end_time)
+
+            # Validation checks
+            valid_name = True
+            valid_email = True
+            valid_times = True
+            conflict = False
+
+            if not user_name:
+                st.error("⚠️ Name cannot be empty.")
+                valid_name = False
+
+            if not user_email:
+                st.error("⚠️ Email cannot be empty.")
+                valid_email = False
+            elif not is_valid_email(user_email):
+                st.error("⚠️ Please enter a valid email address.")
+                valid_email = False
+
+            # Check if the time slot is available
+            if not is_time_slot_available(bookings_df, selected_room, selected_date, start_datetime, end_datetime):
+                st.error("⚠️ The selected time slot is already booked for this room.")
+                conflict = True
+                valid_times = False
+
+            submit_button = st.form_submit_button("Book Room")
+
+            if submit_button and valid_name and valid_email and valid_times and not conflict:
+                # Proceed with booking if valid
+                new_booking = {
+                    "User": user_name,
+                    "Email": user_email,
+                    "Date": selected_date,
+                    "Room": selected_room,
+                    "Priority": priority,
+                    "Description": description,
+                    "Start": start_datetime,
+                    "End": end_datetime
+                }
+
+                # Create a DataFrame for the new booking
+                new_booking_df = pd.DataFrame([new_booking])
+
+                # Concatenate the new booking with the existing bookings DataFrame
+                bookings_df = pd.concat([bookings_df, new_booking_df], ignore_index=True)
+
+                # Save the updated bookings DataFrame to the CSV
+                save_bookings(bookings_df)
+
+                # Show a success message to the user
+                st.success(f"Your room has been successfully booked! A confirmation email has been sent to {user_email}.")
+                
+                # Send email confirmation to user and admin
+                send_email(user_email, user_name, selected_room, selected_date, start_datetime, end_datetime)
+
+            # If form is not valid, show an error message
+            elif submit_button and not (valid_name and valid_email and valid_times):
+                st.error("⚠️ Please ensure all fields are valid and try again.")
+
+# Admin Page: View all bookings with a Calendar
+# View Bookings Page
+#if page == "View Bookings":
+# Tabs on the Home Page
+if page == "View Bookings":
     st.title("Welcome to the Conference Room Booking System")
-    tab1, tab2, tab3 = st.tabs(["🗂 View Bookings", "📅 Book a Room", "📊 Metrics"])  # Reordered tabs
+    tab1, tab2, tab3 = st.tabs(["📅 Book a Room", "🗂 View Bookings", "📊 Metrics"])
 
-    # Tab 2: Book a Room
-    with tab2:
+    # Tab 1: Book a Room
+    with tab1:
         st.header("Book a Conference Room")
         with st.form("booking_form"):
             col1, col2 = st.columns(2)
@@ -99,17 +268,14 @@ if page == "Home":
                 priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
             description = st.text_area("Booking Description (optional)", placeholder="Enter details of your booking")
             selected_date = st.date_input("Select Date", min_value=datetime.today().date())
+            start_time = st.time_input("Start Time", value=time(11, 0))
+            end_time = st.time_input("End Time", value=time(12, 0))
 
-            # Restrict time inputs
-            start_time = st.time_input("Start Time", value=time(11, 0), step=300)
-            end_time = st.time_input("End Time", value=time(20, 0), step=300)
-
-            if start_time < time(11, 0) or end_time > time(20, 0):
-                st.error("⚠️ Bookings are only allowed between 11:00 AM and 8:00 PM.")
-            elif start_time >= end_time:
-                st.error("⚠️ End time must be after start time.")
-            else:
-                if st.form_submit_button("Book Room"):
+            if st.form_submit_button("Book Room"):
+                # Check for validation and time slot conflicts
+                if start_time >= end_time:
+                    st.error("End time must be after start time.")
+                else:
                     new_booking = {
                         "User": user_name,
                         "Email": user_email,
@@ -118,14 +284,25 @@ if page == "Home":
                         "Priority": priority,
                         "Description": description,
                         "Start": start_time,
-                        "End": end_time,
+                        "End": end_time
                     }
                     bookings_df = pd.concat([bookings_df, pd.DataFrame([new_booking])], ignore_index=True)
                     save_bookings(bookings_df)
                     st.success("Your room has been successfully booked!")
 
-                    # Send confirmation email
-                    send_booking_email(user_email, "kteja@phoenixteam.com", new_booking)
+    # Tab 2: View Bookings
+    with tab2:
+        st.header("View Bookings")
+        if not bookings_df.empty:
+            selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
+            filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
+            
+            if not filtered_df.empty:
+                st.dataframe(filtered_df)
+            else:
+                st.warning(f"No bookings available for {selected_view_date}.")
+        else:
+            st.warning("No bookings available yet.")
 
     # Tab 3: Metrics
     with tab3:
@@ -133,64 +310,83 @@ if page == "Home":
         total_bookings = len(bookings_df)
         st.metric("Total Bookings", total_bookings)
         st.metric("Unique Rooms", bookings_df["Room"].nunique())
-
         if not bookings_df.empty:
-            # Chart: Bookings by Date
-            st.subheader("📅 Bookings Over Time")
-            bookings_by_date = bookings_df["Date"].value_counts().reset_index()
-            bookings_by_date.columns = ["Date", "Count"]
-            bookings_by_date = bookings_by_date.sort_values(by="Date")
-            fig_date = px.line(bookings_by_date, x="Date", y="Count", title="Bookings Over Time", markers=True)
-            st.plotly_chart(fig_date, use_container_width=True)
+            st.metric("High Priority Bookings", len(bookings_df[bookings_df["Priority"] == "High"]))
 
-            # Chart: Bookings by Room
-            st.subheader("🏢 Bookings by Room")
-            bookings_by_room = bookings_df["Room"].value_counts().reset_index()
-            bookings_by_room.columns = ["Room", "Count"]
-            fig_room = px.bar(bookings_by_room, x="Room", y="Count", title="Bookings by Room", text="Count")
-            st.plotly_chart(fig_room, use_container_width=True)
+# Admin Page: Admin Login for booking management
+# Admin Page: Admin Login for booking management
+if page == "Admin":
+    # Admin Authentication
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
 
-            # Chart: Priority Levels
-            st.subheader("📊 Priority Level Distribution")
-            priority_counts = bookings_df["Priority"].value_counts().reset_index()
-            priority_counts.columns = ["Priority", "Count"]
-            fig_priority = px.pie(priority_counts, names="Priority", values="Count", title="Priority Level Distribution")
-            st.plotly_chart(fig_priority, use_container_width=True)
-
-            # Summary Table
-            st.subheader("📋 Summary")
-            st.dataframe(bookings_df)
-
-# Admin Page
-elif page == "Admin":
-    st.title("Admin Login")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-            st.success("Logged in successfully!")
-            admin_tab1, admin_tab2 = st.tabs(["🛠 Manage Bookings", "📈 View Metrics"])
+    if not st.session_state.authenticated:
+        st.write("### Admin Login")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        if st.button("Login"):
+            if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+                st.session_state.authenticated = True
+                st.success("Login successful!")
+            else:
+                st.error("Invalid username or password.")
+    else:
+        st.write("### Admin Dashboard")
+        st.write("#### Manage Bookings")
+        
+        if not bookings_df.empty:
+            # Display all bookings in a table
+            st.write("### All Current Bookings")
+            st.dataframe(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
             
-            # Manage Bookings Tab
-            with admin_tab1:
-                st.header("Manage Bookings")
-                if not bookings_df.empty:
-                    st.dataframe(bookings_df)
-                    booking_to_delete = st.text_input("Enter Booking ID to delete")
-                    if st.button("Delete Booking"):
-                        if booking_to_delete.isnumeric() and int(booking_to_delete) in bookings_df.index:
-                            bookings_df = bookings_df.drop(int(booking_to_delete))
-                            save_bookings(bookings_df)
-                            st.success("Booking deleted.")
-                        else:
-                            st.error("Invalid Booking ID.")
+            # Delete Booking
+            booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
+            if st.button("Delete Booking"):
+                bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
+                save_bookings(bookings_df)
+                st.success(f"Booking by {booking_to_delete} has been deleted.")
+            
+            # Update Booking
+            booking_to_update = st.selectbox("Select Booking to Update", bookings_df["User"].unique())
+            selected_booking = bookings_df[bookings_df["User"] == booking_to_update].iloc[0]
+            
+            with st.form("update_booking_form"):
+                updated_user_name = st.text_input("Update User Name", value=selected_booking["User"])
+                updated_user_email = st.text_input("Update Email", value=selected_booking["Email"])
+                updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion room_2"], index=["Big Conference room", "Discussion_room_1", "Discussion room_2"].index(selected_booking["Room"]))
+                updated_priority = st.selectbox("Update Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"], index=["Low", "Medium-Low", "Medium", "Medium-High", "High"].index(selected_booking["Priority"]))
+                updated_description = st.text_area("Update Description", value=selected_booking["Description"])
+                updated_date = st.date_input("Update Date", value=pd.to_datetime(selected_booking["Date"]).date())
+                updated_start_time = st.time_input("Update Start Time", value=pd.to_datetime(selected_booking["Start"]).time())
+                updated_end_time = st.time_input("Update End Time", value=pd.to_datetime(selected_booking["End"]).time())
+                
+                updated_start_datetime = datetime.combine(updated_date, updated_start_time)
+                updated_end_datetime = datetime.combine(updated_date, updated_end_time)
 
-            # View Metrics Tab
-            with admin_tab2:
-                st.header("Admin Metrics")
-                st.metric("Total Bookings", len(bookings_df))
-                st.metric("Rooms Booked", bookings_df["Room"].nunique())
+                # Check for time conflicts
+                conflict = False
+                for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
+                    if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]) and booking["User"] != booking_to_update:
+                        conflict = True
+                        st.error("⚠️ This time slot is already booked! Please choose a different time.")
+                        break
+                
+                if st.form_submit_button("Update Booking") and not conflict:
+                    # Update the booking in the DataFrame
+                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
+                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
+                    ]
+                    save_bookings(bookings_df)
 
+                    # Send updated email confirmation
+                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
+
+                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
+                    #st.balloons()
+            
+            # Logout option for admin
+            if st.button("Logout"):
+                st.session_state.authenticated = False
+                st.success("Logged out successfully.")
         else:
-            st.error("Invalid credentials. Please try again.")
+            st.write("No bookings found in the system.")
