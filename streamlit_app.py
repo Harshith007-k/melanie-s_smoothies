@@ -337,6 +337,7 @@ with tabs[0]:
     else:
         st.warning("No bookings available to generate metrics.")
 # Admin Page: Admin Login for booking management
+# Admin Page: Admin Login for booking management
 if page == "Admin":
     # Admin Authentication
     if "authenticated" not in st.session_state:
@@ -389,19 +390,20 @@ if page == "Admin":
                         conflict = True
                         st.error("⚠️ This time slot is already booked! Please choose a different time.")
                         break
-                 # Add the submit button inside the form
-                 submit_button = st.form_submit_button("Update Booking")
+                
+                # Add the submit button inside the form and align it with the other statements
+                submit_button = st.form_submit_button("Update Booking")
 
-                 if submit_button and not conflict:
-                     bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
-                         updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
-                     ]
-                     save_bookings(bookings_df)
+                if submit_button and not conflict:
+                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
+                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
+                    ]
+                    save_bookings(bookings_df)
 
-                # Send updated email confirmation
-                     send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
+                    # Send updated email confirmation
+                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
 
-                     st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
+                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
             
             # Logout option for admin
             if st.button("Logout"):
@@ -409,3 +411,4 @@ if page == "Admin":
                 st.success("Logged out successfully.")
         else:
             st.write("No bookings found in the system.")
+
