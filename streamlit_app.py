@@ -355,16 +355,6 @@ if page == "Admin":
     else:
         st.write("### Admin Dashboard")
         st.write("#### Manage Bookings")
-        # Create a form
-        with st.form(key="update_room_form"):
-            updated_room = st.selectbox("Update Room", ["Big Conference room", "Discussion_room_1", "Discussion_room_2"])
-    
-        # Submit button
-        submit_button = st.form_submit_button(label="Submit")
-
-        if submit_button:
-            st.write(f"Room updated to: {updated_room}")
-        
         if not bookings_df.empty:
             # Display all bookings in a table
             st.write("### All Current Bookings")
