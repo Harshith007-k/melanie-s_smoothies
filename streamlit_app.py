@@ -283,9 +283,6 @@ with tabs[0]:
         high_priority = bookings_df[bookings_df["Priority"] == "High"]
         st.metric("High Priority Bookings", len(high_priority))
 
-        # Bookings per room (bar chart)
-        room_booking_count = bookings_df["Room"].value_counts()
-
         # Plot bar chart for room usage
         fig, ax = plt.subplots()
         sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
@@ -294,28 +291,43 @@ with tabs[0]:
         ax.set_ylabel("Booking Count")
         st.pyplot(fig)
 
-        # Bookings per priority level (bar chart)
-        priority_count = bookings_df["Priority"].value_counts()
+        # Sample data for the metrics and charts
+        metrics_data = {"Metric1": 50, "Metric2": 75, "Metric3": 100}
+        bar_data = pd.DataFrame({"Room": ["Collaborate", "Innovate", "Echo", "Vibe"], "Bookings": [5, 8, 3, 6]})
+        pie_data = pd.DataFrame({"Status": ["Confirmed", "Pending", "Cancelled"], "Count": [10, 5, 2]})
 
-        # Plot bar chart for priority levels
-        fig, ax = plt.subplots()
-        sns.barplot(x=priority_count.index, y=priority_count.values, ax=ax)
-        ax.set_title("Bookings per Priority Level")
-        ax.set_xlabel("Priority Level")
-        ax.set_ylabel("Booking Count")
-        st.pyplot(fig)
+       # Display Metrics (with smaller size)
+       st.write("### Metrics")
+       for metric, value in metrics_data.items():
+       st.metric(label=metric, value=f"{value}", help="This is a metric", delta=f"+{value*0.1:.2f}")
 
-        # Bookings per user (bar chart)
-        user_booking_count = bookings_df["User"].value_counts()
+       # Bar Chart (Smaller size and styling)
+       st.write("### Room Bookings Overview")
+       fig_bar = go.Figure(go.Bar(x=bar_data['Room'], y=bar_data['Bookings'], marker_color='royalblue'))
+       fig_bar.update_layout(
+       title="Room Booking Summary",
+       xaxis_title="Rooms",
+       yaxis_title="Number of Bookings",
+       height=300,  # Make the bar chart smaller
+       width=500,   # Adjust width for a cleaner look
+       margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins for better layout
+       plot_bgcolor="white"
+       )
+       st.plotly_chart(fig_bar, use_container_width=True)
 
-        # Plot bar chart for bookings per user
-        fig, ax = plt.subplots()
-        sns.barplot(x=user_booking_count.index, y=user_booking_count.values, ax=ax)
-        ax.set_title("Bookings per User")
-        ax.set_xlabel("User")
-        ax.set_ylabel("Booking Count")
-        st.pyplot(fig)
+       # Pie Chart (Smaller size and styling)
+       st.write("### Booking Status Overview")
+       fig_pie = go.Figure(go.Pie(labels=pie_data['Status'], values=pie_data['Count'], hole=0.3))
+       fig_pie.update_layout(
+       title="Booking Status Distribution",
+       height=300,  # Make the pie chart smaller
+       width=500,   # Adjust width for better proportion
+       margin=dict(l=40, r=40, t=40, b=40),  # Adjust margins
+       plot_bgcolor="white"
+       )
+       st.plotly_chart(fig_pie, use_container_width=True)
 
+        
         # Priority distribution (pie chart)
         priority_distribution = bookings_df["Priority"].value_counts()
         fig, ax = plt.subplots()
