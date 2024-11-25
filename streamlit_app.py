@@ -274,14 +274,6 @@ if page == "View Bookings":
         if not bookings_df.empty:
             room_booking_count = bookings_df["Room"].value_counts()
     
-    # Plot bar chart for room usage
-    fig, ax = plt.subplots()
-    sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
-    ax.set_title("Bookings per Room")
-    ax.set_xlabel("Room")
-    ax.set_ylabel("Booking Count")
-    st.pyplot(fig)
-    
     # Total number of bookings
     total_bookings = len(bookings_df)
     st.metric("Total Bookings", total_bookings)
@@ -293,6 +285,14 @@ if page == "View Bookings":
     # High priority bookings
     high_priority = bookings_df[bookings_df["Priority"] == "High"]
     st.metric("High Priority Bookings", len(high_priority))
+
+    # Plot bar chart for room usage
+    fig, ax = plt.subplots()
+    sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
+    ax.set_title("Bookings per Room")
+    ax.set_xlabel("Room")
+    ax.set_ylabel("Booking Count")
+    st.pyplot(fig)
     
     # Priority distribution (pie chart)
     priority_distribution = bookings_df["Priority"].value_counts()
