@@ -339,9 +339,7 @@ with tabs[0]:
 # Admin Page: Admin Login for booking management
 # Update Booking Section
 if page == "Admin":
-    # Admin Authentication
-   # Admin Authentication
-if "authenticated" not in st.session_state:
+    if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
 # Authentication Check
@@ -414,6 +412,4 @@ else:
             st.success("Logged out successfully.")
     else:
         st.write("No bookings found in the system.")
-
-
-
+   
