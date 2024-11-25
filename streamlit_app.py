@@ -273,7 +273,7 @@ if page == "View Bookings":
 
     # Tab 1: Metrics
     with tab1:
-    st.header("Booking Metrics")
+        st.header("Booking Metrics")
 
     if not bookings_df.empty:
         # Total number of bookings
