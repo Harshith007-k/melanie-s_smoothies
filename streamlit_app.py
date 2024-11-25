@@ -272,51 +272,60 @@ if page == "View Bookings":
         # Calculate metrics
         total_bookings = len(bookings_df)
         unique_rooms = bookings_df["Room"].nunique()
-        high_priority = bookings_df[bookings_df["Priority"] == "High"]
+        high_priority_count = len(bookings_df[bookings_df["Priority"] == "High"])
         room_booking_count = bookings_df["Room"].value_counts()
         priority_distribution = bookings_df["Priority"].value_counts()
         room_distribution = bookings_df["Room"].value_counts()
 
-        # Create dashboard layout
-        col1, col2, col3 = st.columns([1, 2, 2])
-
+        # Display metrics in a row
+        col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("Total Bookings", total_bookings)
-            st.metric("Unique Rooms", unique_rooms)
-            st.metric("High Priority Bookings", len(high_priority))
-
         with col2:
+            st.metric("Unique Rooms", unique_rooms)
+        with col3:
+            st.metric("High Priority Bookings", high_priority_count)
+
+        # Charts: Organized into rows and columns
+        col4, col5 = st.columns(2)
+
+        with col4:
             # Bar Chart: Room Usage
-            fig, ax = plt.subplots(figsize=(4, 3))
+            fig, ax = plt.subplots(figsize=(5, 4))
             sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
             ax.set_title("Bookings per Room")
             ax.set_xlabel("Room")
             ax.set_ylabel("Count")
             st.pyplot(fig)
 
-        with col3:
+        with col5:
             # Pie Chart: Priority Distribution
-            fig, ax = plt.subplots(figsize=(4, 3))
+            fig, ax = plt.subplots(figsize=(5, 4))
             ax.pie(priority_distribution, labels=priority_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set3", len(priority_distribution)))
             ax.set_title("Priority Distribution")
             st.pyplot(fig)
 
         # Second row for additional charts
-        col4, col5, _ = st.columns([2, 2, 1])
+        col6, col7 = st.columns(2)
 
-        with col4:
+        with col6:
             # Pie Chart: Room Distribution
-            fig, ax = plt.subplots(figsize=(4, 3))
+            fig, ax = plt.subplots(figsize=(5, 4))
             ax.pie(room_distribution, labels=room_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(room_distribution)))
             ax.set_title("Room Distribution")
             st.pyplot(fig)
 
-        with col5:
-            # Heatmap or additional analytics (example placeholder)
-            fig, ax = plt.subplots(figsize=(4, 3))
-            sns.heatmap(bookings_df.pivot_table(index="Room", columns="Priority", aggfunc="size", fill_value=0), cmap="Blues", annot=True, fmt="d", ax=ax)
-            ax.set_title("Room vs Priority Heatmap")
-            st.pyplot(fig)
+        with col7:
+            # New Chart: Booking Trends Over Time
+            if "Date" in bookings_df.columns:
+                daily_bookings = bookings_df.groupby("Date").size()
+                fig, ax = plt.subplots(figsize=(5, 4))
+                daily_bookings.plot(kind="line", marker="o", ax=ax, color="blue")
+                ax.set_title("Daily Booking Trends")
+                ax.set_xlabel("Date")
+                ax.set_ylabel("Number of Bookings")
+                plt.xticks(rotation=45)
+                st.pyplot(fig)
 
     else:
         st.warning("No bookings available to generate analytics.")           
