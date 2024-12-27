@@ -76,7 +76,7 @@ def save_bookings(df):
 
 # Email-sending function
 def send_email(user_email, user_name, room, date, start_time, end_time):
-    sender_email = "fahmad@phoenixteam.com"
+    sender_email = "jharshith@phoenixteam.com"
     sender_password = "qbtmrkwyspwxpbln"
     smtp_server = "smtp-mail.outlook.com"
     smtp_encryption = "STARTTLS"
@@ -170,7 +170,7 @@ if page == "Book a Conference Room":
             user_name = st.text_input("Your Name", placeholder="Enter your full name")
             user_email = st.text_input("Your Email", placeholder="Enter your email")
         with col2:
-            selected_room = st.selectbox("Choose Room", ["Collaborate", "Innovate", "Echo","Vibe"])
+            selected_room = st.selectbox("Choose Room", ["101", "102", "201","202","301","302","401","102"])
         with col3:
             priority = st.selectbox("Priority Level", ["Low", "Medium-Low", "Medium", "Medium-High", "High"])
 
