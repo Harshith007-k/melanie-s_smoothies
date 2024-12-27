@@ -132,9 +132,9 @@ def send_email(user_email, user_name, room, date, start_time, end_time):
 
 # Function to validate email format using regex
 # Function to validate email format using regex and domain check
-#def is_valid_email(email):
-   # email_regex = r'^[a-zA-Z0-9_.+-]+@phoenixteam\.com$'
-  #  return re.match(email_regex, email) is not None
+def is_valid_email(email):
+    email_regex = r'^[a-zA-Z0-9_.+-]+@gmail\.com$'
+    return re.match(email_regex, email) is not None
 # Function to check if the time slot overlaps with any existing bookings
 def is_time_slot_available(bookings_df, room, selected_date, start_datetime, end_datetime):
     conflicts = bookings_df[(bookings_df["Date"] == pd.Timestamp(selected_date)) & (bookings_df["Room"] == room)]
