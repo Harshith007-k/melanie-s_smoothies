@@ -159,3 +159,147 @@ if page == "Book a Conference Room":
             # If form is not valid, show an error message
             elif submit_button and not (valid_name and valid_email and valid_times):
                 st.error("⚠️ Please ensure all fields are valid and try again.")
+
+if page == "View Bookings":
+    st.title("View Bookings")
+    
+    if bookings_df.empty:
+        st.warning("No bookings available yet.")
+    else:
+        # Date selection input
+        selected_view_date = st.date_input("Filter by Date", value=datetime.today().date())
+        
+        # Filter the bookings based on the selected date
+        filtered_df = bookings_df[bookings_df["Date"] == selected_view_date]
+        
+        # Display the filtered bookings
+        if not filtered_df.empty:
+            st.dataframe(filtered_df)
+        else:
+            st.warning(f"No bookings available for {selected_view_date}.")
+    
+    # Metrics and Analytics
+    st.header("📊 Analytics Dashboard")
+
+    if not bookings_df.empty:
+        # Calculate metrics
+        total_bookings = len(bookings_df)
+        unique_rooms = bookings_df["Room"].nunique()
+        high_priority_count = len(bookings_df[bookings_df["Priority"] == "High"])
+        room_booking_count = bookings_df["Room"].value_counts()
+        priority_distribution = bookings_df["Priority"].value_counts()
+        room_distribution = bookings_df["Room"].value_counts()
+
+        # Display metrics in a row
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Bookings", total_bookings)
+        with col2:
+            st.metric("Unique Rooms", unique_rooms)
+        with col3:
+            st.metric("High Priority Bookings", high_priority_count)
+
+        # Charts: Organized into rows and columns
+        col4, col5 = st.columns(2)
+
+        with col4:
+            # Bar Chart: Room Usage
+            fig, ax = plt.subplots(figsize=(5, 4))
+            sns.barplot(x=room_booking_count.index, y=room_booking_count.values, ax=ax)
+            ax.set_title("Bookings per Room")
+            ax.set_xlabel("Room")
+            ax.set_ylabel("Count")
+            st.pyplot(fig)
+
+        with col5:
+            # Pie Chart: Priority Distribution
+            fig, ax = plt.subplots(figsize=(5, 4))
+            ax.pie(priority_distribution, labels=priority_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set3", len(priority_distribution)))
+            ax.set_title("Priority Distribution")
+            st.pyplot(fig)
+
+        # Second row for additional charts
+        col6, col7 = st.columns(2)
+
+        with col6:
+            # Pie Chart: Room Distribution
+            fig, ax = plt.subplots(figsize=(5, 4))
+            ax.pie(room_distribution, labels=room_distribution.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(room_distribution)))
+            ax.set_title("Room Distribution")
+            st.pyplot(fig)
+
+        with col7:
+            # New Chart: Booking Trends Over Time
+            if "Date" in bookings_df.columns:
+                daily_bookings = bookings_df.groupby("Date").size()
+                fig, ax = plt.subplots(figsize=(5, 4))
+                daily_bookings.plot(kind="line", marker="o", ax=ax, color="blue")
+                ax.set_title("Daily Booking Trends")
+                ax.set_xlabel("Date")
+                ax.set_ylabel("Number of Bookings")
+                plt.xticks(rotation=45)
+                st.pyplot(fig)
+
+    else:
+        st.warning("No bookings available to generate analytics.")           
+# Admin Page: Admin Login for booking management
+# Update Booking Section
+if page == "Admin":
+    # Admin Authentication
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        st.write("### Admin Login")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        if st.button("Login"):
+            if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+                st.session_state.authenticated = True
+                st.success("Login successful!")
+            else:
+                st.error("Invalid username or password.")
+    else:
+        st.write("### Admin Dashboard")
+        st.write("#### Manage Bookings")
+        
+        if not bookings_df.empty:
+            # Display all bookings in a table
+            st.write("### All Current Bookings")
+            st.dataframe(bookings_df[["User", "Email", "Room", "Date", "Start", "End", "Priority", "Description"]])
+            
+            # Delete Booking
+            booking_to_delete = st.selectbox("Select Booking to Delete", bookings_df["User"].unique())
+            if st.button("Delete Booking"):
+                bookings_df = bookings_df[bookings_df["User"] != booking_to_delete]
+                save_bookings(bookings_df)
+                st.success(f"Booking by {booking_to_delete} has been deleted.")
+
+                # Check for time conflicts
+                conflict = False
+                for _, booking in bookings_df[(bookings_df["Date"] == pd.Timestamp(updated_date)) & (bookings_df["Room"] == updated_room)].iterrows():
+                    if (updated_start_datetime < booking["End"]) and (updated_end_datetime > booking["Start"]) and booking["User"] != booking_to_update:
+                        conflict = True
+                        st.error("⚠️ This time slot is already booked! Please choose a different time.")
+                        break
+                
+                if st.form_submit_button("Update Booking") and not conflict:
+                    # Update the booking in the DataFrame
+                    bookings_df.loc[bookings_df["User"] == booking_to_update, ["User", "Email", "Room", "Priority", "Description", "Date", "Start", "End"]] = [
+                        updated_user_name, updated_user_email, updated_room, updated_priority, updated_description, updated_date, updated_start_datetime, updated_end_datetime
+                    ]
+                    save_bookings(bookings_df)
+
+                    # Send updated email confirmation
+                    send_email(updated_user_email, updated_user_name, updated_room, updated_date, updated_start_datetime, updated_end_datetime)
+
+                    st.success(f"🎉 Booking updated successfully for {updated_room} from {updated_start_time.strftime('%H:%M')} to {updated_end_time.strftime('%H:%M')}.")
+                    #st.balloons()
+            
+            # Logout option for admin
+            if st.button("Logout"):
+                st.session_state.authenticated = False
+                st.success("Logged out successfully.")
+        else:
+            st.write("No bookings found in the system.")
+
