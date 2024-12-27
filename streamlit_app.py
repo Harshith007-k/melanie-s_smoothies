@@ -120,6 +120,7 @@ if page == "Book a Conference Room":
 
 # Page: View Bookings
 if page == "View Bookings":
+    st.image("https://cdn.dribbble.com/users/1089238/screenshots/5379729/book_meeting_rooms.gif", width=200)
     st.title("View Bookings")
     if bookings_df.empty:
         st.warning("No bookings available.")
