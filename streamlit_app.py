@@ -69,6 +69,7 @@ def is_time_slot_available(df, room, from_date, to_date, start_datetime, end_dat
 
 # Page: Book a Conference Room
 if page == "Book a Conference Room":
+    st.image("https://media.licdn.com/dms/image/v2/C5612AQHoZitHy1sFgA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1611846088031?e=2147483647&v=beta&t=bkgQMVnDrsYnU0HCkK8ko3sZF36wrDROJq-Hl5q-_BA", width=200)
     st.write('<h1 class="title">Book a Conference Room</h1>', unsafe_allow_html=True)
 
     with st.form("booking_form"):
